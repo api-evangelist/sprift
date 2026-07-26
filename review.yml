@@ -1,0 +1,519 @@
+aid: sprift
+name: Sprift
+review:
+  question: Does Sprift expose a real, reachable public developer API surface, what
+    must a developer sign or join to use it, and what is its RESO posture?
+  answer: partial
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: proptech-data
+  primaryDomain: sprift.com
+  summary: |
+    Sprift publishes one real machine-readable contract and no way to sign up for
+    it. A Swagger UI at https://sprift.com/dashboard/api-doc/ is served
+    anonymously (HTTP 200) and loads its document from
+    https://sprift.com/dashboard/api-doc/sprift.json, which returned HTTP 200,
+    109,112 bytes of application/json, parsed clean as Swagger 2.0, and was
+    harvested verbatim to openapi/sprift-openapi.json. It is titled "Sprift API",
+    version 1.3.9, host sprift.com, basePath /dashboard/api/v1, scheme https, with
+    27 paths, 76 definitions and 7 tags (Home, User, Search, Property, Property V2,
+    Share, Insider). That is a genuine developer artifact — most of this sector's
+    UK leg has nothing comparable.
+
+    Everything downstream of it is gated. The API base returned HTTP 401
+    {"status":false,"error":"Unauthorized"} to an anonymous caller and the same 401
+    to a caller supplying an invalid SPRIFT-API-KEY header. There is no
+    self-registration: https://sprift.com/dashboard/register and
+    https://sprift.com/dashboard/signup both return 404, /pricing resolves to a
+    "Contact Our Team" form, and Sprift's own help centre states that a prospective
+    API user must email customer.success@sprift.com with their name, company, use
+    case and target systems, after which "our team will review your request and API
+    access may require an additional agreement depending on your subscription".
+    Sprift's marketing page tells a different story — that an existing subscriber
+    generates a key instantly in Settings, Developer, API Keys, with "no new
+    contracts, no procurement delays" — and the two are recorded here as the
+    contradiction they are.
+
+    There is no RESO anywhere in this surface, which is the correct UK answer.
+    What the UK has instead is the Open Property Data Association and its Property
+    Data Trust Framework, where Sprift claims founding and accredited membership,
+    and open government data at HM Land Registry and Ordnance Survey, which are
+    Sprift's inputs rather than its outputs.
+
+sector_posture:
+  home_market: United Kingdom
+  tier: proptech-data
+  market_seam: |
+    The UK has no MLS. Residential listings are controlled by two portals,
+    Rightmove and Zoopla, and reach them through agency CRM software rather than a
+    cooperative database, so there is no shared standard contract to certify.
+    Sprift sits in a third position that the US pattern barely has an equivalent
+    for: an aggregator that buys and scrapes the open government layer (HM Land
+    Registry, Ordnance Survey, Environment Agency, Valuation Office Agency, ONS,
+    Ofcom, Ofsted, Historic England), joins it on UPRN, enriches it with derived
+    models, and sells the result back to the agents, surveyors, lenders and
+    conveyancers who could in principle have gathered it themselves. The company's
+    own claim is 300+ data points on 30 million UK residential properties, 9.2
+    billion data points, 1,200+ source datasets, "powering over 40% of all UK
+    property valuations". The commercial product is the join and the reporting, not
+    the underlying records — which is exactly why the API is licensed even though
+    much of the input is open.
+
+  reso_posture: |
+    NO RESO REFERENCE FOUND ANYWHERE IN SPRIFT'S SURFACE. reso_certified: false.
+
+    - RESO Web API certification: none found.
+    - RESO Data Dictionary certification (any version, 1.7 / 2.0 / other): none
+      found. The harvested contract uses Sprift's own field vocabulary
+      (materialinformation split into physicalcharacteristics, financialtenure,
+      environmentalplanning, planninginfo, planningapplication,
+      immediate_proximity; councilTax, epc, floodRisk, landRegistry,
+      broadband_speeds, mobile_coverage, nearby_schools, nearby_transport). These
+      are British statutory and utility concepts with no RESO Data Dictionary
+      equivalent. All 76 definitions are auto-generated inline_response_* schemas,
+      i.e. no shared external data model at all.
+    - RESO certification directory evidence: https://www.reso.org/certificates/ was
+      fetched anonymously (HTTP 200, 416,233 bytes) and a case-insensitive search
+      for "sprift" returned 0 matches; a search for "united kingdom" also returned
+      0 matches, consistent with RESO certifying no UK organisations at all.
+    - OData: no OData service root, no $metadata document, no $filter/$select/
+      $expand conventions and no @odata.* annotations anywhere. Probed
+      https://api.sprift.com/$metadata — HTTP 403,
+      {"message":"Missing Authentication Token"} from an AWS API Gateway, which is
+      a gateway default, not an OData response.
+    - Universal Property Identifier (UPI): not present, and interestingly not
+      needed. Sprift's identifier is the UPRN, the Ordnance Survey / GeoPlace
+      Unique Property Reference Number, which is the UK's own national property
+      key and is the stated backbone of the platform ("UPRN-first architecture...
+      Every data point linked by UPRN, the definitive UK property identifier").
+      A UPRN is a government-issued national identifier; the RESO UPI is an
+      industry-defined composite. The UK solved the identity problem through the
+      state rather than through a trade body.
+    - Word-boundary grep: case-insensitive grep for RESO, OData, MLS, IDX, VOW,
+      "Universal Property Identifier" and UPI across https://sprift.com/home,
+      https://sprift.com/data-and-api and the full harvested Swagger document
+      returned zero hits in all three.
+    - The NAR connection, recorded because it is real and because it is NOT
+      certification: Sprift was named in the inaugural REACH UK class of 2021 run
+      by Second Century Ventures, the strategic investment arm of the National
+      Association of REALTORS — the same NAR that mandates RESO in the United
+      States. Confirmed at
+      https://www.nar-reach.com/second-century-ventures-announces-inaugural-reach-uk-class
+      (HTTP 200; the cohort list renders client-side and was read from the rendered
+      page), which describes Sprift as "the UK's most transparent and comprehensive
+      property data platform". So Sprift has a commercial relationship with RESO's
+      parent organisation and still publishes not one RESO artifact. Affiliation is
+      not certification, and certification would not be reachability either.
+    - The actual UK standards seam is OPDA, not RESO. Sprift's partnerships page
+      states it was "originally a founding member" and is now "an accredited
+      member" of the Open Property Data Association, which publishes the Property
+      Data Trust Framework. Corroborated independently: Sprift's logo appears on
+      https://openpropdata.org.uk/our-members/ (HTTP 200,
+      wp-content/uploads/2024/01/Sprift-Logo-1024x410.png). The PDTF schemas are
+      openly published on GitHub at
+      https://github.com/Property-Data-Trust-Framework (repos include schemas, api,
+      trust-framework). Sprift's own API, however, does not expose or claim PDTF
+      conformance anywhere in the harvested contract — the membership is
+      associational, the contract is proprietary.
+
+  access_gate:
+    classification: application-approval
+    gated: true
+    self_serve: false
+    what_a_developer_must_do_or_sign: |
+      1. There is no developer signup. https://sprift.com/dashboard/register and
+         https://sprift.com/dashboard/signup both return the Sprift branded 404
+         ("Error: 404 Page Not Found"). The only account entry point is
+         https://sprift.com/dashboard/login.
+      2. Become a Sprift subscriber first. Sprift's help centre answer to "How do I
+         sign up to Sprift?" is unambiguous: "To get pricing information, or to sign
+         up to Sprift, the first step is to book a demo with one of our team." It
+         adds that "Sprift does not publish fixed pricing publicly, as plans are
+         tailored to each customer's business and requirements", that subscriptions
+         are charged per branch, and that "New accounts are typically set up within
+         48 working hours by our Customer Success team." https://sprift.com/pricing
+         resolves to a "Contact Our Team" page, not a price list.
+      3. Then request API access by email and pass a review. From
+         https://sprift.com/en/livechatacademy/api-key (HTTP 200): "If you don't yet
+         have API access, email our Customer Success team at
+         customer.success@sprift.com with: Your full name and company name; A
+         description of what you'd like to use the API for; The systems you plan to
+         integrate with. Our team will review your request and API access may
+         require an additional agreement depending on your subscription."
+      4. Possibly sign an additional agreement. That is Sprift's own wording, and
+         the terms of it are not published anywhere public.
+      You do NOT have to join an MLS, a board or an association, and you do not have
+      to be a licensed agent — there is no such gate in the UK. The gate is purely
+      commercial.
+    nuance: |
+      Two Sprift sources disagree and both are recorded. The Data and API product
+      page, under "Getting started / Up and running in minutes", says: "Sprift uses
+      token-based authentication. Existing subscribers can generate an API key
+      instantly from their account settings. No new contracts, no procurement
+      delays... Log in to your Sprift account... Navigate to Settings, then
+      Developer, then API Keys. Click 'Generate new key'." The help centre says you
+      must email Customer Success, be reviewed, and may need an additional
+      agreement. Classified application-approval on the strength of the help centre,
+      because that is the operational document and because even the optimistic
+      reading requires an existing paid subscription that itself can only be
+      obtained by booking a demo. Not classified partner-only, because there is no
+      partner programme requirement; not membership-required, because no membership
+      body exists in this market; not licence-agreement, because no IDX/VOW-style
+      data licence is named publicly, though the "additional agreement" may function
+      as one.
+    docs_are_open_the_data_is_not: |
+      The distinction that matters here. The contract is public and anonymous — the
+      Swagger UI and sprift.json need no login and no referer, and the spec is
+      complete enough to generate a client from. The data behind it is not: every
+      operation carries a required SPRIFT-API-KEY header, the base path answers 401
+      to anonymous and to bogus-key callers alike, and keys are issued by a human at
+      Customer Success after a review. This is the mirror image of the US pattern in
+      the same sector, where the contract is standardised and certified but the
+      document itself often sits behind the MLS agreement.
+    credential_issuance: |
+      Human-issued. Customer Success mailbox customer.success@sprift.com, following
+      review of a stated use case and target systems. The marketing page's
+      self-issue path (Settings > Developer > API Keys, key format shown as
+      sk_live_sprift_••••) could not be verified because it sits behind
+      /dashboard/login.
+    commercial_contact: https://sprift.com/contact-us
+    demo_booking: https://sprift.com/book-demo-sprift
+
+  open_data:
+    exists: false
+    detail: |
+      Sprift publishes no open, unlicensed, publicly callable dataset. Every
+      documented endpoint requires a key and a subscription. What Sprift does is
+      consume the open layer: its own about page lists Royal Mail, Ordnance Survey,
+      Environment Agency, Land Registry, Ofcom, Historic England, Ofsted, Google
+      Maps, the Valuation Office Agency and the ONS among "thousands of
+      industry-trusted public and private sources", and its schema carries a
+      landRegistry object and EPC records "updated weekly from MHCLG". The genuinely
+      open UK property layer — HM Land Registry Price Paid Data and ownership data
+      under the Open Government Licence, and Ordnance Survey open addressing and
+      mapping products — belongs to those public bodies and is profiled separately;
+      none of it is operated by Sprift. This is the UK inversion in one company:
+      the government publishes open data, and the private market's business is
+      charging for the join.
+
+  auth_model:
+    published_contract: |
+      Every one of the 27 operations in the harvested Swagger document declares a
+      REQUIRED header parameter named SPRIFT-API-KEY. That is the real scheme: a
+      static API key in a custom header.
+    contract_defect: |
+      The document also declares securityDefinitions.auth of type "basic" and a
+      global security requirement [{"auth": []}], which is inconsistent with the
+      SPRIFT-API-KEY header every operation carries and with the Bearer token the
+      product page describes. Three different auth statements from the same vendor:
+      HTTP Basic (spec securityDefinitions), custom header (spec parameters), Bearer
+      token (marketing page). Recorded verbatim in the harvested spec; not
+      corrected.
+    marketing_claim: |
+      https://sprift.com/data-and-api: "Sprift uses token-based authentication...
+      Include your key as a Bearer token in every request. All endpoints are HTTPS
+      only." Key example rendered as sk_live_sprift_••••.
+    end_user_login: |
+      POST /user/login exists but is explicitly not the API auth path. The contract
+      says: "This endpoint is to log in a different user. You do not need to call
+      this Endpoint with your API username and password in order to use the API.
+      This Endpoint is intended to those who want to add Sprift platform into their
+      platforms using an iFrame and let Sprift users to login to Sprift."
+    openid_connect: |
+      None. https://sprift.com/.well-known/openid-configuration returns HTTP 404.
+      No OAuth, no OIDC, no SAML surface was found on any Sprift host.
+    anonymous_behaviour: |
+      https://sprift.com/dashboard/api/v1/ -> HTTP 401, {"status":false,"error":
+      "Unauthorized"}. Same path with header "SPRIFT-API-KEY: test-invalid" ->
+      HTTP 401, identical body. https://api.sprift.com/ and every path probed under
+      it -> HTTP 403, {"message":"Missing Authentication Token"}, x-amzn-errortype
+      MissingAuthenticationTokenException (AWS API Gateway default).
+
+  webhooks_events_sdks_postman:
+    webhooks: |
+      Advertised, not documented. The Data and API page describes Property Watch at
+      /api/v2/watch as "Real-time webhook alerts when any tracked property changes:
+      listed, sold, price reduced, planning application submitted, EPC updated", and
+      lists Property Watch as one of six data products. No webhook documentation,
+      no event catalogue, no signing or retry description and no AsyncAPI exists
+      publicly. The harvested contract contains no callbacks and no webhook paths.
+    events: none published beyond the Property Watch claim above.
+    sdks: |
+      None. No client library is published by Sprift. https://github.com/sprift
+      resolves (HTTP 200) and is a real GitHub Organization named Sprift, created
+      2026-03-06, blog sprift.com, with 0 public repositories. An npm registry
+      search for "sprift" returned 0 packages.
+    postman: no Postman collection or public workspace found.
+    graphql: none.
+    status_page: none. status.sprift.com does not resolve (curl exit, HTTP 000).
+    llms_txt: none. https://sprift.com/llms.txt returns HTTP 404.
+    changelog: none published for the API. The spec carries version 1.3.9 with no
+      version history, and there is no dated release note surface.
+    rate_limits: |
+      Asserted but not quantified. The help centre says "Yes, API requests are
+      subject to rate limits to ensure fair usage. Details are included in the API
+      documentation." No numbers appear in the public Swagger document or on the
+      product page.
+
+  product_api_family: |
+    Sprift's own segmentation, taken from its own surfaces rather than imposed.
+
+    Published contract (Swagger tags, 27 operations):
+      - Property (10)     — property report generation, full property detail,
+                            Material Information, comparables (unified), recently
+                            sold, currently for sale / under offer, maps and street
+                            view, Tree Preservation Orders, listed buildings, TV
+                            signal.
+      - Property V2 (8)   — UPRN raw details, UPRN to propertyID resolution, price
+                            estimate, council tax, EPC, schools, transport, street
+                            view image.
+      - Search (3)        — free-text search, postcode address search, my properties.
+      - Insider (2)       — active and withdrawn properties by postcode outcode.
+      - Share (1)         — shareable report link by property ID and report type.
+      - User (2)          — iframe-embed login and logout for partner platforms.
+      - Home (1)          — GET / root.
+
+    Advertised v2 family (product page, no contract):
+      property intelligence, comparables, prospecting, Property Watch,
+      environmental risk, planning history, market intelligence, EPC and energy,
+      bulk queries; plus six named data products — Automated Valuation (AVM with
+      confidence interval), Sprift Insights (natural language querying), custom
+      datasets, bulk data feeds, Property Watch, National Comparables Library.
+
+    Mapped against the sector categories asked for:
+      - listings/search      : yes, but market-observation rather than a listing
+                               feed — Insider by outcode, plus currently-for-sale
+                               and recently-sold on a property. Sprift is not a
+                               portal and publishes no listing write path.
+      - property records     : the core of the business, keyed on UPRN.
+      - valuation/AVM        : yes — /property/{propertyID}/priceestimate in the
+                               published contract; a fuller AVM product with
+                               confidence intervals is advertised but uncontracted.
+      - transactions         : no transaction API. Sprift supports transactions with
+                               data (Material Information, Key Facts for Buyers)
+                               rather than transacting.
+      - documents            : yes, in the report sense — POST /share and POST
+                               /property/search generate branded reports and PDFs.
+      - tenancy              : no tenancy or property-management API. Lettings
+                               appears only as landlord prospecting in the product
+                               marketing.
+      - payments             : none.
+
+harvest:
+  fetch_date: '2026-07-26'
+  openapi_harvested: true
+  specs_count: 1
+  how_it_was_found: |
+    https://sprift.com/data-and-api links "View API docs" to
+    https://sprift.com/dashboard/api-doc/?hsLang=en. That page is a 1,613-byte
+    static Swagger UI shell whose bootstrap reads
+    url: new URL("sprift.json", document.baseURI).href — so the contract resolves
+    to https://sprift.com/dashboard/api-doc/sprift.json, which is served
+    anonymously.
+  artifacts_saved:
+  - path: openapi/sprift-openapi.json
+    source_url: https://sprift.com/dashboard/api-doc/sprift.json
+    http_status: 200
+    content_type: application/json
+    bytes: 109112
+    format: Swagger 2.0
+    title: Sprift API
+    version: 1.3.9
+    host: sprift.com
+    base_path: /dashboard/api/v1
+    schemes: [https]
+    paths: 27
+    definitions: 76
+    tags: [Home, User, Search, Property, Property V2, Share, Insider]
+    parsed: true
+    note: Saved verbatim and unmodified, byte-for-byte as served. Fetched
+      anonymously with no credentials, no cookies and no referer.
+
+probes:
+  date: '2026-07-26'
+  note: All statuses observed anonymously with curl. sprift.com is HubSpot-hosted and
+    returns a branded 404 page for unknown apex paths, so each 200 was content
+    checked rather than trusted.
+  results:
+  - url: https://sprift.com/
+    status: 200
+    note: Corporate site. Platform, industries, resources navigation.
+  - url: https://sprift.com/data-and-api
+    status: 200
+    note: 261,690 bytes. The API product page. Endpoint list, getting started,
+      data packages, source list.
+  - url: https://sprift.com/dashboard/api-doc/
+    status: 200
+    note: Public Swagger UI shell, no login required.
+  - url: https://sprift.com/dashboard/api-doc/sprift.json
+    status: 200
+    note: THE CONTRACT. 109,112 bytes, Swagger 2.0, parsed, harvested verbatim.
+  - url: https://sprift.com/dashboard/api/v1/
+    status: 401
+    note: '{"status":false,"error":"Unauthorized"} — the real API base, live.'
+  - url: https://sprift.com/dashboard/api/v1/search?phrase=SW1A
+    status: 401
+    note: Same 401 with header SPRIFT-API-KEY set to an invalid value.
+  - url: https://api.sprift.com/
+    status: 403
+    note: '{"message":"Missing Authentication Token"}, x-amzn-errortype
+      MissingAuthenticationTokenException. An AWS API Gateway exists on this
+      hostname; nothing about it is documented.'
+  - url: https://api.sprift.com/openapi.json
+    status: 403
+  - url: https://api.sprift.com/swagger.json
+    status: 403
+  - url: https://api.sprift.com/swagger/index.html
+    status: 403
+  - url: https://api.sprift.com/docs
+    status: 403
+  - url: https://api.sprift.com/$metadata
+    status: 403
+    note: No OData. Gateway default response, not an OData error.
+  - url: https://developer.sprift.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://developers.sprift.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://docs.sprift.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://knowledge.sprift.com/
+    status: '000'
+    note: Does not resolve, despite being referenced in a sitemap URL string.
+  - url: https://status.sprift.com/
+    status: '000'
+    note: Does not resolve. No status page.
+  - url: https://sprift.com/api
+    status: 404
+  - url: https://sprift.com/docs
+    status: 404
+  - url: https://sprift.com/openapi.json
+    status: 404
+  - url: https://sprift.com/swagger.json
+    status: 404
+  - url: https://sprift.com/api-docs
+    status: 404
+  - url: https://sprift.com/llms.txt
+    status: 404
+  - url: https://sprift.com/.well-known/openid-configuration
+    status: 404
+    note: No OIDC.
+  - url: https://sprift.com/api/v2/property/100023336956
+    status: 404
+    note: The advertised v2 path is not served on the apex host.
+  - url: https://sprift.com/dashboard/register
+    status: 404
+    note: Sprift branded 404. No self-registration.
+  - url: https://sprift.com/dashboard/signup
+    status: 404
+    note: Sprift branded 404.
+  - url: https://sprift.com/dashboard/login
+    status: 200
+    note: The only account entry point.
+  - url: https://sprift.com/pricing
+    status: 200
+    note: Resolves to a "Contact Our Team" page. No published pricing.
+  - url: https://sprift.com/en/livechatacademy/api-key
+    status: 200
+    note: 'THE ACCESS GATE, verbatim: email customer.success@sprift.com, request is
+      reviewed, "API access may require an additional agreement depending on your
+      subscription".'
+  - url: https://sprift.com/en-gb/chatbotopen/how-do-i-sign-up-to-sprift
+    status: 200
+    note: '"To get pricing information, or to sign up to Sprift, the first step is
+      to book a demo with one of our team." No public pricing; accounts set up by
+      Customer Success within 48 working hours.'
+  - url: https://sprift.com/about-us
+    status: 200
+    note: Founded 2016, founder and CEO Matt Gilpin, UPRN-linked data, public and
+      private source list.
+  - url: https://sprift.com/partnerships
+    status: 200
+    note: OPDA founding and accredited member claim; Survey Booker, Surventrix,
+      DigiProp, Kerfuffle, Innovation Collaboration Group partnerships.
+  - url: https://sprift.com/sitemap.xml
+    status: 200
+    note: Used to enumerate help-centre and product URLs.
+  - url: https://sprift.com/robots.txt
+    status: 200
+    note: HubSpot boilerplate disallows only preview and preference-centre paths.
+  - url: https://www.reso.org/certificates/
+    status: 200
+    note: 416,233 bytes. Zero matches for "sprift"; zero matches for "united
+      kingdom".
+  - url: https://openpropdata.org.uk/
+    status: 200
+    note: The Open Property Data Association, the UK's actual data standards body.
+  - url: https://openpropdata.org.uk/our-members/
+    status: 200
+    note: 185,982 bytes. Sprift logo asset present
+      (wp-content/uploads/2024/01/Sprift-Logo-1024x410.png), corroborating the
+      membership claim.
+  - url: https://github.com/Property-Data-Trust-Framework
+    status: 200
+    note: PDTF open schemas — repos include schemas, api, trust-framework. The UK's
+      RESO-equivalent artifact, and it belongs to the association, not to Sprift.
+  - url: https://api.github.com/users/sprift
+    status: 200
+    note: Organization "Sprift", created 2026-03-06, blog sprift.com, 0 public
+      repositories. No SDKs.
+  - url: https://www.nar-reach.com/second-century-ventures-announces-inaugural-reach-uk-class
+    status: 200
+    note: Inaugural REACH UK class of 2021 (Second Century Ventures, the investment
+      arm of NAR) includes Sprift. Affiliation with RESO's parent body; no RESO
+      artifact anywhere in Sprift's stack.
+
+sources:
+- url: https://sprift.com/data-and-api
+  type: Documentation
+  note: Advertised v2 endpoints, six data products, getting started, Bearer token
+    claim, data source list, 300+ data points / 30M properties / 9.2B data points /
+    1,200+ datasets.
+- url: https://sprift.com/dashboard/api-doc/
+  type: APIReference
+  note: Public Swagger UI. Bootstrap resolves the spec relative to the page.
+- url: https://sprift.com/dashboard/api-doc/sprift.json
+  type: OpenAPI
+  note: The only machine-readable contract Sprift publishes. Swagger 2.0, v1.3.9.
+- url: https://sprift.com/en/livechatacademy/api-key
+  type: Authentication
+  note: The definitive statement of how API access is actually granted.
+- url: https://sprift.com/en-gb/chatbotopen/how-do-i-sign-up-to-sprift
+  type: Onboarding
+  note: No self-serve signup; demo first; pricing per branch and unpublished.
+- url: https://sprift.com/about-us
+  type: About
+  note: Company facts and the public/private source list.
+- url: https://sprift.com/partnerships
+  type: Partners
+  note: OPDA membership and integration partners.
+- url: https://www.reso.org/certificates/
+  type: Reference
+  note: Negative evidence for RESO certification.
+- url: https://openpropdata.org.uk/our-members/
+  type: Reference
+  note: Independent corroboration of OPDA membership.
+- url: https://www.nar-reach.com/second-century-ventures-announces-inaugural-reach-uk-class
+  type: Reference
+  note: REACH UK 2021 cohort membership.
+
+actions:
+  apis_yml_created: true
+  readme_created: true
+  openapi_saved:
+  - openapi/sprift-openapi.json
+  apis_listed: 7
+  reso_certified: false
+  access_gate: application-approval
+  open_data: false
+  gated: true
+  reason: |
+    One real Swagger 2.0 contract harvested verbatim from a public, unauthenticated
+    Swagger UI, and six apis[] entries mirror its own tag segmentation exactly. A
+    seventh entry records the advertised v2 family as advertised-not-verified, with
+    no baseURL asserted, because no contract and no confirmed host exist for it.
+    Nothing was invented: no endpoint, host, scope or spec appears in this profile
+    that was not read from a Sprift-owned page or the harvested document.
