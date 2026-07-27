@@ -1,0 +1,148 @@
+arazzo: 1.0.1
+info:
+  title: Sprift — enrich a CRM record with property data
+  version: 1.0.0
+  summary: >-
+    Resolve a held address to a UPRN and Sprift property ID, then enrich with EPC,
+    council tax, nearby schools, nearby transport, TV availability and imagery.
+  description: >-
+    Authored by API Evangelist from Sprift's published Swagger 2.0 contract. Read-only
+    and safe to schedule. Watch the identifier split: PropertyDetails-Tv takes the
+    UPRN while the rest of the enrichment family takes Sprift's internal propertyID.
+    Rate limits exist but are not quantified publicly — throttle when running this in
+    bulk, and note that /api/v2/bulk is advertised but uncontracted.
+sourceDescriptions:
+- name: sprift
+  url: ../openapi/sprift-openapi.json
+  type: openapi
+workflows:
+- workflowId: crm-property-enrichment
+  summary: Postcode → UPRN → propertyID → EPC, council tax, schools, transport, TV, maps
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - postcode
+    properties:
+      apiKey:
+        type: string
+        description: Sprift API key, sent as the SPRIFT-API-KEY header.
+      postcode:
+        type: string
+        description: UK postcode held on the CRM record.
+  steps:
+  - stepId: resolve-postcode
+    operationId: $sourceDescriptions.sprift.SearchPropertiesByPostcode
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: postcode
+      in: path
+      value: $inputs.postcode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matches: $response.body#/data
+  - stepId: resolve-property-id
+    operationId: $sourceDescriptions.sprift.Property-ID
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: uprn
+      in: path
+      value: $steps.resolve-postcode.outputs.matches[0].value
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      propertyId: $response.body#/property_id
+  - stepId: epc
+    operationId: $sourceDescriptions.sprift.Property-EPC
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      epc: $response.body#/epc
+  - stepId: council-tax
+    operationId: $sourceDescriptions.sprift.Property-Council-Tax
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      councilTax: $response.body#/councilTax
+  - stepId: nearby-schools
+    operationId: $sourceDescriptions.sprift.Property-Nearby-School
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      schools: $response.body#/nearby_schools
+  - stepId: nearby-transport
+    operationId: $sourceDescriptions.sprift.Property-Nearby-Transport
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transport: $response.body#/nearby_transport
+  - stepId: tv-availability
+    description: Takes the UPRN, not the propertyID.
+    operationId: $sourceDescriptions.sprift.PropertyDetails-Tv
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: uprn
+      in: path
+      value: $steps.resolve-postcode.outputs.matches[0].value
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      bt: $response.body#/bt
+      sky: $response.body#/sky
+      virgin: $response.body#/virgin
+  - stepId: maps
+    operationId: $sourceDescriptions.sprift.PropertyDetails-Maps
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      mapWithPolygon: $response.body#/propertyMapWithPolygon
+      satelliteImage: $response.body#/propertySatelliteImage
+      streetViewImage: $response.body#/propertyStreetViewImage
+  outputs:
+    propertyId: $steps.resolve-property-id.outputs.propertyId
+    epc: $steps.epc.outputs.epc
+    councilTax: $steps.council-tax.outputs.councilTax
+    schools: $steps.nearby-schools.outputs.schools
+    transport: $steps.nearby-transport.outputs.transport

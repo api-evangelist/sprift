@@ -1,0 +1,80 @@
+generated: '2026-07-26'
+method: searched
+source: https://sprift.com/data-and-api
+spec_type: none
+status: advertised-undocumented
+summary: >-
+  Sprift advertises a webhook product — Property Watch — on its Data and API page and
+  lists it as one of six named data products, but publishes no webhook documentation,
+  no event catalogue, no payload schema, no signing or verification scheme, no retry
+  or delivery semantics, and no AsyncAPI document. The harvested v1 Swagger contract
+  contains no callbacks and no webhook paths. This artifact captures the advertised
+  event surface verbatim and records exactly how much of it is contracted: none.
+asyncapi_document:
+  published: false
+  probes:
+  - url: https://sprift.com/asyncapi.yaml
+    status: 404
+    note: probed as part of the /.well-known and spec sweep; sprift.com serves a branded 404 for all unknown paths
+product:
+  name: Property Watch
+  advertised_endpoint: /api/v2/watch
+  host_confirmed: false
+  contract_published: false
+  source: https://sprift.com/data-and-api
+  quote: >-
+    Real-time webhook alerts when any tracked property changes: listed, sold, price
+    reduced, planning application submitted, EPC updated.
+  second_quote: >-
+    Define your properties of interest and receive alerts when a tracked property is
+    listed, sold, reduced in price or has a change in whichever data point(s) you are
+    interested in.
+events:
+- name: property.listed
+  advertised_trigger: a tracked property is listed
+  payload_schema: null
+  source: https://sprift.com/data-and-api
+- name: property.sold
+  advertised_trigger: a tracked property is sold
+  payload_schema: null
+  source: https://sprift.com/data-and-api
+- name: property.price_reduced
+  advertised_trigger: a tracked property has its price reduced
+  payload_schema: null
+  source: https://sprift.com/data-and-api
+- name: property.planning_application_submitted
+  advertised_trigger: a planning application is submitted against a tracked property
+  payload_schema: null
+  source: https://sprift.com/data-and-api
+- name: property.epc_updated
+  advertised_trigger: an EPC is updated for a tracked property
+  payload_schema: null
+  source: https://sprift.com/data-and-api
+- name: property.data_point_changed
+  advertised_trigger: >-
+    a tracked property changes on whichever data point(s) the subscriber selected —
+    an open-ended trigger with no enumerated data-point list
+  payload_schema: null
+  source: https://sprift.com/data-and-api
+event_names_note: >-
+  The event names above are API Evangelist labels for the five named triggers plus the
+  open-ended one. Sprift publishes no event names, no topic strings and no type field
+  — only the prose triggers quoted above. Do not treat these labels as Sprift's wire
+  values.
+subscription_model:
+  how_to_subscribe: >-
+    Not documented. Property Watch is described as "define your properties of
+    interest", presumably against the advertised /api/v2/watch endpoint, but no
+    request shape, no watch-list management operations and no host are published.
+  delivery: unknown
+  signing: unknown
+  retries: unknown
+  ordering: unknown
+  replay: unknown
+gaps:
+- No AsyncAPI document.
+- No payload schemas for any of the five named triggers.
+- No signature, HMAC or verification scheme published.
+- No delivery, retry, ordering or replay semantics published.
+- No confirmed host for /api/v2/watch — https://sprift.com/api/v2/property/{uprn} returns HTTP 404 and https://api.sprift.com answers every path with HTTP 403 MissingAuthenticationTokenException.
+- The v1 contract Sprift actually publishes is entirely synchronous request/response.

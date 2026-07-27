@@ -1,0 +1,102 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Sprift v1 API
+  version: 1.0.0
+extends: openapi/sprift-openapi.json
+x-apievangelist:
+  generated: '2026-07-26'
+  method: generated
+  source: openapi/sprift-openapi.json
+  note: >-
+    Captures API Evangelist enhancements to Sprift's harvested Swagger 2.0 contract
+    without mutating the original. Everything asserted here is either observed live or
+    quoted from a Sprift surface — no operation, parameter or schema is invented. Note
+    that the base document is Swagger 2.0, so JSONPath targets address Swagger 2.0
+    structures (securityDefinitions, definitions, parameters with `in`), not OpenAPI
+    3.x ones.
+actions:
+- target: $.info
+  update:
+    description: >-
+      Sprift's UK residential property data API. 27 operations across 7 tags at host
+      sprift.com, basePath /dashboard/api/v1. The contract is served anonymously at
+      https://sprift.com/dashboard/api-doc/sprift.json but every operation requires a
+      SPRIFT-API-KEY header issued by Sprift Customer Success to existing subscribers;
+      anonymous and invalid-key calls both return HTTP 401
+      {"status":false,"error":"Unauthorized"}. UPRN is the join key for the whole
+      product.
+    x-apievangelist-profile: https://apis.io/provider/sprift/
+    x-apievangelist-harvested: '2026-07-26'
+    x-apievangelist-source: https://sprift.com/dashboard/api-doc/sprift.json
+    x-access-model:
+      pricing: paid
+      onboarding: application-approval
+      self-serve-signup: false
+      request-access: customer.success@sprift.com
+- target: $.info.contact
+  update:
+    name: Sprift Customer Success
+    email: customer.success@sprift.com
+    url: https://sprift.com/contact-us
+- target: $.info
+  update:
+    termsOfService: https://sprift.com/terms-and-conditions
+- target: $.externalDocs
+  update:
+    description: Sprift Data and API product page
+    url: https://sprift.com/data-and-api
+- target: $.securityDefinitions
+  update:
+    SpriftApiKey:
+      type: apiKey
+      name: SPRIFT-API-KEY
+      in: header
+      description: >-
+        The operative authentication scheme. Every operation in this contract declares
+        SPRIFT-API-KEY as a required header parameter, but the original document
+        declares only a global HTTP Basic scheme, which contradicts it. This overlay
+        adds the API key as a first-class security definition so generated clients
+        pick it up. Keys are issued by Sprift Customer Success after review; there is
+        no self-serve signup.
+- target: $.securityDefinitions.auth
+  update:
+    description: >-
+      Declared in the original contract and applied globally, but contradicted by the
+      SPRIFT-API-KEY header on every operation and by the Bearer token described on
+      https://sprift.com/data-and-api. Recorded verbatim; treat SpriftApiKey as the
+      operative scheme.
+- target: $.definitions.inline_response_403
+  update:
+    x-apievangelist-note: >-
+      The contract documents 403 for an invalid key, but the live host returns 401 with
+      the same {status,error} body for both a missing and an invalid key. Clients must
+      handle 401. See errors/sprift-problem-types.yml.
+- target: $.paths['/property/{uprn}/propertyid'].get
+  update:
+    x-apievangelist-note: >-
+      The mandatory resolution hop. Ten of the twenty-seven operations key on Sprift's
+      internal integer propertyID rather than the UPRN, so an agent holding only a UPRN
+      must call this operation first. See data-model/sprift-data-model.yml.
+- target: $.paths['/property/{uprn}/{status}'].get
+  update:
+    x-apievangelist-note: >-
+      The {status} path parameter is declared as a free string with no enumeration, and
+      an unrecognised value returns HTTP 400 "Unknown comparable type". Valid values are
+      not published in the contract and must be obtained from Sprift support.
+- target: $.paths['/property/search'].post
+  update:
+    x-apievangelist-note: >-
+      A write operation with no idempotency contract. There is no Idempotency-Key
+      parameter anywhere in this API, so a retry after a timeout may generate a
+      duplicate report. See conventions/sprift-conventions.yml.
+- target: $.paths['/share'].post
+  update:
+    x-apievangelist-note: >-
+      A write operation with no idempotency contract; a retry may produce a second
+      share link for the same report.
+- target: $.paths['/user/login'].post
+  update:
+    x-apievangelist-note: >-
+      Not the API authentication path. This exists so a partner platform can sign a
+      Sprift end user into an embedded iFrame; the call itself still requires the
+      SPRIFT-API-KEY header. See components/sprift-components.yml.

@@ -1,0 +1,40 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/sprift-openapi.json
+note: >-
+  Native Arazzo 1.0.1 workflows authored by API Evangelist against Sprift's published
+  Swagger 2.0 contract. Every operationId referenced exists verbatim in
+  openapi/sprift-openapi.json. None of these can be executed anonymously: every Sprift
+  operation requires a SPRIFT-API-KEY header, and Sprift publishes no sandbox, no test
+  key and no example values, so the workflows take the key as an input.
+workflows:
+- file: sprift-property-report.yml
+  workflowId: address-to-shareable-report
+  title: Address to shareable property report
+  summary: >-
+    Postcode → UPRN → generated Sprift report (types 1-4) → shareable white-labelled
+    link. The two write steps are not idempotent.
+- file: sprift-material-information.yml
+  workflowId: postcode-to-material-information
+  title: Material Information for a UK property
+  summary: >-
+    Postcode → UPRN → the A/B/C Material Information disclosure set plus planning
+    applications and immediate proximity.
+- file: sprift-valuation-evidence.yml
+  workflowId: valuation-evidence-pack
+  title: Valuation evidence pack
+  summary: >-
+    UPRN → propertyID → price estimate, unified comparables, recently sold evidence
+    and live for-sale stock.
+- file: sprift-market-intelligence.yml
+  workflowId: outcode-market-activity
+  title: Market activity for a postcode outcode
+  summary: >-
+    Insider active and withdrawn stock for an outcode — the agent-benchmarking and
+    stale-stock view.
+- file: sprift-crm-enrichment.yml
+  workflowId: crm-property-enrichment
+  title: Enrich a CRM record with property data
+  summary: >-
+    Postcode → UPRN → propertyID → EPC, council tax, nearby schools, nearby transport,
+    TV availability and imagery.

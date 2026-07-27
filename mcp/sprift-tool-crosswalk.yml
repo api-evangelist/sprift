@@ -1,0 +1,229 @@
+generated: '2026-07-26'
+method: derived
+source: mcp/sprift-mcp.yml + openapi/sprift-openapi.json
+status: candidate
+summary: >-
+  Binding between the candidate MCP tool surface and Sprift's published REST contract.
+  Because Sprift publishes no MCP server and no GraphQL surface, there is no vendor
+  tool list to reconcile: the crosswalk is a clean one-to-one derivation from the
+  27 REST operations, so every binding is high confidence and there are no MCP-only
+  tools. What this artifact does record honestly is the divergence that DOES exist at
+  Sprift — between the contracted v1 surface and the advertised, uncontracted v2
+  family, which no tool can be bound to.
+surfaces:
+  openapi:
+    file: openapi/sprift-openapi.json
+    format: Swagger 2.0
+    version: 1.3.9
+    source: https://sprift.com/dashboard/api-doc/sprift.json
+    gated: false
+    note: contract is anonymous; the data behind it requires a SPRIFT-API-KEY header
+  graphql:
+    endpoint: null
+    present: false
+  mcp:
+    url: null
+    present: false
+    tools_list_probed: false
+    note: no MCP server exists to introspect
+crosswalk:
+- tool: search_properties
+  category: search
+  rest:
+  - SearchProperties
+  binding: rest
+  confidence: high
+- tool: search_properties_by_postcode
+  category: search
+  rest:
+  - SearchPropertiesByPostcode
+  binding: rest
+  confidence: high
+- tool: list_my_properties
+  category: search
+  rest:
+  - SearchMyProperties
+  binding: rest
+  confidence: high
+- tool: resolve_uprn_to_property_id
+  category: identity
+  rest:
+  - Property-ID
+  binding: rest
+  confidence: high
+- tool: get_property_details
+  category: property
+  rest:
+  - PropertyDetails
+  binding: rest
+  confidence: high
+- tool: get_property_raw_data
+  category: property
+  rest:
+  - Property-RawData
+  binding: rest
+  confidence: high
+- tool: get_material_information
+  category: property
+  rest:
+  - PropertyDetails-MaterialInformation
+  binding: rest
+  confidence: high
+- tool: generate_property_report
+  category: reports
+  rest:
+  - SpriftPropertyReport
+  binding: rest
+  confidence: high
+  note: write; formData parameters despite the contract declaring consumes application/json
+- tool: share_report
+  category: reports
+  rest:
+  - ShareReport
+  binding: rest
+  confidence: high
+  note: write; formData parameters
+- tool: get_comparables
+  category: comparables
+  rest:
+  - PropertyDetails-Comparables
+  binding: rest
+  confidence: medium
+  note: >-
+    the {status} path parameter is an unenumerated free string; an agent cannot
+    enumerate valid comparable statuses from the contract
+- tool: get_recently_sold
+  category: comparables
+  rest:
+  - PropertyDetails-RS
+  binding: rest
+  confidence: high
+- tool: get_currently_for_sale
+  category: comparables
+  rest:
+  - PropertyDetails-CFS-UO
+  binding: rest
+  confidence: high
+- tool: get_price_estimate
+  category: valuation
+  rest:
+  - Property-Price-Estimate
+  binding: rest
+  confidence: high
+- tool: get_council_tax
+  category: property
+  rest:
+  - Property-Council-Tax
+  binding: rest
+  confidence: high
+- tool: get_epc
+  category: property
+  rest:
+  - Property-EPC
+  binding: rest
+  confidence: high
+- tool: get_nearby_schools
+  category: locality
+  rest:
+  - Property-Nearby-School
+  binding: rest
+  confidence: high
+- tool: get_nearby_transport
+  category: locality
+  rest:
+  - Property-Nearby-Transport
+  binding: rest
+  confidence: high
+- tool: get_tv_availability
+  category: locality
+  rest:
+  - PropertyDetails-Tv
+  binding: rest
+  confidence: high
+- tool: get_property_maps
+  category: media
+  rest:
+  - PropertyDetails-Maps
+  binding: rest
+  confidence: high
+- tool: get_street_view_map
+  category: media
+  rest:
+  - PropertyDetails-StreetViewMap
+  binding: rest
+  confidence: high
+- tool: get_tree_preservation_orders
+  category: planning
+  rest:
+  - PropertyDetails-TPO
+  binding: rest
+  confidence: high
+- tool: get_listed_buildings
+  category: planning
+  rest:
+  - PropertyDetails-LB
+  binding: rest
+  confidence: high
+- tool: get_insider_active_properties
+  category: market
+  rest:
+  - InsiderActivePropertiesResult
+  binding: rest
+  confidence: high
+- tool: get_insider_withdrawn_properties
+  category: market
+  rest:
+  - InsiderWithdrawnPropertiesResult
+  binding: rest
+  confidence: high
+mcp_only: []
+rest_only:
+- operationId: HomePage
+  capability: root
+  reason: API root probe; deliberately not exposed as a tool.
+- operationId: Login
+  capability: iframe embedding
+  reason: >-
+    end-user login for partner iFrame embeds; exposing it would require handing an
+    agent a Sprift user's password
+- operationId: Logout
+  capability: iframe embedding
+  reason: companion to Login
+uncontracted_surface:
+  note: >-
+    The Data and API product page advertises ten v2 endpoint paths and six data
+    products that appear in NO contract and can therefore be bound to no tool. They are
+    listed so the divergence is recorded rather than silently dropped.
+  advertised_paths:
+  - /api/v2/property/{uprn}
+  - /api/v2/comparables
+  - /api/v2/prospect/search
+  - /api/v2/watch
+  - /api/v2/risk/{uprn}
+  - /api/v2/planning/{uprn}
+  - /api/v2/market/insight
+  - /api/v2/epc/{uprn}
+  - /api/v2/bulk
+  advertised_products:
+  - Automated Valuation (AVM with confidence interval)
+  - Sprift Insights (natural-language querying)
+  - Custom datasets
+  - Bulk data feeds
+  - Property Watch (webhooks)
+  - National Comparables Library
+  capabilities_with_no_contract:
+  - off-market prospecting
+  - environmental risk scoring
+  - planning history
+  - market insight
+  - bulk/batch queries
+  - webhook alerting
+  source: https://sprift.com/data-and-api
+coverage:
+  tools_named: 24
+  tools_bound: 24
+  mcp_only: 0
+  rest_ops_total: 27
+  rest_ops_with_a_tool: 24
+  rest_ops_deliberately_excluded: 3
+  advertised_capabilities_with_no_contract: 6

@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Sprift — valuation evidence pack
+  version: 1.0.0
+  summary: >-
+    Resolve a UPRN to Sprift's internal property ID, then collect the price estimate,
+    unified comparables, recently sold evidence and live for-sale stock.
+  description: >-
+    Authored by API Evangelist from Sprift's published Swagger 2.0 contract. Entirely
+    read-only. Note the identifier split: the comparables operation takes the UPRN
+    while the estimate, sold and for-sale operations take Sprift's internal integer
+    propertyID, which is why the first step exists.
+sourceDescriptions:
+- name: sprift
+  url: ../openapi/sprift-openapi.json
+  type: openapi
+workflows:
+- workflowId: valuation-evidence-pack
+  summary: UPRN → propertyID → estimate + comparables + sold + for sale
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - uprn
+    - comparableStatus
+    properties:
+      apiKey:
+        type: string
+        description: Sprift API key, sent as the SPRIFT-API-KEY header.
+      uprn:
+        type: integer
+        description: Unique Property Reference Number.
+      comparableStatus:
+        type: string
+        description: >-
+          The comparable type segment for GET /property/{uprn}/{status}. The contract
+          declares this as a free string with no enumeration; an unrecognised value
+          returns HTTP 400 "Unknown comparable type". Obtain the valid set from Sprift
+          support.
+  steps:
+  - stepId: resolve-property-id
+    description: Convert the UPRN into Sprift's internal property ID.
+    operationId: $sourceDescriptions.sprift.Property-ID
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: uprn
+      in: path
+      value: $inputs.uprn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      propertyId: $response.body#/property_id
+  - stepId: price-estimate
+    description: The only valuation surface in the published contract.
+    operationId: $sourceDescriptions.sprift.Property-Price-Estimate
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      estimatedPrice: $response.body#/estimatedPrice
+      rentalEstimate: $response.body#/rentalEstimate
+      yield: $response.body#/yield
+  - stepId: comparables
+    description: Unified comparables for the UPRN.
+    operationId: $sourceDescriptions.sprift.PropertyDetails-Comparables
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: uprn
+      in: path
+      value: $inputs.uprn
+    - name: status
+      in: path
+      value: $inputs.comparableStatus
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      comparables: $response.body#/properties
+  - stepId: recently-sold
+    description: Achieved prices near the property, with price per square foot.
+    operationId: $sourceDescriptions.sprift.PropertyDetails-RS
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      soldProperties: $response.body#/sold_properties
+  - stepId: currently-for-sale
+    description: Live asking-price stock near the property.
+    operationId: $sourceDescriptions.sprift.PropertyDetails-CFS-UO
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: propertyID
+      in: path
+      value: $steps.resolve-property-id.outputs.propertyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      comparables: $response.body#/comparables
+  outputs:
+    estimatedPrice: $steps.price-estimate.outputs.estimatedPrice
+    comparables: $steps.comparables.outputs.comparables
+    soldProperties: $steps.recently-sold.outputs.soldProperties

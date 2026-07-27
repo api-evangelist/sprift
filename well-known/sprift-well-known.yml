@@ -1,0 +1,43 @@
+generated: '2026-07-26'
+method: searched
+source: live probes of the Sprift web host and API gateway host
+summary: >-
+  Sprift publishes no /.well-known/ discovery surface. Every RFC-defined document
+  was probed on both the primary web/API host (sprift.com, which also serves the
+  documented v1 API at basePath /dashboard/api/v1) and the AWS API Gateway host
+  (api.sprift.com). Every path on sprift.com returned the Sprift branded 404 page;
+  every path on api.sprift.com returned HTTP 403 MissingAuthenticationTokenException,
+  which is the AWS API Gateway default for an unmatched route and is not evidence of
+  a document. No security.txt, no OIDC discovery, no OAuth authorization-server
+  metadata, no api-catalog, no ai-plugin. Recorded as verified absence, not as a gap
+  that was left unchecked.
+hosts:
+- host: https://sprift.com
+  role: website + documented v1 API host (basePath /dashboard/api/v1)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://api.sprift.com
+  role: >-
+    AWS API Gateway host with no published contract; answers every path with HTTP 403
+    MissingAuthenticationTokenException
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    note: AWS API Gateway MissingAuthenticationTokenException, not a document
+  - path: /openapi.json
+    status: 403
+    note: AWS API Gateway MissingAuthenticationTokenException, not a document
+notes: >-
+  No apis.yml pointer of type WellKnown is wired for this repo, because nothing was
+  found — a pointer would assert a discovery surface Sprift does not operate.

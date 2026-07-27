@@ -1,0 +1,106 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/sprift-openapi.json + live probes of https://sprift.com/dashboard/api/v1/
+format: proprietary
+rfc9457: false
+envelope:
+  shape:
+    status: boolean — false on error, true on success
+    error: string — human-readable message
+  content_type: application/json
+  example: '{"status":false,"error":"Unauthorized"}'
+  note: >-
+    Sprift uses one flat envelope for both success and failure. There is no machine-
+    readable error code, no type URI, no field-level detail, no documentation link and
+    no application/problem+json media type anywhere in the contract. Clients must
+    branch on the HTTP status and then string-match the `error` value.
+coverage:
+  operations_total: 27
+  operations_with_any_error_response: 5
+  operations_with_only_200: 22
+  note: >-
+    22 of the 27 published operations document ONLY a 200 response. The error contract
+    is therefore mostly undocumented: real 4xx behaviour has to be discovered at
+    runtime, and the one status every caller will actually hit first (401) is not in
+    the document at all.
+problems:
+- status: 401
+  title: Unauthorized
+  body: '{"status":false,"error":"Unauthorized"}'
+  documented_in_spec: false
+  observed_live: true
+  cause: >-
+    Missing SPRIFT-API-KEY header, or a header carrying a key the platform does not
+    recognise. Both cases return the identical response — there is no distinction
+    between "no credential" and "bad credential".
+  remediation: >-
+    Send a valid SPRIFT-API-KEY header. Keys are issued by Sprift Customer Success
+    (customer.success@sprift.com) to existing subscribers after review.
+  evidence:
+  - url: https://sprift.com/dashboard/api/v1/
+    status: 401
+  - url: https://sprift.com/dashboard/api/v1/search?phrase=SW1A
+    status: 401
+    note: probed with SPRIFT-API-KEY set to an invalid value
+- status: 403
+  title: Invalid API Key
+  schema: inline_response_403
+  documented_in_spec: true
+  observed_live: false
+  cause: Documented as the response to an invalid API key.
+  remediation: Check the SPRIFT-API-KEY header value.
+  note: >-
+    The contract documents 403 for an invalid key, but the live host returns 401 for
+    both missing and invalid keys. Treat 401 as the operative status and 403 as
+    documentation drift.
+  source_operations:
+  - openapi/sprift-openapi.json#HomePage
+  - openapi/sprift-openapi.json#Login
+  - openapi/sprift-openapi.json#Logout
+- status: 400
+  title: Missing credentials
+  schema: inline_response_400
+  example_error: Missing Username or Password!
+  documented_in_spec: true
+  cause: >-
+    POST /user/login called without the required username or password form fields.
+  remediation: Supply both username and password as form data.
+  source_operations:
+  - openapi/sprift-openapi.json#Login
+- status: 400
+  title: Unknown comparable type
+  documented_in_spec: true
+  schema: null
+  cause: >-
+    GET /property/{uprn}/{status} called with a {status} path value outside the set
+    the comparables engine recognises.
+  remediation: >-
+    Use a status value Sprift supports. The contract declares {status} as a free
+    string with no enumeration, so valid values must be obtained from Sprift support.
+  source_operations:
+  - openapi/sprift-openapi.json#PropertyDetails-Comparables
+- status: 404
+  title: User not found
+  schema: inline_response_404
+  example_error: User not found
+  documented_in_spec: true
+  cause: POST /user/login with credentials for a user that does not exist.
+  remediation: >-
+    Verify the Sprift end-user account exists. This operation is the iFrame-embed
+    login for partner platforms, not the API authentication path.
+  source_operations:
+  - openapi/sprift-openapi.json#Login
+gateway_errors:
+- status: 403
+  host: https://api.sprift.com
+  body: '{"message":"Missing Authentication Token"}'
+  header: x-amzn-errortype MissingAuthenticationTokenException
+  note: >-
+    AWS API Gateway default for an unmatched route on the undocumented v2 host. Not a
+    Sprift application error and not part of any published contract — recorded so
+    integrators do not mistake it for one.
+gaps:
+- No error code registry, no decline-code equivalent, no error reference page.
+- No rate-limit error shape published even though rate limits are asserted.
+- No 5xx responses documented on any operation.
+- No retry or backoff guidance.

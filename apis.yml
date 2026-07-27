@@ -275,6 +275,51 @@ apis:
   - type: Contact
     url: https://sprift.com/contact-us
 common:
+- type: AgenticAccess
+  url: agentic-access/sprift-agentic-access.yml
+- type: DomainSecurity
+  url: security/sprift-domain-security.yml
+- type: Authentication
+  url: authentication/sprift-authentication.yml
+- type: Conventions
+  url: conventions/sprift-conventions.yml
+- type: ErrorCatalog
+  url: errors/sprift-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/sprift-lifecycle.yml
+- type: Conformance
+  url: conformance/sprift-conformance.yml
+- type: DataModel
+  url: data-model/sprift-data-model.yml
+- type: Components
+  url: components/sprift-components.yml
+- type: Webhooks
+  url: asyncapi/sprift-webhooks.yml
+- type: MCPServer
+  url: mcp/sprift-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/sprift-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/sprift-llms.txt
+- type: Overlay
+  url: overlays/sprift-openapi-overlay.yaml
+- type: Arazzo
+  name: Address to shareable property report
+  url: arazzo/sprift-property-report.yml
+- type: Arazzo
+  name: Material Information for a UK property
+  url: arazzo/sprift-material-information.yml
+- type: Arazzo
+  name: Valuation evidence pack
+  url: arazzo/sprift-valuation-evidence.yml
+- type: Arazzo
+  name: Market activity for a postcode outcode
+  url: arazzo/sprift-market-intelligence.yml
+- type: Arazzo
+  name: Enrich a CRM record with property data
+  url: arazzo/sprift-crm-enrichment.yml
 - type: Website
   url: https://sprift.com/
 - type: Documentation
@@ -285,10 +330,14 @@ common:
   url: https://sprift.com/dashboard/api-doc/sprift.json
 - type: Authentication
   url: https://sprift.com/en/livechatacademy/api-key
-- type: SignIn
+- type: Login
   url: https://sprift.com/dashboard/login
+- type: GettingStarted
+  url: https://sprift.com/data-and-api
 - type: Pricing
   url: https://sprift.com/pricing
+- type: TermsOfService
+  url: https://sprift.com/terms-and-conditions
 - type: Demo
   url: https://sprift.com/book-demo-sprift
 - type: Support

@@ -1,0 +1,68 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/sprift-openapi.json + https://sprift.com/property-reports
+summary: >-
+  Sprift ships no JavaScript element library, no web components and no npm-installable
+  UI package. What it does publish are two hosted, embeddable surfaces reachable from
+  the API: an iFrame embed of the whole Sprift platform, authenticated on a partner's
+  behalf, and hosted branded report pages produced as shareable links. Both are
+  documented in the contract itself. Recorded as hosted surfaces rather than client-
+  side components, because that is what they are.
+families:
+- name: Embedded Sprift platform (iFrame)
+  kind: hosted-iframe
+  loader: none — the partner renders an iframe against the URL Sprift returns
+  operations:
+  - Login
+  - Logout
+  how_it_works: >-
+    POST /user/login takes a Sprift end user's username and password as form data
+    alongside the required SPRIFT-API-KEY header and returns status, token, expires,
+    url, telephone and email (schema inline_response_200_1). The partner platform
+    embeds the returned url in an iframe so the Sprift user is already signed in.
+    GET /user/logout ends that session.
+  contract_quote: >-
+    You do not need to call this Endpoint with your API username and password in order
+    to use the API. This Endpoint is intended to those who want to add Sprift platform
+    into their platforms using an iFrame and let Sprift users to login to Sprift.
+  source: openapi/sprift-openapi.json#Login
+  session_fields:
+  - token
+  - expires
+  - url
+  documented_sizing_or_styling: false
+  documented_postmessage_api: false
+- name: Hosted shareable report
+  kind: hosted-page
+  loader: none — Sprift returns a share_link URL
+  operations:
+  - ShareReport
+  - SpriftPropertyReport
+  how_it_works: >-
+    POST /share takes a propertyID and a reportType (1 = Market Appraisal Report,
+    2 = Appointment Confirmation, 3 = Key Facts for Buyers, 4 = Property Overview),
+    with optional reportPage selection, appointment-date and portal_version, and
+    returns share_link (schema inline_response_200_12). POST /property/search generates
+    the same report set for a UPRN with an optional pdf flag.
+  branding: >-
+    Sprift markets these as white-labelled, branded reports for agents; the branding is
+    configured in the Sprift dashboard, not through the API.
+  source: openapi/sprift-openapi.json#ShareReport
+- name: Report media assets
+  kind: hosted-image
+  operations:
+  - PropertyDetails-Maps
+  - PropertyDetails-StreetViewMap
+  how_it_works: >-
+    GET /property/{propertyID}/maps returns propertyMapWithPolygon,
+    propertySatelliteImage and propertyStreetViewImage; GET
+    /property/{propertyID}/streetviewmap returns the Google Street View image alone,
+    with a street_view_pov object (lat, lng, heading, pitch, zoom). These are embeddable
+    image URLs a partner UI can render directly.
+  source: openapi/sprift-openapi.json#PropertyDetails-Maps
+not_published:
+- No JavaScript SDK, element library or web-component package.
+- No CDN-hosted loader script.
+- No embedded dashboard or analytics widget with a documented API.
+- No design system, theming API or CSS customization contract.
+- No npm package of any kind (github.com/sprift has zero public repositories).

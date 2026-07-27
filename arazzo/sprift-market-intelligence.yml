@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Sprift — market activity for a postcode outcode
+  version: 1.0.0
+  summary: >-
+    Read active and withdrawn market stock for a UK postcode outcode from the Sprift
+    Insider surface.
+  description: >-
+    Authored by API Evangelist from Sprift's published Swagger 2.0 contract. Read-only.
+    These are the only two paged operations in the contract. Insider items carry a
+    confidence field because listings are matched back to a UPRN probabilistically —
+    check it before joining an item to a property record.
+sourceDescriptions:
+- name: sprift
+  url: ../openapi/sprift-openapi.json
+  type: openapi
+workflows:
+- workflowId: outcode-market-activity
+  summary: Outcode → active stock + withdrawn stock
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - outcode
+    properties:
+      apiKey:
+        type: string
+        description: Sprift API key, sent as the SPRIFT-API-KEY header.
+      outcode:
+        type: string
+        description: UK postcode outward code, e.g. SW1A.
+      page:
+        type: integer
+        description: Optional page number.
+      limit:
+        type: integer
+        description: Optional page size.
+  steps:
+  - stepId: active-properties
+    description: Active market listings observed in the outcode.
+    operationId: $sourceDescriptions.sprift.InsiderActivePropertiesResult
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: outcode
+      in: path
+      value: $inputs.outcode
+    - name: page
+      in: query
+      value: $inputs.page
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      activeItems: $response.body#/items
+  - stepId: withdrawn-properties
+    description: Withdrawn listings for the same outcode — the stale-stock signal.
+    operationId: $sourceDescriptions.sprift.InsiderWithdrawnPropertiesResult
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: outcode
+      in: path
+      value: $inputs.outcode
+    - name: page
+      in: query
+      value: $inputs.page
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      withdrawnItems: $response.body#/items
+  outputs:
+    activeItems: $steps.active-properties.outputs.activeItems
+    withdrawnItems: $steps.withdrawn-properties.outputs.withdrawnItems

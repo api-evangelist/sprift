@@ -1,0 +1,71 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/sprift-openapi.json + live probes of sprift.com
+summary: >-
+  Sprift publishes a versioned API path and a versioned contract, and nothing else of
+  a lifecycle contract. There is no changelog, no release notes, no deprecation
+  policy, no Sunset/Deprecation header support, no SLA and no status page. Recorded as
+  verified absence.
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /dashboard/api/v1
+  contract_version: 1.3.9
+  contract_url: https://sprift.com/dashboard/api-doc/sprift.json
+  spec_format: Swagger 2.0
+  note: >-
+    "Property V2" is a tag grouping inside the v1 contract, not a second version. The
+    /api/v2/* family advertised on https://sprift.com/data-and-api has no published
+    contract, no confirmed host, and is not versioned by anything observable.
+  version_history_published: false
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No operation in the contract carries `deprecated: true`, and no deprecation or
+    sunset policy is published anywhere on sprift.com. Absence of deprecated
+    operations here means the contract declares none — not that Sprift has committed
+    to stability.
+changelog:
+  published: false
+  probes:
+  - url: https://sprift.com/changelog
+    status: 404
+  note: >-
+    The contract carries version 1.3.9 with no version history and no dated release
+    note surface. Consumers cannot tell what changed between contract versions.
+sla:
+  url: null
+  published: false
+  uptime_target: null
+status_page:
+  url: null
+  published: false
+  probes:
+  - url: https://status.sprift.com/
+    status: '000'
+    note: does not resolve
+  - url: https://sprift.com/status
+    status: 404
+  incident_communication: >-
+    The Sprift Academy carries a "site down" help article
+    (https://sprift.com/en/livechatacademy/site-down), which is a support article
+    rather than a status surface.
+roadmap:
+  url: null
+  published: false
+  probes:
+  - url: https://sprift.com/roadmap
+    status: 404
+support:
+  help_centre: https://sprift.com/academy
+  api_access_contact: customer.success@sprift.com
+  commercial_contact: https://sprift.com/contact-us
+stability_signals:
+  contract_served_anonymously: true
+  contract_stable_url: https://sprift.com/dashboard/api-doc/sprift.json
+  breaking_change_notice: none published

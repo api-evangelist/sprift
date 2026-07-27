@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Sprift — address to shareable property report
+  version: 1.0.0
+  summary: >-
+    Resolve a UK postcode to a UPRN, generate a Sprift property report for it, and
+    create a shareable link to that report.
+  description: >-
+    Authored by API Evangelist from Sprift's published Swagger 2.0 contract
+    (version 1.3.9, https://sprift.com/dashboard/api-doc/sprift.json). Every
+    operationId below exists verbatim in that document. Every operation requires the
+    SPRIFT-API-KEY header; keys are issued by Sprift Customer Success to existing
+    subscribers, so this workflow cannot be run anonymously and Sprift publishes no
+    sandbox or test key. Neither write step is idempotent — the API has no
+    Idempotency-Key.
+sourceDescriptions:
+- name: sprift
+  url: ../openapi/sprift-openapi.json
+  type: openapi
+workflows:
+- workflowId: address-to-shareable-report
+  summary: Postcode → UPRN → generated report → shareable link
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - postcode
+    - reportType
+    properties:
+      apiKey:
+        type: string
+        description: Sprift API key, sent as the SPRIFT-API-KEY header.
+      postcode:
+        type: string
+        description: UK postcode to resolve, e.g. SW1A 1AA.
+      reportType:
+        type: integer
+        description: >-
+          1 = Market Appraisal / Desktop Research, 2 = Appointment Confirmation,
+          3 = Key Facts For Buyers, 4 = Property Overview.
+      pdf:
+        type: boolean
+        description: Optional — request a PDF of the generated report.
+  steps:
+  - stepId: resolve-postcode
+    description: Return the addresses and UPRNs for the postcode.
+    operationId: $sourceDescriptions.sprift.SearchPropertiesByPostcode
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: postcode
+      in: path
+      value: $inputs.postcode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matches: $response.body#/data
+      total: $response.body#/total
+  - stepId: generate-report
+    description: >-
+      Generate the Sprift property report for the chosen UPRN. Not idempotent — a
+      retry may create a duplicate report.
+    operationId: $sourceDescriptions.sprift.SpriftPropertyReport
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        uprn: $steps.resolve-postcode.outputs.matches[0].value
+        reportType: $inputs.reportType
+        pdf: $inputs.pdf
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      propertyId: $response.body#/propertyDetails/property_id
+      estimatedPrice: $response.body#/estimatedPrice
+  - stepId: share-report
+    description: Create the shareable, white-labelled link to the generated report.
+    operationId: $sourceDescriptions.sprift.ShareReport
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        propertyID: $steps.generate-report.outputs.propertyId
+        reportType: $inputs.reportType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      shareLink: $response.body#/share_link
+  outputs:
+    shareLink: $steps.share-report.outputs.shareLink
+    propertyId: $steps.generate-report.outputs.propertyId

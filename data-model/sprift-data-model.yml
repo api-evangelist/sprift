@@ -1,0 +1,411 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/sprift-openapi.json
+summary: >-
+  Entity-relationship graph derived from the harvested Swagger 2.0 contract. Sprift's
+  76 definitions are all machine-generated inline_response_* wrappers with no named
+  business schemas and almost no $ref reuse between them, so the graph below is
+  derived from the identifier fields that actually appear in those schemas and in the
+  path parameters — uprn, property_id / propertyID / propID, outcode, postcode,
+  agent_id, rmid, epc_certificate_number, application_number — rather than from
+  component references. Every entity and field named here exists verbatim in the
+  contract.
+identifiers:
+- name: uprn
+  type: integer/number
+  role: primary
+  description: >-
+    Unique Property Reference Number — the UK's definitive property identifier and the
+    join key for the whole Sprift product. Path parameter on eight operations and a
+    field on the comparables, insider and Material Information schemas.
+  appears_in:
+  - path parameter on GET /property/{uprn}/tv, /property/{uprn}/{status},
+    /property/{uprn}/materialinformation, /property/{uprn}/search, /property/{uprn}/propertyid
+  - formData parameter on POST /property/search
+  - field on inline_response_200_comparables_item, inline_response_200_insider_item,
+    inline_response_200_1_materialinformation, inline_response_200_2_materialinformation_immediate_proximity
+- name: propertyID
+  aliases:
+  - property_id
+  - propID
+  type: integer
+  role: internal surrogate key
+  description: >-
+    Sprift's own integer property identifier. Distinct from the UPRN and NOT
+    interchangeable with it. Ten operations take propertyID as a path parameter and
+    one operation exists purely to convert a UPRN into it.
+  resolved_by: Property-ID (GET /property/{uprn}/propertyid)
+- name: outcode
+  type: string
+  role: geographic partition key
+  description: UK postcode outward code; the unit the Insider market-activity surface is queried by.
+- name: postcode
+  type: string
+  role: address lookup key
+  description: Full UK postcode; the input to the address-resolution operation.
+- name: agent_id
+  type: string
+  role: foreign key on a listing
+  description: Identifies the marketing agent on an Insider listing record.
+- name: rmid
+  type: string
+  role: external portal key
+  description: >-
+    Appears on inline_response_200_insider_item alongside a portals object carrying
+    rightmove, zoopla and boomin sub-objects — Sprift's link back to the portal
+    listings it observes.
+entities:
+- name: Property
+  key: uprn
+  surrogate_key: property_id
+  schemas:
+  - inline_response_200_5_propertyDetails
+  - inline_response_200_v2_search
+  fields_sample:
+  - property_id
+  - area_name
+  - property_address_street_name
+  - property_address_town
+  - property_lat
+  - property_lng
+  - property_bng_x
+  - property_bng_y
+  - property_electoral_roll
+  read_by:
+  - PropertyDetails
+  - Property-RawData
+  - SpriftPropertyReport
+  note: >-
+    The 54-field propertyDetails object is the core record; the v2 search response is
+    a 19-field projection of the same core.
+- name: PropertyReport
+  key: property_id
+  schemas:
+  - inline_response_200_5
+  - inline_response_200_reports
+  read_by:
+  - SpriftPropertyReport
+  - SearchMyProperties
+  note: >-
+    A generated report bundles the property record with floodRisk, coastal_erosion,
+    estimatedPrice, rentalEstimate, yield, landRegistry, propertyValue,
+    poundPerSquareFoot, interior, councilTax, epc, nearby schools, nearby transport,
+    broadband speeds, mobile coverage, propertyImages and propertyPolygon.
+    reportType 1 = Market Appraisal / Desktop Research, 2 = Appointment Confirmation,
+    3 = Key Facts For Buyers, 4 = Property Overview.
+- name: MaterialInformation
+  key: uprn
+  schemas:
+  - inline_response_200_1_materialinformation
+  parts:
+  - A — physical characteristics (inline_response_200_1_materialinformation_physicalcharacteristics, 17 fields)
+  - B — financial and tenure (inline_response_200_1_materialinformation_financialtenure, 11 fields)
+  - C — environmental and planning (inline_response_200_1_materialinformation_environmentalplanning, 49 fields)
+  - planning applications (inline_response_200_2_materialinformation_planningapplication)
+  - immediate proximity (inline_response_200_2_materialinformation_immediate_proximity)
+  read_by:
+  - PropertyDetails-MaterialInformation
+  note: >-
+    The disclosure set Sprift markets to agents as Material Information, keyed on UPRN
+    and split into the A/B/C parts named in the schema itself.
+- name: Comparable
+  key: uprn
+  schemas:
+  - inline_response_200_comparables
+  - inline_response_200_comparables_item
+  fields_sample:
+  - uprn
+  - full_address
+  - postcode
+  - price
+  - type
+  - beds
+  - tenure
+  - listing_status
+  - listing_date
+  - withdrawn_date
+  - sstc_date
+  - let_agreed_date
+  - time_on_market
+  read_by:
+  - PropertyDetails-Comparables
+- name: SoldProperty
+  key: property_id
+  schemas:
+  - inline_response_200_10_sold_properties
+  fields_sample:
+  - property_id
+  - tenure
+  - full_address
+  - price
+  - date_sold
+  - type
+  - beds
+  - postcode
+  - distanceTo
+  - sqm
+  - ppsf
+  read_by:
+  - PropertyDetails-RS
+- name: ForSaleListing
+  key: propID
+  schemas:
+  - inline_response_200_11_comparables_properties
+  fields_sample:
+  - propID
+  - propertyTypeFullDescription
+  - price
+  - displayAddress
+  - firstVisibleDate
+  - propertySubType
+  - bedrooms
+  - propertyUrl
+  - displayStatus
+  - transactionType
+  read_by:
+  - PropertyDetails-CFS-UO
+- name: EPC
+  key: property_id
+  schemas:
+  - inline_response_200_5_epc
+  fields_sample:
+  - epc_certificate_number
+  - epc_current_energy_rating
+  - epc_potential_energy_rating
+  - epc_total_floor_area
+  - epc_update_date
+  read_by:
+  - Property-EPC
+- name: CouncilTax
+  key: property_id
+  schemas:
+  - inline_response_200_5_councilTax
+  fields_sample:
+  - council_tax_band
+  - council_tax_monthly_cost
+  - council_tax_annual_cost
+  - council_tax_update_date
+  read_by:
+  - Property-Council-Tax
+- name: PriceEstimate
+  key: property_id
+  schemas:
+  - inline_response_200_v2_priceestimate
+  fields_sample:
+  - estimatedPrice
+  - rentalEstimate
+  - yield
+  read_by:
+  - Property-Price-Estimate
+  note: The only valuation surface in the published contract.
+- name: LandRegistryRecord
+  key: property_id
+  schemas:
+  - inline_response_200_5_landRegistry
+  fields_sample:
+  - last_sold_price
+  - transfer_date
+  - property_type
+  - land_registry_value
+  - duration_full
+- name: School
+  schemas:
+  - inline_response_200_5_nearby_schools
+  fields_sample:
+  - name
+  - ofsted_rating
+  - pupils
+  - distance
+  - school_type
+  read_by:
+  - Property-Nearby-School
+- name: TransportNode
+  schemas:
+  - inline_response_200_5_nearby_transport
+  - inline_response_200_5_nearby_transport_Local_Connections_elements
+  groups:
+  - Local_Connections
+  - National_Rail_Stations
+  - Ferry_Terminals
+  - Bus_Stops_Stations
+  - Trunk_Roads_Motorways
+  - Airports_Helipads
+  read_by:
+  - Property-Nearby-Transport
+- name: TreePreservationOrder
+  schemas:
+  - inline_response_200_8_tpo
+  fields_sample:
+  - species
+  - order
+  - polygon
+  read_by:
+  - PropertyDetails-TPO
+- name: ListedBuilding
+  schemas:
+  - inline_response_200_9_listed_buildings
+  fields_sample:
+  - name
+  - grade
+  - listed
+  read_by:
+  - PropertyDetails-LB
+- name: FloodRisk
+  schemas:
+  - inline_response_200_5_floodRisk
+  fields_sample:
+  - rivers_seas
+  - surface_water
+- name: InsiderListing
+  key: id
+  schemas:
+  - inline_response_200_insider_item
+  fields_sample:
+  - id
+  - rmid
+  - uprn
+  - confidence
+  - postcode
+  - outcode
+  - scannedAt
+  - submittedAt
+  - status
+  sub_objects:
+  - details (address, price, agent, agent_id, type, status, beds, epc, stc, tenure, key_features)
+  - portals (rightmove, zoopla, boomin)
+  - point (latitude, longitude)
+  - images (image_key, image_url, thumb_url)
+  read_by:
+  - InsiderActivePropertiesResult
+  - InsiderWithdrawnPropertiesResult
+- name: ShareLink
+  schemas:
+  - inline_response_200_12
+  fields_sample:
+  - share_link
+  created_by:
+  - ShareReport
+- name: AddressMatch
+  schemas:
+  - inline_response_200_3
+  - inline_response_200_3_data
+  fields_sample:
+  - match
+  - address
+  - value
+  - label
+  - lat
+  - lng
+  - authority
+  - local_authority
+  - classification_code
+  totals:
+  - LPI
+  - DPA
+  read_by:
+  - SearchProperties
+  - SearchPropertiesByPostcode
+  note: >-
+    LPI and DPA are the Ordnance Survey AddressBase address forms (Local Property
+    Identifier and Delivery Point Address); the search response counts matches of each.
+- name: UserSession
+  schemas:
+  - inline_response_200_1
+  fields_sample:
+  - token
+  - expires
+  - url
+  - telephone
+  - email
+  created_by:
+  - Login
+  note: The iFrame-embed session, not an API credential.
+relationships:
+- from: AddressMatch
+  to: Property
+  type: resolves_to
+  via: uprn
+  operation: SearchPropertiesByPostcode
+- from: Property
+  to: Property
+  type: has_one
+  via: property_id
+  operation: Property-ID
+  note: UPRN to Sprift propertyID resolution — the mandatory hop before ten of the reads.
+- from: Property
+  to: MaterialInformation
+  type: has_one
+  via: uprn
+- from: Property
+  to: PropertyReport
+  type: has_many
+  via: property_id
+- from: Property
+  to: EPC
+  type: has_one
+  via: property_id
+- from: Property
+  to: CouncilTax
+  type: has_one
+  via: property_id
+- from: Property
+  to: PriceEstimate
+  type: has_one
+  via: property_id
+- from: Property
+  to: LandRegistryRecord
+  type: has_one
+  via: property_id
+- from: Property
+  to: Comparable
+  type: has_many
+  via: uprn
+- from: Property
+  to: SoldProperty
+  type: has_many
+  via: property_id
+- from: Property
+  to: ForSaleListing
+  type: has_many
+  via: property_id
+- from: Property
+  to: School
+  type: has_many
+  via: property_id
+- from: Property
+  to: TransportNode
+  type: has_many
+  via: property_id
+- from: Property
+  to: TreePreservationOrder
+  type: has_many
+  via: property_id
+- from: Property
+  to: ListedBuilding
+  type: has_many
+  via: property_id
+- from: Property
+  to: FloodRisk
+  type: has_one
+  via: property_id
+- from: PropertyReport
+  to: ShareLink
+  type: has_many
+  via: propertyID
+  operation: ShareReport
+- from: InsiderListing
+  to: Property
+  type: belongs_to
+  via: uprn
+  note: >-
+    Insider listings carry a confidence field alongside the uprn, so the join back to
+    the property record is probabilistic rather than guaranteed.
+- from: InsiderListing
+  to: outcode
+  type: belongs_to
+  via: outcode
+traversal_note: >-
+  The practical access pattern is: postcode or free-text phrase -> AddressMatch ->
+  uprn -> propertyID -> everything else. An agent that holds only a UPRN must call
+  Property-ID first for ten of the twenty-seven operations.
+render: null

@@ -1,0 +1,70 @@
+# Sprift
+
+> Sprift is a United Kingdom property data aggregator (Sprift Technologies Ltd, founded 2016) that assembles up to 300 data points on more than 30 million UK residential properties from public and private sources — Royal Mail, Ordnance Survey, the Environment Agency, HM Land Registry, Ofcom, Historic England, Ofsted, Google Maps, the Valuation Office Agency and the ONS — and links every one of them to a UPRN, the UK's definitive property identifier. It sells that layer to estate and letting agents, surveyors, mortgage professionals, conveyancers and investors as shareable property dashboards, branded reports, Material Information packs, comparables, off-market prospecting and market intelligence.
+
+## What an agent needs to know first
+
+- The only machine-readable contract Sprift publishes is a Swagger 2.0 document, version 1.3.9, served anonymously at https://sprift.com/dashboard/api-doc/sprift.json. It describes 27 operations across 7 tags at host sprift.com, basePath /dashboard/api/v1, scheme https.
+- Every operation requires a `SPRIFT-API-KEY` request header. Calling the API without it returns HTTP 401 with the body `{"status":false,"error":"Unauthorized"}`. An invalid key returns the identical 401.
+- There is no self-serve signup. https://sprift.com/dashboard/register and https://sprift.com/dashboard/signup both return 404. API access is requested by email to customer.success@sprift.com with your name, company, intended use case and target systems, and "may require an additional agreement depending on your subscription".
+- Pricing is not published. https://sprift.com/pricing is a contact page; subscriptions are quoted per branch after a demo.
+- A larger v2 API family (/api/v2/property/{uprn}, /api/v2/comparables, /api/v2/prospect/search, /api/v2/watch, /api/v2/risk/{uprn}, /api/v2/planning/{uprn}, /api/v2/market/insight, /api/v2/epc/{uprn}, /api/v2/bulk) is advertised on the Data and API page with no contract, no confirmed host and no documentation. Treat it as advertised, not as callable.
+- The UPRN is the join key for everything. Most flows start by resolving an address or postcode to a UPRN, then a UPRN to Sprift's internal propertyID.
+
+## APIs
+
+- [Sprift Property API](https://sprift.com/dashboard/api-doc/): Ten operations — property report generation (POST /property/search), full property detail, Material Information, comparables, recently sold, currently for sale and under offer, maps and street view, Tree Preservation Orders, listed buildings, TV signal.
+- [Sprift Property V2 API](https://sprift.com/dashboard/api-doc/): Eight single-purpose reads — UPRN raw details, UPRN to propertyID resolution, price estimate, council tax, EPC, nearby schools, nearby transport, street view image. Note this "V2" is a tag inside the v1 contract, not the advertised /api/v2 family.
+- [Sprift Search API](https://sprift.com/dashboard/api-doc/): Free-text search, postcode address search, and the calling account's own saved properties.
+- [Sprift Insider API](https://sprift.com/dashboard/api-doc/): Active and withdrawn properties by postcode outcode — the market-activity and agent-benchmarking surface.
+- [Sprift Report Share API](https://sprift.com/dashboard/api-doc/): POST /share produces a shareable link to a Sprift report for a property ID and report type.
+- [Sprift User API](https://sprift.com/dashboard/api-doc/): POST /user/login and GET /user/logout, which exist for iFrame embedding of the Sprift platform in a partner product — explicitly NOT the authentication path for API calls.
+- [Sprift Data and API (v2, advertised)](https://sprift.com/data-and-api): Advertised only. No contract, no confirmed host.
+
+## Specs
+
+- [Swagger 2.0 contract (v1.3.9, 27 operations)](https://sprift.com/dashboard/api-doc/sprift.json)
+- [Swagger UI](https://sprift.com/dashboard/api-doc/)
+
+## Docs
+
+- [Data and API product page](https://sprift.com/data-and-api)
+- [How do I generate or find my API key?](https://sprift.com/en/livechatacademy/api-key)
+- [Sprift Academy (help centre)](https://sprift.com/academy)
+- [Property reports](https://sprift.com/property-reports)
+- [Comparables](https://sprift.com/comparables)
+- [Insider](https://sprift.com/insider)
+- [Partnerships](https://sprift.com/partnerships)
+- [Blog](https://sprift.com/blog)
+
+## Commercial
+
+- [Book a demo](https://sprift.com/book-demo-sprift)
+- [Pricing (contact page — no published prices)](https://sprift.com/pricing)
+- [Contact](https://sprift.com/contact-us)
+- [Terms and conditions](https://sprift.com/terms-and-conditions)
+- [Privacy policy](https://sprift.com/privacy-policy)
+- [Login](https://sprift.com/dashboard/login)
+
+## API Evangelist artifacts
+
+- [apis.yml](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/apis.yml)
+- [OpenAPI (harvested verbatim)](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/openapi/sprift-openapi.json)
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/authentication/sprift-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/conventions/sprift-conventions.yml)
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/errors/sprift-problem-types.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/data-model/sprift-data-model.yml)
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/lifecycle/sprift-lifecycle.yml)
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/conformance/sprift-conformance.yml)
+- [Webhooks (advertised)](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/asyncapi/sprift-webhooks.yml)
+- [Candidate MCP server](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/mcp/sprift-mcp.yml)
+- [Agent skills](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/skills/_index.yml)
+
+## Not published
+
+Sprift publishes no SDKs or client libraries (github.com/sprift is a real organization with zero public repositories), no CLI, no Postman collection, no GraphQL surface, no MCP server, no status page, no changelog or release notes, no sandbox or test credentials, no llms.txt, no /.well-known/ documents, no AsyncAPI, no OpenAPI 3.x, and no OAuth or OpenID Connect. Rate limits are asserted in the help centre but not quantified anywhere public.
+
+---
+generated: '2026-07-26'
+method: generated
+source: apis.yml + openapi/sprift-openapi.json + sprift.com (llms.txt returns HTTP 404)

@@ -1,0 +1,67 @@
+arazzo: 1.0.1
+info:
+  title: Sprift — Material Information for a UK property
+  version: 1.0.0
+  summary: >-
+    Resolve a UK postcode to a UPRN and pull the Material Information disclosure set
+    for it.
+  description: >-
+    Authored by API Evangelist from Sprift's published Swagger 2.0 contract. Read-only.
+    The Material Information operation is keyed on the UPRN, so no propertyID
+    resolution step is needed.
+sourceDescriptions:
+- name: sprift
+  url: ../openapi/sprift-openapi.json
+  type: openapi
+workflows:
+- workflowId: postcode-to-material-information
+  summary: Postcode → UPRN → Material Information (parts A, B and C)
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - postcode
+    properties:
+      apiKey:
+        type: string
+        description: Sprift API key, sent as the SPRIFT-API-KEY header.
+      postcode:
+        type: string
+        description: UK postcode to resolve.
+  steps:
+  - stepId: resolve-postcode
+    description: Return the addresses and UPRNs for the postcode.
+    operationId: $sourceDescriptions.sprift.SearchPropertiesByPostcode
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: postcode
+      in: path
+      value: $inputs.postcode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matches: $response.body#/data
+  - stepId: material-information
+    description: >-
+      Part A physical characteristics, part B financial and tenure, part C
+      environmental and planning, plus planning applications and immediate proximity.
+    operationId: $sourceDescriptions.sprift.PropertyDetails-MaterialInformation
+    parameters:
+    - name: SPRIFT-API-KEY
+      in: header
+      value: $inputs.apiKey
+    - name: uprn
+      in: path
+      value: $steps.resolve-postcode.outputs.matches[0].value
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      physicalCharacteristics: $response.body#/A
+      financialAndTenure: $response.body#/B
+      environmentalAndPlanning: $response.body#/C
+  outputs:
+    physicalCharacteristics: $steps.material-information.outputs.physicalCharacteristics
+    financialAndTenure: $steps.material-information.outputs.financialAndTenure
+    environmentalAndPlanning: $steps.material-information.outputs.environmentalAndPlanning

@@ -1,0 +1,108 @@
+generated: '2026-07-26'
+method: searched
+source: openapi/sprift-openapi.json
+docs: https://sprift.com/en/livechatacademy/api-key
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  oauth2_flows: []
+  effective_scheme: custom API key header (SPRIFT-API-KEY)
+  self_serve: false
+schemes:
+- name: SPRIFT-API-KEY
+  type: apiKey
+  in: header
+  parameter_name: SPRIFT-API-KEY
+  required: true
+  applies_to: all 27 operations in the published contract
+  sources:
+  - openapi/sprift-openapi.json
+  note: >-
+    This is the real, operative scheme. Every one of the 27 operations in the
+    harvested Swagger 2.0 document declares a REQUIRED header parameter named
+    SPRIFT-API-KEY. It is declared as an ordinary header parameter, not as a
+    securityDefinition, so generic tooling that reads only securityDefinitions will
+    miss it.
+- name: auth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/sprift-openapi.json
+  note: >-
+    Declared in securityDefinitions and applied globally via security [{"auth": []}],
+    but contradicted by every operation's SPRIFT-API-KEY header parameter and by the
+    Bearer token described on the product page. Recorded verbatim from the harvested
+    contract; not corrected.
+contract_defect: >-
+  Sprift publishes three mutually inconsistent statements of its own auth model:
+  (1) HTTP Basic, in the Swagger securityDefinitions; (2) a custom SPRIFT-API-KEY
+  header, in every operation's parameters; (3) a Bearer token with an
+  sk_live_sprift_ prefix, on the Data and API product page. The header parameter is
+  the one that matches observed behaviour of the documented v1 host.
+marketing_claim:
+  source: https://sprift.com/data-and-api
+  quote: >-
+    Sprift uses token-based authentication. Existing subscribers can generate an API
+    key instantly from their account settings. No new contracts, no procurement
+    delays. Navigate to Settings, then Developer, then API Keys. Click "Generate new
+    key". Include your key as a Bearer token in every request. All endpoints are
+    HTTPS only.
+  key_format_shown: sk_live_sprift_ prefix, remainder masked on the page
+  verified: false
+  note: >-
+    Could not be verified — the Settings > Developer > API Keys screen sits behind
+    https://sprift.com/dashboard/login. This describes the advertised, uncontracted
+    /api/v2 family, not the published v1 contract.
+credential_issuance:
+  self_serve_signup: false
+  process: >-
+    Become a Sprift subscriber first (book a demo — pricing is quoted per branch and
+    is not published), then email customer.success@sprift.com with your full name and
+    company, a description of the intended use case, and the systems you plan to
+    integrate with. Sprift reviews the request, and API access "may require an
+    additional agreement depending on your subscription."
+  contact: customer.success@sprift.com
+  docs: https://sprift.com/en/livechatacademy/api-key
+  register_endpoints_checked:
+  - url: https://sprift.com/dashboard/register
+    status: 404
+  - url: https://sprift.com/dashboard/signup
+    status: 404
+end_user_login:
+  operations:
+  - Login
+  - Logout
+  path: POST /user/login, GET /user/logout
+  purpose: >-
+    Not the API authentication path. The contract states: "You do not need to call
+    this Endpoint with your API username and password in order to use the API. This
+    Endpoint is intended to those who want to add Sprift platform into their
+    platforms using an iFrame and let Sprift users to login to Sprift." A partner
+    platform authenticates a Sprift end user on the partner's behalf; the call itself
+    still requires the SPRIFT-API-KEY header.
+  returns: status, token, expires, url, telephone, email (inline_response_200_1)
+openid_connect:
+  present: false
+  evidence: https://sprift.com/.well-known/openid-configuration returns HTTP 404
+oauth2:
+  present: false
+  evidence: >-
+    no oauth2 securityScheme in the contract; no OAuth documentation on any Sprift
+    surface; scopes/ artifact intentionally absent
+mtls:
+  present: false
+anonymous_behaviour:
+- url: https://sprift.com/dashboard/api/v1/
+  status: 401
+  body: '{"status":false,"error":"Unauthorized"}'
+- url: https://sprift.com/dashboard/api/v1/search?phrase=SW1A
+  header: 'SPRIFT-API-KEY: invalid-test-key'
+  status: 401
+  body: '{"status":false,"error":"Unauthorized"}'
+- url: https://api.sprift.com/
+  status: 403
+  body: '{"message":"Missing Authentication Token"}'
+  note: AWS API Gateway default (x-amzn-errortype MissingAuthenticationTokenException)

@@ -1,0 +1,48 @@
+generated: '2026-07-26'
+method: generated
+source: openapi/sprift-openapi.json
+note: >-
+  API Evangelist authored Agent Skills for the published Sprift v1 contract. Sprift
+  publishes no AGENTS.md and no skill files of its own — searched and not found. Every
+  operationId referenced below exists verbatim in openapi/sprift-openapi.json.
+skills:
+- file: sprift-property-report.md
+  name: Generate and share a Sprift property report
+  api: openapi/sprift-openapi.json
+  operations:
+  - SearchPropertiesByPostcode
+  - SpriftPropertyReport
+  - ShareReport
+- file: sprift-material-information.md
+  name: Pull Material Information for a UK property
+  api: openapi/sprift-openapi.json
+  operations:
+  - SearchPropertiesByPostcode
+  - PropertyDetails-MaterialInformation
+- file: sprift-valuation-evidence.md
+  name: Assemble valuation evidence for a UK property
+  api: openapi/sprift-openapi.json
+  operations:
+  - Property-ID
+  - Property-Price-Estimate
+  - PropertyDetails-Comparables
+  - PropertyDetails-RS
+  - PropertyDetails-CFS-UO
+- file: sprift-market-intelligence.md
+  name: Read UK market activity for a postcode area
+  api: openapi/sprift-openapi.json
+  operations:
+  - InsiderActivePropertiesResult
+  - InsiderWithdrawnPropertiesResult
+- file: sprift-property-enrichment.md
+  name: Enrich a CRM record with Sprift property data
+  api: openapi/sprift-openapi.json
+  operations:
+  - SearchPropertiesByPostcode
+  - Property-ID
+  - Property-EPC
+  - Property-Council-Tax
+  - Property-Nearby-School
+  - Property-Nearby-Transport
+  - PropertyDetails-Tv
+  - PropertyDetails-Maps

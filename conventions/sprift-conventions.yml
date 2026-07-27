@@ -1,0 +1,173 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/sprift-openapi.json + https://sprift.com/en/livechatacademy/api-key + live probes
+summary: >-
+  Cross-cutting request/response semantics for the published Sprift v1 contract
+  (Swagger 2.0, version 1.3.9, host sprift.com, basePath /dashboard/api/v1). Sprift
+  publishes no conventions guide, so most of this is derived from the contract itself
+  and from live probes of the anonymous surface. Where a convention does not exist,
+  that absence is recorded rather than invented.
+authentication:
+  style: custom API key header
+  header: SPRIFT-API-KEY
+  required: true
+  applies_to: all 27 operations
+  artifact: authentication/sprift-authentication.yml
+  note: >-
+    The contract also declares a global HTTP Basic securityDefinition, and the product
+    page advertises a Bearer token for the uncontracted /api/v2 family. See the
+    authentication artifact for the three-way inconsistency.
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key parameter, header or extension appears anywhere in the 27
+    operations, and no idempotency guidance is published. The two write operations
+    (POST /property/search report generation, POST /share link creation) offer no
+    replay-safety contract. POST /user/login is a session call, not a resource
+    creation.
+  agent_note: >-
+    An agent retrying POST /property/search or POST /share after a timeout may
+    generate a duplicate report or a duplicate share link, and has no published
+    mechanism to prevent it.
+pagination:
+  style: page-number
+  supported_on:
+  - SearchMyProperties
+  - InsiderActivePropertiesResult
+  - InsiderWithdrawnPropertiesResult
+  request_params:
+  - name: page
+    in: query
+    type: integer
+    note: required on SearchMyProperties, optional on the Insider operations
+  - name: limit
+    in: query
+    type: integer
+  - name: sort
+    in: query
+    type: number
+  response_fields:
+  - total_reports
+  - has_next_page
+  - total
+  note: >-
+    Not universal. The property-detail family (PropertyDetails, materialinformation,
+    comparables, EPC, council tax, schools, transport) returns whole objects with no
+    paging envelope. There is no cursor, no Link header and no page-size ceiling
+    documented.
+filtering:
+  supported_on:
+  - InsiderActivePropertiesResult
+  - PropertyDetails-Comparables
+  - PropertyDetails-RS
+  params:
+  - bedroom
+  - bungalow
+  - commercial
+  - newBuild
+  - price1
+  - price2
+  - type
+  - days
+  - searchDate
+  - searchDistance
+  - group
+  note: >-
+    Filters are flat query parameters typed as string/integer with no enumerations
+    declared in the contract, so valid values must be learned from support rather
+    than from the spec.
+field_expansion:
+  supported: false
+  note: >-
+    No expand / include / fields parameter. The closest analogue is the reportPage
+    form field on POST /property/search and POST /share, which selects report sections
+    by comma-separated name.
+sparse_fields:
+  supported: false
+metadata:
+  supported: false
+  note: No customer-defined metadata surface on any object.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation-id header is documented or returned. Responses from
+    the v1 host carry CloudFront headers (x-amz-cf-id, x-amz-cf-pop) and a ci_session
+    cookie, which are infrastructure artifacts rather than an API tracing contract.
+versioning:
+  scheme: uri-path
+  current: v1
+  path_segment: /dashboard/api/v1
+  contract_version: 1.3.9
+  artifact: lifecycle/sprift-lifecycle.yml
+  note: >-
+    "Property V2" is a TAG inside the v1 contract, not a separate version. The
+    advertised /api/v2/* family on the Data and API page has no published contract and
+    no confirmed host.
+content_types:
+  consumes:
+  - application/json
+  produces:
+  - application/json
+  note: >-
+    Declared globally as application/json, but the two POST operations and the login
+    operation take formData parameters (uprn, reportType, reportPage, pdf,
+    propertyID, appointment-date, portal_version, username, password), which implies
+    application/x-www-form-urlencoded on the wire. Another contract inconsistency.
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  shape:
+    status: boolean, false on error
+    error: string, human-readable message
+  example: '{"status":false,"error":"Unauthorized"}'
+  observed_live: true
+  artifact: errors/sprift-problem-types.yml
+  note: >-
+    Success responses use the same envelope with status true. There is no machine-
+    readable error code, no type URI, no field-level error detail and no
+    application/problem+json anywhere in the contract.
+status_codes:
+  documented:
+  - 200
+  - 400
+  - 403
+  - 404
+  observed_undocumented:
+  - code: 401
+    note: >-
+      The actual response to a missing or invalid key on every path probed, even
+      though the contract documents 403 "Invalid API Key" instead. Clients must
+      handle 401.
+rate_limiting:
+  enforced: asserted
+  quantified: false
+  headers: null
+  source: https://sprift.com/en/livechatacademy/api-key
+  quote: >-
+    Yes, API requests are subject to rate limits to ensure fair usage. Details are
+    included in the API documentation.
+  note: >-
+    No numbers appear in the public Swagger document or on the product page, and no
+    X-RateLimit-* or Retry-After headers were observed on anonymous probes. The
+    "details" the help centre refers to are not in the public contract.
+retries:
+  guidance_published: false
+  agent_note: >-
+    With no idempotency key and no documented retry-after signalling, safe automatic
+    retry is limited to the GET operations.
+identifiers:
+  primary: uprn
+  secondary: propertyID
+  resolution_operation: Property-ID
+  note: >-
+    UPRN (Unique Property Reference Number) is the join key across the whole product.
+    Several operations take a UPRN and several take Sprift's internal integer
+    propertyID; GET /property/{uprn}/propertyid converts one to the other. Agents must
+    not assume the two are interchangeable — see data-model/sprift-data-model.yml.
+cross_links:
+  authentication: authentication/sprift-authentication.yml
+  errors: errors/sprift-problem-types.yml
+  lifecycle: lifecycle/sprift-lifecycle.yml
+  data_model: data-model/sprift-data-model.yml
+  conformance: conformance/sprift-conformance.yml
