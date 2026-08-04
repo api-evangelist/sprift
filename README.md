@@ -1,5 +1,47 @@
 # Sprift (sprift)
 
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
 Sprift is a United Kingdom property data aggregator, operated by Sprift Technologies Ltd and founded in 2016 by Matt Gilpin, that assembles up to 300 data points on more than 30 million UK residential properties from public and private sources — Royal Mail, Ordnance Survey, the Environment Agency, HM Land Registry, Ofcom, Historic England, Ofsted, Google Maps, the Valuation Office Agency and the ONS — and links every one of them to a UPRN, the UK's definitive property identifier. It sells that layer to estate and letting agents, surveyors, mortgage professionals, conveyancers and investors as shareable property dashboards, branded reports, Material Information packs, comparables, off-market prospecting and market intelligence. In a market with no MLS, Sprift occupies the aggregation seam: it does not own listings (Rightmove and Zoopla do) and it does not originate records (HM Land Registry and Ordnance Survey do), it enriches and resells the join between them. Its API posture is genuinely documented but commercially gated. A public, unauthenticated Swagger UI at sprift.com/dashboard/api-doc serves a real Swagger 2.0 contract (sprift.json, version 1.3.9, 27 paths, 76 definitions) for the v1 API at https://sprift.com/dashboard/api/v1, harvested verbatim here — that is the only machine-readable contract Sprift publishes. Every operation in it requires a SPRIFT-API-KEY header, and the API base returns HTTP 401 to anonymous callers. There is no self-serve signup anywhere: /dashboard/register and /dashboard/signup both return 404, pricing is not published, and Sprift's own knowledge base instructs prospective API users to email Customer Success with their company, use case and target systems for review, noting that access "may require an additional agreement depending on your subscription". A larger v2 API family is advertised on the Data and API product page with named endpoint paths, webhook alerts and bulk queries, but no contract for it is published and no host for it was confirmed. No RESO Web API or Data Dictionary certification, no OData service root or $metadata document, and no Universal Property Identifier appears anywhere in Sprift's surface — RESO is a North American, NAR-driven construct and the UK has no MLS to certify against. The UK's standards seam is instead the Open Property Data Association and its Property Data Trust Framework, of which Sprift claims founding and accredited membership. Sprift publishes no open data of its own; the open UK property layer belongs to HM Land Registry and Ordnance Survey, which are among its inputs.
 
 **APIs.json:** [https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/apis.yml)
