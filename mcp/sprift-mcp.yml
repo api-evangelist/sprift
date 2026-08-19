@@ -2,14 +2,11 @@ generated: '2026-07-26'
 method: derived
 status: candidate
 source: openapi/sprift-openapi.json
-summary: >-
-  Sprift publishes NO MCP server. No mcp.sprift.com, no entry in the official MCP
-  registry, no @modelcontextprotocol package, and no agent/MCP documentation on any
-  Sprift surface. The tool list below is an API Evangelist CANDIDATE derived
-  one-to-one from the 27 operations in Sprift's published Swagger 2.0 contract — it is
-  a design, not a running server, and no endpoint exists to call. Every tool inherits
-  its real input contract from the backing operation's parameters in
-  openapi/sprift-openapi.json.
+summary: Sprift publishes NO MCP server. No mcp.sprift.com, no entry in the official MCP registry, no
+  @modelcontextprotocol package, and no agent/MCP documentation on any Sprift surface. The tool list below
+  is an API Evangelist CANDIDATE derived one-to-one from the 27 operations in Sprift's published Swagger
+  2.0 contract — it is a design, not a running server, and no endpoint exists to call. Every tool inherits
+  its real input contract from the backing operation's parameters in openapi/sprift-openapi.json.
 server:
   name: sprift
   transport: null
@@ -22,10 +19,9 @@ server:
     result: no entry for sprift
 authentication:
   scheme: apiKey header SPRIFT-API-KEY
-  note: >-
-    Any implementation must carry a subscriber's SPRIFT-API-KEY. There is no OAuth,
-    so an MCP server for Sprift cannot use the MCP OAuth authorization flow; the key
-    would have to be configured server-side or per-session.
+  note: Any implementation must carry a subscriber's SPRIFT-API-KEY. There is no OAuth, so an MCP server
+    for Sprift cannot use the MCP OAuth authorization flow; the key would have to be configured server-side
+    or per-session.
   artifact: authentication/sprift-authentication.yml
 tools:
 - name: search_properties
@@ -53,23 +49,19 @@ tools:
   source_operation: openapi/sprift-openapi.json#Property-RawData
   category: property
 - name: get_material_information
-  description: >-
-    Return the Material Information disclosure set for a UPRN — physical
-    characteristics, financial and tenure, environmental and planning, planning
-    applications and immediate proximity.
+  description: Return the Material Information disclosure set for a UPRN — physical characteristics, financial
+    and tenure, environmental and planning, planning applications and immediate proximity.
   source_operation: openapi/sprift-openapi.json#PropertyDetails-MaterialInformation
   category: property
 - name: generate_property_report
-  description: >-
-    Generate a Sprift property report for a UPRN (report types 1-4, optional page
-    selection and PDF flag). Write operation with no idempotency contract.
+  description: Generate a Sprift property report for a UPRN (report types 1-4, optional page selection
+    and PDF flag). Write operation with no idempotency contract.
   source_operation: openapi/sprift-openapi.json#SpriftPropertyReport
   category: reports
   write: true
 - name: share_report
-  description: >-
-    Create a shareable link to a Sprift report for a property ID and report type.
-    Write operation with no idempotency contract.
+  description: Create a shareable link to a Sprift report for a property ID and report type. Write operation
+    with no idempotency contract.
   source_operation: openapi/sprift-openapi.json#ShareReport
   category: reports
   write: true
@@ -137,16 +129,18 @@ excluded_operations:
 - operationId: HomePage
   reason: API root; no agent value.
 - operationId: Login
-  reason: >-
-    iFrame-embed end-user login for partner platforms, not API authentication.
-    Exposing it as an agent tool would mean handing an agent a Sprift user's password.
+  reason: iFrame-embed end-user login for partner platforms, not API authentication. Exposing it as an
+    agent tool would mean handing an agent a Sprift user's password.
 - operationId: Logout
   reason: Companion to the excluded Login operation.
 agent_guidance:
-  read_before_write: >-
-    generate_property_report and share_report are the only write tools and neither is
-    replay-safe. See conventions/sprift-conventions.yml and
-    agentic-access/sprift-agentic-access.yml.
-  required_first_call: >-
-    Most property reads take Sprift's internal property ID, not a UPRN. Resolve with
+  read_before_write: generate_property_report and share_report are the only write tools and neither is
+    replay-safe. See conventions/sprift-conventions.yml and agentic-access/sprift-agentic-access.yml.
+  required_first_call: Most property reads take Sprift's internal property ID, not a UPRN. Resolve with
     resolve_uprn_to_property_id first.
+deployment:
+  mode: none
+  verified: derived
+  tools: 24
+  checked: '2026-08-12'
+  source: catalog MCP census

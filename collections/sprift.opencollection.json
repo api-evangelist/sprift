@@ -1,0 +1,875 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sprift API",
+    "version": "1.3.9"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Home",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Home Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination parameter"
+              }
+            ]
+          },
+          "docs": "Home Page"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/login",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "<p>This endpoint is to log in a different user. You do not need to call this Endpoint with your API username and password in order to use the API.</p><p>This Endpoint is intended to those who want to add Sprift platform into their platforms using an iFrame and let Sprift users to login to Sprift.</p>"
+        },
+        {
+          "info": {
+            "name": "Logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/logout",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Logout"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "phrase",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search Properties"
+        },
+        {
+          "info": {
+            "name": "Search Property Address BY POSTCODE",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search/postcode/:postcode",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "postcode",
+                "value": "",
+                "type": "path",
+                "description": "Postcode to search"
+              },
+              {
+                "name": "commercial",
+                "value": "",
+                "type": "query",
+                "description": "If this parameter is set to 1, results will include commercial properties. If you do not want commercials then do not include this parameter or set it to 0."
+              }
+            ]
+          },
+          "docs": "Search Property Address BY POSTCODE"
+        },
+        {
+          "info": {
+            "name": "Search My Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/search/myproperties",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "phrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search My Properties"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Property",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sprift Property Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/property/search",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Report types are: <p>1 = Market Appraisal Report / Desktop Research Report</p> <p>2 = Appointment Confirmation</p> <p>3 = Key Facts For Buyers / Key Property Facts </p><p>4 = Property Overview </p> <p>Pages to include are seperated by comma:</p> <p><b>agency</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>appraisal</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>helpful_info</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>toptips</b> : Only For "
+        },
+        {
+          "info": {
+            "name": "Request property details using property ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Request property details using property ID"
+        },
+        {
+          "info": {
+            "name": "Returns TV availability of the property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:uprn/tv",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uprn",
+                "value": "",
+                "type": "path",
+                "description": "Property UPRN"
+              }
+            ]
+          },
+          "docs": "<p>TV availability of the property</p><p>BT, SKY and Virgin</p>"
+        },
+        {
+          "info": {
+            "name": "Returns property map image, satellite image and street view image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/maps",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "<p>Get property map and satellite with title plan polygon and Google street view images as base64 encoded string.</p> <p>Images are Base64 encoded strings.</p>"
+        },
+        {
+          "info": {
+            "name": "Tree Preservation Orders Around the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/tpo",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Tree Preservation Orders Around the Property"
+        },
+        {
+          "info": {
+            "name": "Listed Buildings Around the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/listedbuildings",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Listed Buildings Around the Property"
+        },
+        {
+          "info": {
+            "name": "Property Details - Recently Sold Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/recentlysold",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              },
+              {
+                "name": "userID",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "bedroom",
+                "value": "",
+                "type": "query",
+                "description": "Bedroom numbers seperated by comma. 1,2,3,4,5,6(for greater than 5)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Property types seperated by comma. Flat,Detached,Semi-Detached,Terraced,Other"
+              },
+              {
+                "name": "price1",
+                "value": "",
+                "type": "query",
+                "description": "Minimum price. Ex: 300000"
+              },
+              {
+                "name": "price2",
+                "value": "",
+                "type": "query",
+                "description": "Maximum price. Ex: 500000"
+              },
+              {
+                "name": "searchDistance",
+                "value": "",
+                "type": "query",
+                "description": "Search radius. Accepted values are : \"0\",\"0.25\", \"0.50\", \"1\",\"2\",\"3\", \"5\",\"10\""
+              },
+              {
+                "name": "searchDate",
+                "value": "",
+                "type": "query",
+                "description": "Properties sold in. Accepted values: \"6\",\"12\",\"18\",\"24\",\"36\",\"36+\""
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorts results. \"1: Price (asc)\", \"2: Price (desc)\" , \"3 : Distance (asc)\""
+              }
+            ]
+          },
+          "docs": "Property Details - Recently Sold Properties"
+        },
+        {
+          "info": {
+            "name": "Property Details - CFS-UO",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/currentlyforsale",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bedroom",
+                "value": "",
+                "type": "query",
+                "description": "Bedroom numbers seperated by comma. 1,2,3,4,5,6(for greater than 5)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Property types seperated by comma. Flat,Detached,Semi-Detached,Terraced,Other"
+              },
+              {
+                "name": "price1",
+                "value": "",
+                "type": "query",
+                "description": "Minimum price. Ex: 300000"
+              },
+              {
+                "name": "price2",
+                "value": "",
+                "type": "query",
+                "description": "Maximum price. Ex: 500000"
+              },
+              {
+                "name": "searchDistance",
+                "value": "",
+                "type": "query",
+                "description": "Search radius. Accepted values are : \"0\",\"0.25\", \"0.50\", \"1\",\"2\",\"3\", \"5\",\"10\""
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorts results. \"1: Price (asc)\", \"2: Price (desc)\" , \"3 : Distance (asc)\""
+              }
+            ]
+          },
+          "docs": "Property Details - CFS-UO"
+        },
+        {
+          "info": {
+            "name": "Property Details - Comparables (Unified)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:uprn/:status",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uprn",
+                "value": "",
+                "type": "path",
+                "description": "Unique Property Reference Number"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "path",
+                "description": "Listing status to filter by. Sales: `available` (currently listed for sale), `sstc` (sold subject to contract — sale agreed but not completed), `forsalewithdrawn` (was listed for sale, then withdrawn without a sale), `soldwithdrawn` (was listed for sale, went SSTC, then withdrawn from portal after sale completed). Lettings: `tolet` (currently listed to let), `letagreed` (tenant agreed), `letagreedwithdrawn` (was let agreed, then withdrawn), `letwithdrawn` (was listed to let, then withdrawn without agreement)."
+              },
+              {
+                "name": "bedroom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Property types seperated by comma. Flat,Detached,Semi-Detached,Terraced,Other"
+              },
+              {
+                "name": "price1",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "price2",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "searchDistance",
+                "value": "",
+                "type": "query",
+                "description": "Search radius in miles (default 0.5)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "1: Price asc, 2: Price desc, 3: Distance asc"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Default 30, max 100."
+              },
+              {
+                "name": "days",
+                "value": "",
+                "type": "query",
+                "description": "Only return listings from the last N days. Omit for all time."
+              },
+              {
+                "name": "newBuild",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to return new-build properties only."
+              },
+              {
+                "name": "bungalow",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to return bungalows only."
+              }
+            ]
+          },
+          "docs": "Returns comparable properties near the target property. `status` selects the listing category — sales: `available`, `sstc`, `forsalewithdrawn`, `soldwithdrawn`; lettings: `tolet`, `letagreed`, `letagreedwithdrawn`, `letwithdrawn`. Price, bedroom, property-type, distance and sort filters behave the same as on /currentlyforsale and /recentlysold."
+        },
+        {
+          "info": {
+            "name": "Property Details - Material Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:uprn/materialinformation",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uprn",
+                "value": "",
+                "type": "path",
+                "description": "Property UPRN"
+              }
+            ]
+          },
+          "docs": "Property Details - Material Information"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Property V2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns Raw Details of the property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:uprn/search",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uprn",
+                "value": "",
+                "type": "path",
+                "description": "Property UPRN"
+              }
+            ]
+          },
+          "docs": "Returns Raw Details of the property"
+        },
+        {
+          "info": {
+            "name": "Returns Property ID of the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:uprn/propertyid",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "uprn",
+                "value": "",
+                "type": "path",
+                "description": "Property UPRN"
+              }
+            ]
+          },
+          "docs": "Returns Property ID of the Property"
+        },
+        {
+          "info": {
+            "name": "Returns Price Estimate Details of the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/priceestimate",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Returns Price Estimate Details of the Property"
+        },
+        {
+          "info": {
+            "name": "Returns Council Tax Details of the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/counciltax",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Returns Council Tax Details of the Property"
+        },
+        {
+          "info": {
+            "name": "Returns EPC Details of the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/epc",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Returns EPC Details of the Property"
+        },
+        {
+          "info": {
+            "name": "Returns Nearby Schools Detail of the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/school",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Returns Nearby Schools Detail of the Property"
+        },
+        {
+          "info": {
+            "name": "Returns Nearby Transports Detail of the Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/transport",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "Returns Nearby Transports Detail of the Property"
+        },
+        {
+          "info": {
+            "name": "Returns Google Street View Image of the Property.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/property/:propertyID/streetviewmap",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "propertyID",
+                "value": "",
+                "type": "path",
+                "description": "Property ID"
+              }
+            ]
+          },
+          "docs": "<p>Get property Google street view image as base64 encoded string.</p>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Share",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Share Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/share",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Report Type = 1 = Market Appraisal Report (MAR)\nReport Type = 2 = Appointment Confirmation (AC)\nReport Type = 3 = Key Facts for Buyers (KF)\nReport Type = 4 = Property Overview (PO)"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Insider",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search insider active properties by outcode.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/insider/:outcode",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "outcode",
+                "value": "",
+                "type": "path",
+                "description": "Outcode to search"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "sale or rent"
+              }
+            ]
+          },
+          "docs": "Search insider active properties by outcode."
+        },
+        {
+          "info": {
+            "name": "Search insider withdrawn properties by outcode.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/insider/:outcode/withdrawn",
+            "headers": [
+              {
+                "name": "SPRIFT-API-KEY",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "outcode",
+                "value": "",
+                "type": "path",
+                "description": "Outcode to search"
+              },
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "sale or rent"
+              }
+            ]
+          },
+          "docs": "Search insider withdrawn properties by outcode."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
