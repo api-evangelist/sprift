@@ -55,6 +55,18 @@ accessModel:
   method: manual
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
 tags:
+- Real-Estate
+- United Kingdom
+- PropTech
+- Property Data
+- Property Listings
+- Valuation
+- AVM
+- Land Registry
+- Conveyancing
+- Rentals
+- Mortgage
+tags_raw:
 - Real Estate
 - United Kingdom
 - PropTech
@@ -92,6 +104,12 @@ apis:
   humanURL: https://sprift.com/dashboard/api-doc/
   baseURL: https://sprift.com/dashboard/api/v1
   tags:
+  - Real-Estate
+  - United Kingdom
+  - Property Data
+  - Material Information
+  - Comparables
+  tags_raw:
   - Real Estate
   - United Kingdom
   - Property Data
@@ -124,6 +142,13 @@ apis:
   humanURL: https://sprift.com/dashboard/api-doc/
   baseURL: https://sprift.com/dashboard/api/v1
   tags:
+  - Real-Estate
+  - United Kingdom
+  - Valuation
+  - AVM
+  - EPC
+  - Property Data
+  tags_raw:
   - Real Estate
   - United Kingdom
   - Valuation
@@ -151,6 +176,12 @@ apis:
   baseURL: https://sprift.com/dashboard/api/v1
   tags:
   - Search
+  - Real-Estate
+  - United Kingdom
+  - Addressing
+  - UPRN
+  tags_raw:
+  - Search
   - Real Estate
   - United Kingdom
   - Addressing
@@ -173,6 +204,11 @@ apis:
   humanURL: https://sprift.com/dashboard/api-doc/
   baseURL: https://sprift.com/dashboard/api/v1
   tags:
+  - Market Intelligence
+  - Real-Estate
+  - United Kingdom
+  - Property Listings
+  tags_raw:
   - Market Intelligence
   - Real Estate
   - United Kingdom
@@ -200,6 +236,11 @@ apis:
   tags:
   - Documents
   - Reports
+  - Real-Estate
+  - United Kingdom
+  tags_raw:
+  - Documents
+  - Reports
   - Real Estate
   - United Kingdom
   properties:
@@ -224,6 +265,11 @@ apis:
   humanURL: https://sprift.com/dashboard/api-doc/
   baseURL: https://sprift.com/dashboard/api/v1
   tags:
+  - Authentication
+  - Embedding
+  - Real-Estate
+  - United Kingdom
+  tags_raw:
   - Authentication
   - Embedding
   - Real Estate
@@ -261,6 +307,13 @@ apis:
     Success for access.
   humanURL: https://sprift.com/data-and-api
   tags:
+  - Real-Estate
+  - United Kingdom
+  - AVM
+  - Webhook
+  - Bulk Data
+  - PropTech
+  tags_raw:
   - Real Estate
   - United Kingdom
   - AVM
