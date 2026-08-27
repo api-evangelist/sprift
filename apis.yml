@@ -88,229 +88,26 @@ created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
 apis:
-- aid: sprift:sprift-property-api
-  name: Sprift Property API
-  description: >-
-    The Property tag of the published Sprift v1 contract — the largest family in
-    the harvested Swagger document, with ten operations. POST /property/search
-    generates a Sprift property report for a UPRN and is where the report types
-    are enumerated in the contract itself (1 = Market Appraisal Report / Desktop
-    Research Report, 2 = Appointment Confirmation, 3 = Key Facts For Buyers / Key
-    Property Facts, 4 = Property Overview), with report pages selectable by comma
-    separated names and an optional PDF flag. GET /property/{propertyID} returns
-    the full property detail record. Sub-resources cover Material Information
-    (GET /property/{uprn}/materialinformation, split in the schema into physical
-    characteristics, financial and tenure, environmental and planning, planning
-    applications and immediate proximity — the disclosure set Sprift markets to
-    agents as Material Information), comparables (GET /property/{uprn}/{status},
-    described as "Comparables (Unified)"), recently sold, currently for sale and
-    under offer, map, satellite and street view imagery, Tree Preservation
-    Orders, listed buildings, and TV signal availability. Every operation takes a
-    required SPRIFT-API-KEY header.
-  humanURL: https://sprift.com/dashboard/api-doc/
-  baseURL: https://sprift.com/dashboard/api/v1
-  tags:
-  - Real-Estate
-  - United Kingdom
-  - Property Data
-  - Material Information
-  - Comparables
-  tags_raw:
-  - Real Estate
-  - United Kingdom
-  - Property Data
-  - Material Information
-  - Comparables
-  properties:
-  - type: OpenAPI
-    url: openapi/sprift-openapi.json
-  - type: APIReference
-    url: https://sprift.com/dashboard/api-doc/
-  - type: Documentation
-    url: https://sprift.com/data-and-api
-  - type: Authentication
-    url: https://sprift.com/en/livechatacademy/api-key
-- aid: sprift:sprift-property-v2-api
-  name: Sprift Property V2 API
-  description: >-
-    The Property V2 tag of the published Sprift v1 contract — eight operations
-    that resolve and decompose a property into single-purpose reads rather than
-    one large record. GET /property/{uprn}/search returns the raw property
-    details and GET /property/{uprn}/propertyid resolves a UPRN to Sprift's
-    internal property identifier, which the remaining calls take. From there:
-    GET /property/{propertyID}/priceestimate (the only valuation surface in the
-    published contract — an estimate on the property record, not a separately
-    documented AVM product), /counciltax, /epc for Energy Performance Certificate
-    detail, /school for nearby schools, /transport for nearby transport, and
-    /streetviewmap for the Google Street View image. Note that this "V2" is a tag
-    inside the v1 contract at basePath /dashboard/api/v1; it is not the /api/v2
-    family advertised on the Data and API product page.
-  humanURL: https://sprift.com/dashboard/api-doc/
-  baseURL: https://sprift.com/dashboard/api/v1
-  tags:
-  - Real-Estate
-  - United Kingdom
-  - Valuation
-  - AVM
-  - EPC
-  - Property Data
-  tags_raw:
-  - Real Estate
-  - United Kingdom
-  - Valuation
-  - AVM
-  - EPC
-  - Property Data
-  properties:
-  - type: OpenAPI
-    url: openapi/sprift-openapi.json
-  - type: APIReference
-    url: https://sprift.com/dashboard/api-doc/
-  - type: Documentation
-    url: https://sprift.com/data-and-api
-- aid: sprift:sprift-search-api
-  name: Sprift Search API
-  description: >-
-    The Search tag of the published Sprift v1 contract — three operations for
-    finding a property before you can read it. GET /search takes a free-text
-    phrase, GET /search/postcode/{postcode} returns addresses for a postcode
-    (the UPRN-resolution path most integrations start from), and
-    GET /search/myproperties returns the calling account's own saved properties
-    and the reports generated against them. All three require the SPRIFT-API-KEY
-    header and return HTTP 401 without it.
-  humanURL: https://sprift.com/dashboard/api-doc/
-  baseURL: https://sprift.com/dashboard/api/v1
-  tags:
-  - Search
-  - Real-Estate
-  - United Kingdom
-  - Addressing
-  - UPRN
-  tags_raw:
-  - Search
-  - Real Estate
-  - United Kingdom
-  - Addressing
-  - UPRN
-  properties:
-  - type: OpenAPI
-    url: openapi/sprift-openapi.json
-  - type: APIReference
-    url: https://sprift.com/dashboard/api-doc/
-- aid: sprift:sprift-insider-api
-  name: Sprift Insider API
-  description: >-
-    The Insider tag of the published Sprift v1 contract — two operations exposing
-    the market intelligence product that sits behind sprift.com/insider. GET
-    /insider/{outcode} searches active properties by postcode outcode with an
-    optional grouping parameter, and GET /insider/{outcode}/withdrawn returns
-    withdrawn properties for the same outcode. This is the market-activity and
-    agent-benchmarking surface — live stock, listings and withdrawals by area —
-    rather than a single-property lookup.
-  humanURL: https://sprift.com/dashboard/api-doc/
-  baseURL: https://sprift.com/dashboard/api/v1
-  tags:
-  - Market Intelligence
-  - Real-Estate
-  - United Kingdom
-  - Property Listings
-  tags_raw:
-  - Market Intelligence
-  - Real Estate
-  - United Kingdom
-  - Property Listings
-  properties:
-  - type: OpenAPI
-    url: openapi/sprift-openapi.json
-  - type: APIReference
-    url: https://sprift.com/dashboard/api-doc/
-  - type: Documentation
-    url: https://sprift.com/insider
-- aid: sprift:sprift-share-api
-  name: Sprift Report Share API
-  description: >-
-    The Share tag of the published Sprift v1 contract — a single POST /share
-    operation that produces a shareable link to a Sprift report for a given
-    property ID and report type, with the same report type enumeration used by
-    the property report call (1 = Market Appraisal Report, 2 = Appointment
-    Confirmation, 3 = Key Facts for Buyers, 4 = Property Overview) plus optional
-    report pages, an appointment date and a portal version. This is the API
-    behind the shareable, white-labelled dashboards and reports that are Sprift's
-    core agent-facing product.
-  humanURL: https://sprift.com/dashboard/api-doc/
-  baseURL: https://sprift.com/dashboard/api/v1
-  tags:
-  - Documents
-  - Reports
-  - Real-Estate
-  - United Kingdom
-  tags_raw:
-  - Documents
-  - Reports
-  - Real Estate
-  - United Kingdom
-  properties:
-  - type: OpenAPI
-    url: openapi/sprift-openapi.json
-  - type: APIReference
-    url: https://sprift.com/dashboard/api-doc/
-  - type: Documentation
-    url: https://sprift.com/property-reports
-- aid: sprift:sprift-user-api
-  name: Sprift User API
-  description: >-
-    The User tag of the published Sprift v1 contract — two operations, POST
-    /user/login and GET /user/logout, that exist specifically for embedding.
-    The contract is explicit that this is not the authentication path for API
-    calls: "You do not need to call this Endpoint with your API username and
-    password in order to use the API. This Endpoint is intended to those who want
-    to add Sprift platform into their platforms using an iFrame and let Sprift
-    users to login to Sprift." Login takes a username and password as form data
-    alongside the required SPRIFT-API-KEY header, so a partner platform
-    authenticates a Sprift end user on the partner's behalf.
-  humanURL: https://sprift.com/dashboard/api-doc/
-  baseURL: https://sprift.com/dashboard/api/v1
-  tags:
-  - Authentication
-  - Embedding
-  - Real-Estate
-  - United Kingdom
-  tags_raw:
-  - Authentication
-  - Embedding
-  - Real Estate
-  - United Kingdom
-  properties:
-  - type: OpenAPI
-    url: openapi/sprift-openapi.json
-  - type: APIReference
-    url: https://sprift.com/dashboard/api-doc/
 - aid: sprift:sprift-data-and-api-v2
   name: Sprift Data and API (v2, advertised)
   description: >-
-    The API family Sprift advertises on its Data and API product page, recorded
-    here as advertised and NOT as verified. The page names ten REST endpoint
-    paths — /api/v2/property/{uprn} (300 data point profile), /api/v2/comparables
-    (whole-of-market sold evidence), /api/v2/prospect/search (off-market owners
-    likely to sell), /api/v2/watch (Property Watch, described as real-time
-    webhook alerts on listed, sold, price reduced, planning submitted and EPC
-    updated), /api/v2/risk/{uprn} (flood, subsidence, radon, contaminated land,
-    coastal erosion), /api/v2/planning/{uprn}, /api/v2/market/insight,
-    /api/v2/epc/{uprn} and /api/v2/bulk (up to 500 properties per call) — plus
-    six data products: Automated Valuation, Sprift Insights natural-language
-    querying, custom datasets, bulk data feeds, Property Watch and a National
-    Comparables Library. No machine-readable contract is published for any of
-    them: the only spec Sprift serves is the v1 Swagger document, which contains
-    none of these paths. No host was confirmed either — the advertised paths are
-    given host-relative, https://sprift.com/api/v2/property/{uprn} returns HTTP
-    404, and https://api.sprift.com answers every path with HTTP 403
-    MissingAuthenticationTokenException from an AWS API Gateway, which proves an
-    API gateway exists on that name but documents nothing. No baseURL is asserted
-    here for that reason. The page states authentication is a Bearer token
-    (sk_live_sprift_ prefix) generated from Settings then Developer then API
-    Keys, which contradicts both the SPRIFT-API-KEY header in the published
-    contract and Sprift's own knowledge base instruction to email Customer
-    Success for access.
+    The API family Sprift advertises on its Data and API product page, recorded here as advertised and
+    NOT as verified. The page names ten REST endpoint paths — /api/v2/property/{uprn} (300 data point
+    profile), /api/v2/comparables (whole-of-market sold evidence), /api/v2/prospect/search (off-market
+    owners likely to sell), /api/v2/watch (Property Watch, described as real-time webhook alerts on listed,
+    sold, price reduced, planning submitted and EPC updated), /api/v2/risk/{uprn} (flood, subsidence,
+    radon, contaminated land, coastal erosion), /api/v2/planning/{uprn}, /api/v2/market/insight, /api/v2/epc/{uprn}
+    and /api/v2/bulk (up to 500 properties per call) — plus six data products: Automated Valuation, Sprift
+    Insights natural-language querying, custom datasets, bulk data feeds, Property Watch and a National
+    Comparables Library. No machine-readable contract is published for any of them: the only spec Sprift
+    serves is the v1 Swagger document, which contains none of these paths. No host was confirmed either
+    — the advertised paths are given host-relative, https://sprift.com/api/v2/property/{uprn} returns
+    HTTP 404, and https://api.sprift.com answers every path with HTTP 403 MissingAuthenticationTokenException
+    from an AWS API Gateway, which proves an API gateway exists on that name but documents nothing. No
+    baseURL is asserted here for that reason. The page states authentication is a Bearer token (sk_live_sprift_
+    prefix) generated from Settings then Developer then API Keys, which contradicts both the SPRIFT-API-KEY
+    header in the published contract and Sprift's own knowledge base instruction to email Customer Success
+    for access.
   humanURL: https://sprift.com/data-and-api
   tags:
   - Real-Estate
@@ -333,6 +130,146 @@ apis:
     url: https://sprift.com/en/livechatacademy/api-key
   - type: Contact
     url: https://sprift.com/contact-us
+- aid: sprift:sprift-home-api
+  name: Sprift Home API
+  description: The Home API from Sprift — 1 operation(s) for home.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - Home
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-home-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
+- aid: sprift:sprift-insider-api
+  name: Sprift Insider API
+  description: The Insider API from Sprift — 2 operation(s) for insider.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - Insider
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-insider-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
+- aid: sprift:sprift-property-api
+  name: Sprift Property API
+  description: The Property API from Sprift — 10 operation(s) for property.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - Property
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-property-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
+- aid: sprift:sprift-property-v2-api
+  name: Sprift Property V2 API
+  description: The Property V2 API from Sprift — 8 operation(s) for property v2.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - Property V2
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-property-v2-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
+- aid: sprift:sprift-search-api
+  name: Sprift Search API
+  description: The Search API from Sprift — 3 operation(s) for search.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-search-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
+- aid: sprift:sprift-share-api
+  name: Sprift Share API
+  description: The Share API from Sprift — 1 operation(s) for share.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - Share
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-share-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
+- aid: sprift:sprift-user-api
+  name: Sprift User API
+  description: The User API from Sprift — 2 operation(s) for user.
+  humanURL: https://sprift.com/dashboard/api-doc/
+  baseURL: https://sprift.com/dashboard/api/v1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/sprift-user-api-openapi.yml
+  - type: APIReference
+    url: https://sprift.com/dashboard/api-doc/
+  - type: Documentation
+    url: https://sprift.com/data-and-api
+  - type: Authentication
+    url: https://sprift.com/en/livechatacademy/api-key
+  - type: Documentation
+    url: https://sprift.com/insider
+  - type: Documentation
+    url: https://sprift.com/property-reports
 common:
 - type: AgenticAccess
   url: agentic-access/sprift-agentic-access.yml
