@@ -53,7 +53,13 @@ accessModel:
   - openapi
   generated: '2026-07-26'
   method: manual
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+imageNote: >-
+  The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
+  bootstrap template and pointed at an icon belonging to groq, not to this company.
+  That asset returns HTTP 200, so the record rendered another company's brand
+  rather than a broken image, which is why it went unreported (roadmap#153).
+  No correct icon has been sourced yet. Shipping the wrong company's mark is worse
+  than shipping none; re-run the icon backfill once a real asset exists.
 tags:
 - Real-Estate
 - United Kingdom
