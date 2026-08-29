@@ -1,7 +1,7 @@
-generated: '2026-07-26'
-method: derived
-source: openapi/sprift-openapi.json
-note: >-
+x-generated: '2026-07-26'
+x-method: derived
+x-source: openapi/sprift-openapi.json
+x-note: >-
   Native Arazzo 1.0.1 workflows authored by API Evangelist against Sprift's published
   Swagger 2.0 contract. Every operationId referenced exists verbatim in
   openapi/sprift-openapi.json. None of these can be executed anonymously: every Sprift

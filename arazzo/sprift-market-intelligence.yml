@@ -11,8 +11,8 @@ info:
     confidence field because listings are matched back to a UPRN probabilistically —
     check it before joining an item to a property record.
 sourceDescriptions:
-- name: sprift
-  url: ../openapi/sprift-openapi.json
+- name: insiderApi
+  url: ../openapi/sprift-insider-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: outcode-market-activity
@@ -38,7 +38,7 @@ workflows:
   steps:
   - stepId: active-properties
     description: Active market listings observed in the outcode.
-    operationId: $sourceDescriptions.sprift.InsiderActivePropertiesResult
+    operationId: $sourceDescriptions.insiderApi.InsiderActivePropertiesResult
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -58,7 +58,7 @@ workflows:
       activeItems: $response.body#/items
   - stepId: withdrawn-properties
     description: Withdrawn listings for the same outcode — the stale-stock signal.
-    operationId: $sourceDescriptions.sprift.InsiderWithdrawnPropertiesResult
+    operationId: $sourceDescriptions.insiderApi.InsiderWithdrawnPropertiesResult
     parameters:
     - name: SPRIFT-API-KEY
       in: header

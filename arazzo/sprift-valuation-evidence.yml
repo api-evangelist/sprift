@@ -11,8 +11,11 @@ info:
     while the estimate, sold and for-sale operations take Sprift's internal integer
     propertyID, which is why the first step exists.
 sourceDescriptions:
-- name: sprift
-  url: ../openapi/sprift-openapi.json
+- name: propertyApi
+  url: ../openapi/sprift-property-api-openapi.yml
+  type: openapi
+- name: propertyV2Api
+  url: ../openapi/sprift-property-v2-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: valuation-evidence-pack
@@ -40,7 +43,7 @@ workflows:
   steps:
   - stepId: resolve-property-id
     description: Convert the UPRN into Sprift's internal property ID.
-    operationId: $sourceDescriptions.sprift.Property-ID
+    operationId: $sourceDescriptions.propertyV2Api.Property-ID
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -54,7 +57,7 @@ workflows:
       propertyId: $response.body#/property_id
   - stepId: price-estimate
     description: The only valuation surface in the published contract.
-    operationId: $sourceDescriptions.sprift.Property-Price-Estimate
+    operationId: $sourceDescriptions.propertyV2Api.Property-Price-Estimate
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -70,7 +73,7 @@ workflows:
       yield: $response.body#/yield
   - stepId: comparables
     description: Unified comparables for the UPRN.
-    operationId: $sourceDescriptions.sprift.PropertyDetails-Comparables
+    operationId: $sourceDescriptions.propertyApi.PropertyDetails-Comparables
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -87,7 +90,7 @@ workflows:
       comparables: $response.body#/properties
   - stepId: recently-sold
     description: Achieved prices near the property, with price per square foot.
-    operationId: $sourceDescriptions.sprift.PropertyDetails-RS
+    operationId: $sourceDescriptions.propertyApi.PropertyDetails-RS
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -101,7 +104,7 @@ workflows:
       soldProperties: $response.body#/sold_properties
   - stepId: currently-for-sale
     description: Live asking-price stock near the property.
-    operationId: $sourceDescriptions.sprift.PropertyDetails-CFS-UO
+    operationId: $sourceDescriptions.propertyApi.PropertyDetails-CFS-UO
     parameters:
     - name: SPRIFT-API-KEY
       in: header

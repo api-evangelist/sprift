@@ -14,8 +14,14 @@ info:
     sandbox or test key. Neither write step is idempotent — the API has no
     Idempotency-Key.
 sourceDescriptions:
-- name: sprift
-  url: ../openapi/sprift-openapi.json
+- name: propertyApi
+  url: ../openapi/sprift-property-api-openapi.yml
+  type: openapi
+- name: searchApi
+  url: ../openapi/sprift-search-api-openapi.yml
+  type: openapi
+- name: shareApi
+  url: ../openapi/sprift-share-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: address-to-shareable-report
@@ -44,7 +50,7 @@ workflows:
   steps:
   - stepId: resolve-postcode
     description: Return the addresses and UPRNs for the postcode.
-    operationId: $sourceDescriptions.sprift.SearchPropertiesByPostcode
+    operationId: $sourceDescriptions.searchApi.SearchPropertiesByPostcode
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -61,7 +67,7 @@ workflows:
     description: >-
       Generate the Sprift property report for the chosen UPRN. Not idempotent — a
       retry may create a duplicate report.
-    operationId: $sourceDescriptions.sprift.SpriftPropertyReport
+    operationId: $sourceDescriptions.propertyApi.SpriftPropertyReport
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -79,7 +85,7 @@ workflows:
       estimatedPrice: $response.body#/estimatedPrice
   - stepId: share-report
     description: Create the shareable, white-labelled link to the generated report.
-    operationId: $sourceDescriptions.sprift.ShareReport
+    operationId: $sourceDescriptions.shareApi.ShareReport
     parameters:
     - name: SPRIFT-API-KEY
       in: header

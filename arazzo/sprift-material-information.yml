@@ -10,8 +10,11 @@ info:
     The Material Information operation is keyed on the UPRN, so no propertyID
     resolution step is needed.
 sourceDescriptions:
-- name: sprift
-  url: ../openapi/sprift-openapi.json
+- name: propertyApi
+  url: ../openapi/sprift-property-api-openapi.yml
+  type: openapi
+- name: searchApi
+  url: ../openapi/sprift-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: postcode-to-material-information
@@ -31,7 +34,7 @@ workflows:
   steps:
   - stepId: resolve-postcode
     description: Return the addresses and UPRNs for the postcode.
-    operationId: $sourceDescriptions.sprift.SearchPropertiesByPostcode
+    operationId: $sourceDescriptions.searchApi.SearchPropertiesByPostcode
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -47,7 +50,7 @@ workflows:
     description: >-
       Part A physical characteristics, part B financial and tenure, part C
       environmental and planning, plus planning applications and immediate proximity.
-    operationId: $sourceDescriptions.sprift.PropertyDetails-MaterialInformation
+    operationId: $sourceDescriptions.propertyApi.PropertyDetails-MaterialInformation
     parameters:
     - name: SPRIFT-API-KEY
       in: header

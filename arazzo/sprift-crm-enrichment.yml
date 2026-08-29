@@ -12,8 +12,14 @@ info:
     Rate limits exist but are not quantified publicly — throttle when running this in
     bulk, and note that /api/v2/bulk is advertised but uncontracted.
 sourceDescriptions:
-- name: sprift
-  url: ../openapi/sprift-openapi.json
+- name: propertyApi
+  url: ../openapi/sprift-property-api-openapi.yml
+  type: openapi
+- name: propertyV2Api
+  url: ../openapi/sprift-property-v2-api-openapi.yml
+  type: openapi
+- name: searchApi
+  url: ../openapi/sprift-search-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: crm-property-enrichment
@@ -32,7 +38,7 @@ workflows:
         description: UK postcode held on the CRM record.
   steps:
   - stepId: resolve-postcode
-    operationId: $sourceDescriptions.sprift.SearchPropertiesByPostcode
+    operationId: $sourceDescriptions.searchApi.SearchPropertiesByPostcode
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -45,7 +51,7 @@ workflows:
     outputs:
       matches: $response.body#/data
   - stepId: resolve-property-id
-    operationId: $sourceDescriptions.sprift.Property-ID
+    operationId: $sourceDescriptions.propertyV2Api.Property-ID
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -58,7 +64,7 @@ workflows:
     outputs:
       propertyId: $response.body#/property_id
   - stepId: epc
-    operationId: $sourceDescriptions.sprift.Property-EPC
+    operationId: $sourceDescriptions.propertyV2Api.Property-EPC
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -71,7 +77,7 @@ workflows:
     outputs:
       epc: $response.body#/epc
   - stepId: council-tax
-    operationId: $sourceDescriptions.sprift.Property-Council-Tax
+    operationId: $sourceDescriptions.propertyV2Api.Property-Council-Tax
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -84,7 +90,7 @@ workflows:
     outputs:
       councilTax: $response.body#/councilTax
   - stepId: nearby-schools
-    operationId: $sourceDescriptions.sprift.Property-Nearby-School
+    operationId: $sourceDescriptions.propertyV2Api.Property-Nearby-School
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -97,7 +103,7 @@ workflows:
     outputs:
       schools: $response.body#/nearby_schools
   - stepId: nearby-transport
-    operationId: $sourceDescriptions.sprift.Property-Nearby-Transport
+    operationId: $sourceDescriptions.propertyV2Api.Property-Nearby-Transport
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -111,7 +117,7 @@ workflows:
       transport: $response.body#/nearby_transport
   - stepId: tv-availability
     description: Takes the UPRN, not the propertyID.
-    operationId: $sourceDescriptions.sprift.PropertyDetails-Tv
+    operationId: $sourceDescriptions.propertyApi.PropertyDetails-Tv
     parameters:
     - name: SPRIFT-API-KEY
       in: header
@@ -126,7 +132,7 @@ workflows:
       sky: $response.body#/sky
       virgin: $response.body#/virgin
   - stepId: maps
-    operationId: $sourceDescriptions.sprift.PropertyDetails-Maps
+    operationId: $sourceDescriptions.propertyApi.PropertyDetails-Maps
     parameters:
     - name: SPRIFT-API-KEY
       in: header
