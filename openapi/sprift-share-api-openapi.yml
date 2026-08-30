@@ -1,0 +1,78 @@
+openapi: 3.2.0
+info:
+  description: ''
+  version: 1.3.9
+  title: Sprift Share API
+  contact: {}
+servers:
+- url: https://sprift.com/dashboard/api/v1
+security:
+- auth: []
+tags:
+- name: Share
+paths:
+  /share:
+    post:
+      tags:
+      - Share
+      summary: Share Report
+      description: 'Report Type = 1 = Market Appraisal Report (MAR)
+
+        Report Type = 2 = Appointment Confirmation (AC)
+
+        Report Type = 3 = Key Facts for Buyers (KF)
+
+        Report Type = 4 = Property Overview (PO)'
+      operationId: ShareReport
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: ''
+        required: true
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: Returns report link to share
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_12'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                propertyID:
+                  type: integer
+                  format: int32
+                reportType:
+                  type: integer
+                  format: int32
+                reportPage:
+                  type: string
+                  description: Pages to include in the report.
+                appointment-date:
+                  type: string
+                portal_version:
+                  type: number
+                  description: Suitable for embedding on your portal/websites - anonymised addresses with no door numbers. You need to pass 1 to use portal version.
+              required:
+              - propertyID
+              - reportType
+components:
+  schemas:
+    inline_response_200_12:
+      type: object
+      properties:
+        status:
+          type: boolean
+        share_link:
+          type: string
+          description: URL of the report
+  securitySchemes:
+    auth:
+      type: http
+      scheme: basic

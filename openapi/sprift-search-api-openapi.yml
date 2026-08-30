@@ -1,0 +1,324 @@
+openapi: 3.2.0
+info:
+  description: ''
+  version: 1.3.9
+  title: Sprift Search API
+  contact: {}
+servers:
+- url: https://sprift.com/dashboard/api/v1
+security:
+- auth: []
+tags:
+- name: Search
+paths:
+  /search:
+    get:
+      tags:
+      - Search
+      summary: Search Properties
+      operationId: SearchProperties
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: phrase
+        in: query
+        description: ''
+        required: true
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: Property Address Search Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+  /search/postcode/{postcode}:
+    get:
+      tags:
+      - Search
+      summary: Search Property Address BY POSTCODE
+      operationId: SearchPropertiesByPostcode
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: postcode
+        in: path
+        description: Postcode to search
+        required: true
+        schema:
+          type: string
+      - name: commercial
+        in: query
+        description: If this parameter is set to 1, results will include commercial properties. If you do not want commercials then do not include this parameter or set it to 0.
+        required: false
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: Property Address Search Result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+  /search/myproperties:
+    get:
+      tags:
+      - Search
+      summary: Search My Properties
+      operationId: SearchMyProperties
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: phrase
+        in: query
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      deprecated: false
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+components:
+  schemas:
+    inline_response_200_3:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/inline_response_200_3_total'
+        minmatch:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_3_data'
+    inline_response_200_3_total:
+      type: object
+      properties:
+        LPI:
+          type: integer
+        DPA:
+          type: integer
+    inline_response_200_4_results:
+      type: object
+      properties:
+        total_reports:
+          type: integer
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_4_results_reports'
+        has_next_page:
+          type: boolean
+    inline_response_200_3_data:
+      type: object
+      properties:
+        match:
+          type: number
+        address:
+          type: string
+        value:
+          type: string
+        label:
+          type: string
+        x:
+          type: integer
+        y:
+          type: integer
+        lat:
+          type: number
+        lng:
+          type: number
+        authority:
+          type: string
+        local_authority:
+          type: string
+        dependent_locality:
+          type: string
+        classification_code:
+          type: string
+        property_classification_code:
+          type: string
+        clcode_disription:
+          type: string
+        property_classi_code_description:
+          type: string
+        classification_code_description:
+          type: string
+        flat_number:
+          type: string
+        building_name:
+          type: string
+        building_number:
+          type: string
+        street_name:
+          type: string
+        sub_street_name:
+          type: string
+        town:
+          type: string
+        post_code:
+          type: string
+        uprn:
+          type: string
+    inline_response_200_4_results_reports:
+      type: object
+      properties:
+        property_id:
+          type: integer
+        area_name:
+          type: string
+        property_address_flat_number:
+          type: string
+          description: Flat number of the property
+        property_address_building_number:
+          type: string
+          description: Building number of the property
+        property_address_building_name:
+          type: string
+          description: Building name of the property
+        property_address_sub_street_name:
+          type: string
+          description: Sub street name of the property
+        property_address_street_name:
+          type: string
+          description: Street name of the property
+        property_address_town:
+          type: string
+          description: Town
+        property_lat:
+          type: string
+          description: Latitude of the property
+        property_lng:
+          type: string
+          description: Longitude of the property
+        property_bng_x:
+          type: string
+          description: British National Grid X Coordinate of the property
+        property_bng_y:
+          type: string
+          description: British National Grid Y Coordinate of the property
+        property_number:
+          type: string
+        property_electoral_roll:
+          type: string
+        property_local_authority:
+          type: string
+        property_classification_code:
+          type: string
+        property_classi_code_description:
+          type: string
+        property_post_code:
+          type: string
+        property_flood_risk:
+          type: string
+        property_flood_risk_date:
+          type: string
+          description: Last update date of the area
+        property_conservation_area:
+          type: string
+        property_conservation_area_date:
+          type: string
+          description: Last update date of the area
+        property_sprift_value:
+          type: string
+        property_land_registry_value:
+          type: string
+        property_land_registry_last_update:
+          type: string
+        property_land_registry_rule_used:
+          type: string
+        property_type:
+          type: string
+        property_add_date:
+          type: string
+          description: Sprift Report created date
+        property_alias:
+          type: string
+        property_del_status:
+          type: string
+        property_street_view_pov:
+          type: string
+          description: Google street view camera positioning
+        property_archived:
+          type: string
+        property_user_total_floor_area:
+          type: string
+        property_user_type:
+          type: string
+        property_user_total_floor_area_last_modified:
+          type: string
+        property_user_year_built:
+          type: string
+        nearby_property_sold_updated_on:
+          type: boolean
+        is_dummy:
+          type: string
+        property_uprn:
+          type: string
+        user_property_classification_code_description:
+          type: string
+        property_ppsqft:
+          type: string
+          description: Property pound per square foot value
+        last_update:
+          type: number
+        share_count:
+          type: integer
+        view_count:
+          type: number
+        description_from_admin:
+          type: string
+        property_valuation:
+          type: number
+        report_progress:
+          type: integer
+        notifications:
+          type: integer
+        is_report_charged:
+          type: integer
+        address_str:
+          type: string
+        property_address:
+          type: integer
+        tag:
+          type: integer
+        propertyDefaultImage:
+          type: string
+    inline_response_200_4:
+      type: object
+      properties:
+        status:
+          type: boolean
+        results:
+          $ref: '#/components/schemas/inline_response_200_4_results'
+  securitySchemes:
+    auth:
+      type: http
+      scheme: basic

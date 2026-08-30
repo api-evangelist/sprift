@@ -1,0 +1,200 @@
+openapi: 3.2.0
+info:
+  description: ''
+  version: 1.3.9
+  title: Sprift Insider API
+  contact: {}
+servers:
+- url: https://sprift.com/dashboard/api/v1
+security:
+- auth: []
+tags:
+- name: Insider
+paths:
+  /insider/{outcode}:
+    get:
+      tags:
+      - Insider
+      summary: Search insider active properties by outcode.
+      operationId: InsiderActivePropertiesResult
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: Sprift API Key
+        required: true
+        schema:
+          type: string
+      - name: outcode
+        in: path
+        description: Outcode to search
+        required: true
+        schema:
+          type: string
+      - name: group
+        in: query
+        description: sale or rent
+        required: false
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: Insider Active Properties Results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_insider'
+  /insider/{outcode}/withdrawn:
+    get:
+      tags:
+      - Insider
+      summary: Search insider withdrawn properties by outcode.
+      operationId: InsiderWithdrawnPropertiesResult
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: Sprift API Key
+        required: true
+        schema:
+          type: string
+      - name: outcode
+        in: path
+        description: Outcode to search
+        required: true
+        schema:
+          type: string
+      - name: group
+        in: query
+        description: sale or rent
+        required: false
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: Insider Withdrawn Properties Results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_insider'
+components:
+  schemas:
+    inline_response_200_insider_item_portals:
+      type: object
+      properties:
+        rightmove:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+        zoopla:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+        boomin:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+    inline_response_200_insider_item_point:
+      type: object
+      properties:
+        latitude:
+          type: string
+        longitude:
+          type: string
+    inline_response_200_insider_item_images:
+      type: object
+      properties:
+        image_key:
+          type: string
+        image_url:
+          type: string
+        thumb_url:
+          type: string
+    inline_response_200_insider:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_insider_item'
+    inline_response_200_insider_item_portals_property_details:
+      type: object
+      properties:
+        id:
+          type: number
+        link:
+          type: string
+        header:
+          type: string
+        listed:
+          type: string
+    inline_response_200_insider_item:
+      type: object
+      properties:
+        id:
+          type: string
+        file:
+          type: string
+        checksum:
+          type: string
+        rmid:
+          type: string
+        uprn:
+          type: string
+        confidence:
+          type: number
+        postcode:
+          type: string
+        outcode:
+          type: string
+        scannedAt:
+          type: string
+        submittedAt:
+          type: string
+        details:
+          $ref: '#/components/schemas/inline_response_200_insider_item_details'
+        portals:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals'
+        point:
+          $ref: '#/components/schemas/inline_response_200_insider_item_point'
+        status:
+          type: string
+        withdrawn:
+          type: string
+        description:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_insider_item_images'
+    inline_response_200_insider_item_details:
+      type: object
+      properties:
+        address:
+          type: string
+        addressable:
+          type: string
+        price:
+          type: string
+        agent:
+          type: string
+        agent_id:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        beds:
+          type: number
+        isNew:
+          type: string
+        epc:
+          type: array
+          items:
+            type: string
+        stc:
+          type: string
+        tenure:
+          type: string
+        key_features:
+          type: string
+        description:
+          type: string
+  securitySchemes:
+    auth:
+      type: http
+      scheme: basic

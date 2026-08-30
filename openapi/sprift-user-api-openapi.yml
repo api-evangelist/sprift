@@ -1,0 +1,168 @@
+openapi: 3.2.0
+info:
+  description: ''
+  version: 1.3.9
+  title: Sprift User API
+  contact: {}
+servers:
+- url: https://sprift.com/dashboard/api/v1
+security:
+- auth: []
+tags:
+- name: User
+paths:
+  /user/login:
+    post:
+      tags:
+      - User
+      summary: Login
+      description: <p>This endpoint is to log in a different user. You do not need to call this Endpoint with your API username and password in order to use the API.</p><p>This Endpoint is intended to those who want to add Sprift platform into their platforms using an iFrame and let Sprift users to login to Sprift.</p>
+      operationId: Login
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: ''
+        required: true
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: Log user in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        '400':
+          description: Missing credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        '403':
+          description: Invalid API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Username of the User that you want to log in.
+                password:
+                  type: string
+                  description: Password of the User that you want to log in.
+              required:
+              - username
+              - password
+  /user/logout:
+    get:
+      tags:
+      - User
+      summary: Logout
+      operationId: Logout
+      parameters:
+      - name: SPRIFT-API-KEY
+        in: header
+        description: ''
+        required: true
+        schema:
+          type: string
+      deprecated: false
+      responses:
+        '200':
+          description: User Log out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        '403':
+          description: Invalid API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_403_1'
+components:
+  schemas:
+    inline_response_403_1:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: False if API key is invalid
+        error:
+          type: string
+          description: Error message
+    inline_response_200_1:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        token:
+          type: string
+          description: Token assigned to the user.
+        expires:
+          type: string
+          description: Token expiry date
+        url:
+          type: string
+          description: The URL that is generated for the logged in User to use Sprift platform without requiring login.
+        telephone:
+          type: number
+          description: User telephone
+        email:
+          type: string
+          description: User email address
+    inline_response_400:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: Missing Username or Password!
+    inline_response_200_2:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: True if successfull
+        message:
+          type: string
+          description: Notification message
+    inline_response_403:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+          description: False if API key is invalid
+        error:
+          type: string
+          description: Error message
+    inline_response_404:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: User not found
+  securitySchemes:
+    auth:
+      type: http
+      scheme: basic
