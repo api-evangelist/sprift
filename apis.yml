@@ -148,6 +148,8 @@ apis:
   humanURL: https://sprift.com/dashboard/api-doc/
   baseURL: https://sprift.com/dashboard/api/v1
   tags:
+  - Homes
+  tags_raw:
   - Home
   properties:
   - type: OpenAPI
