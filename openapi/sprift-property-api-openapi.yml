@@ -16,7 +16,114 @@ paths:
       tags:
       - Property
       summary: Sprift Property Report
-      description: 'Report types are: <p>1 = Market Appraisal Report / Desktop Research Report</p> <p>2 = Appointment Confirmation</p> <p>3 = Key Facts For Buyers / Key Property Facts </p><p>4 = Property Overview </p> <p>Pages to include are seperated by comma:</p> <p><b>agency</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>appraisal</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>helpful_info</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>toptips</b> : Only For Appointment Confirmation (Report Type 2)</p><p><b>photos</b> : (Report Type 1 and 3)</p><p><b>epc</b> : (Report Type 1 and 3)</p><p><b>titleplans</b> : (Report Type 1 and 3)</p><p><b>schools</b> : (Report Type 1 and 3)</p><p><b>transport</b> : (Report Type 1 and 3)</p><p><b>hpi</b></p><p><b>hpi_estimate</b></p><p><b>floorplans</b>  : (Report Type 1 and 3)</p><p><b>about</b></p><p><b>sis</b> : (Report Type 1 and 3)</p><p><b>disclaimer</b> : Only For Key Facts reports (Report Type 3)</p><p><b>testimonials</b></p><p><b>notes</b> : Only For Market Appraisal reports (Report Type 1)</p><p><b>radon</b> : (Report Type 1 and 3)</p><p><b>soils_clay</b> : (Report Type 1 and 3)</p><p><b>masts_and_pylons</b> : (Report Type 1 and 3)</p><p><b>surface_water</b> : (Report Type 1 and 3)</p><p><b>river_seas</b> : (Report Type 1 and 3)</p><p><b>road_noise </b> : (Report Type 1 and 3)</p><p><b>coal_mining</b> : (Report Type 1 and 3)</p><p><b>landfill_sites</b> : (Report Type 1 and 3)</p><p><b>conservation_area</b> : (Report Type 1 and 3)</p><p><b>council_wards</b> : (Report Type 1 and 3)</p><p><b>listed_buildings</b> : (Report Type 1 and 3)</p><p><b>green_belt</b> : (Report Type 1 and 3)</p><p><b>rail_noise</b> : (Report Type 1 and 3)</p><p><b>road_noise</b> : (Report Type 1 and 3)</p>'
+      description: 'Report types are:
+
+        1 = Market Appraisal Report / Desktop Research Report
+
+
+        2 = Appointment Confirmation
+
+
+        3 = Key Facts For Buyers / Key Property Facts
+
+
+        4 = Property Overview
+
+
+        Pages to include are seperated by comma:
+
+
+        agency : Only For Appointment Confirmation (Report Type 2)
+
+
+        appraisal : Only For Appointment Confirmation (Report Type 2)
+
+
+        helpful_info : Only For Appointment Confirmation (Report Type 2)
+
+
+        toptips : Only For Appointment Confirmation (Report Type 2)
+
+
+        photos : (Report Type 1 and 3)
+
+
+        epc : (Report Type 1 and 3)
+
+
+        titleplans : (Report Type 1 and 3)
+
+
+        schools : (Report Type 1 and 3)
+
+
+        transport : (Report Type 1 and 3)
+
+
+        hpi
+
+
+        hpi_estimate
+
+
+        floorplans : (Report Type 1 and 3)
+
+
+        about
+
+
+        sis : (Report Type 1 and 3)
+
+
+        disclaimer : Only For Key Facts reports (Report Type 3)
+
+
+        testimonials
+
+
+        notes : Only For Market Appraisal reports (Report Type 1)
+
+
+        radon : (Report Type 1 and 3)
+
+
+        soils_clay : (Report Type 1 and 3)
+
+
+        masts_and_pylons : (Report Type 1 and 3)
+
+
+        surface_water : (Report Type 1 and 3)
+
+
+        river_seas : (Report Type 1 and 3)
+
+
+        road_noise : (Report Type 1 and 3)
+
+
+        coal_mining : (Report Type 1 and 3)
+
+
+        landfill_sites : (Report Type 1 and 3)
+
+
+        conservation_area : (Report Type 1 and 3)
+
+
+        council_wards : (Report Type 1 and 3)
+
+
+        listed_buildings : (Report Type 1 and 3)
+
+
+        green_belt : (Report Type 1 and 3)
+
+
+        rail_noise : (Report Type 1 and 3)
+
+
+        road_noise : (Report Type 1 and 3)'
       operationId: SpriftPropertyReport
       parameters:
       - name: SPRIFT-API-KEY
@@ -97,7 +204,10 @@ paths:
       tags:
       - Property
       summary: Returns TV availability of the property
-      description: <p>TV availability of the property</p><p>BT, SKY and Virgin</p>
+      description: 'TV availability of the property
+
+
+        BT, SKY and Virgin'
       operationId: PropertyDetails-Tv
       parameters:
       - name: SPRIFT-API-KEY
@@ -125,8 +235,11 @@ paths:
     get:
       tags:
       - Property
-      summary: Returns property map image, satellite image and street view image.
-      description: <p>Get property map and satellite with title plan polygon and Google street view images as base64 encoded string.</p> <p>Images are Base64 encoded strings.</p>
+      summary: Returns property map image, satellite image and street view image
+      description: 'Get property map and satellite with title plan polygon and Google street view images as base64 encoded string.
+
+
+        Images are Base64 encoded strings.'
       operationId: PropertyDetails-Maps
       parameters:
       - name: SPRIFT-API-KEY
@@ -478,306 +591,6 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_13'
 components:
   schemas:
-    inline_response_200_1_materialinformation:
-      type: object
-      properties:
-        uprn:
-          type: integer
-          description: Unique Property Reference Number
-        A:
-          $ref: '#/components/schemas/inline_response_200_1_materialinformation_financialtenure'
-        B:
-          $ref: '#/components/schemas/inline_response_200_1_materialinformation_physicalcharacteristics'
-        C:
-          $ref: '#/components/schemas/inline_response_200_1_materialinformation_environmentalplanning'
-    inline_response_200_5_mobile_coverage_data:
-      type: object
-      properties:
-        EEIndoor:
-          type: number
-        3Indoor:
-          type: number
-        O2Indoor:
-          type: number
-        VOIndoor:
-          type: number
-    inline_response_200_5_nearby_schools:
-      type: object
-      properties:
-        name:
-          type: string
-        ofsted_rating:
-          type: string
-        pupils:
-          type: number
-        distance:
-          type: number
-        latitude:
-          type: number
-        longitude:
-          type: number
-        school_type:
-          $ref: '#/components/schemas/inline_response_200_5_school_type'
-    inline_response_200_9:
-      type: object
-      properties:
-        status:
-          type: boolean
-        listed_buildings:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_9_listed_buildings'
-    inline_response_200_5_street_view_pov:
-      type: object
-      properties:
-        lat:
-          type: string
-        lng:
-          type: string
-        heading:
-          type: number
-        pitch:
-          type: number
-        zoom:
-          type: number
-      description: Google Street View Correction
-    inline_response_200_8_tpo:
-      type: object
-      properties:
-        latitude:
-          type: number
-        longitude:
-          type: number
-        species:
-          type: string
-        order:
-          type: string
-        polygon:
-          type: array
-          items:
-            type: array
-            items:
-              type: array
-              items:
-                type: number
-      description: TPO Data
-    inline_response_200_7:
-      type: object
-      properties:
-        status:
-          type: boolean
-        propertyMapWithPolygon:
-          type: string
-        propertySatelliteImage:
-          type: string
-        propertyStreetViewImage:
-          type: string
-    inline_response_200_5_epc:
-      type: object
-      properties:
-        message:
-          type: string
-        epc_address:
-          type: string
-        property_id:
-          type: integer
-        epc_total_floor_area:
-          type: string
-        epc_current_energy_efficiency:
-          type: string
-        epc_potential_energy_efficiency:
-          type: string
-        epc_current_energy_rating:
-          type: string
-        epc_potential_energy_rating:
-          type: string
-        epc_certificate_number:
-          type: string
-        epc_update_date:
-          type: string
-        epc_current_energy_efficiency_category:
-          type: string
-        epc_potential_energy_efficiency_category:
-          type: string
-        epc_first_page_report_image:
-          type: string
-          description: EPC image url
-        epc_file_date:
-          type: string
-          description: EPC date of issue
-    inline_response_200_2_materialinformation_immediate_proximity:
-      type: object
-      properties:
-        date:
-          type: string
-          description: Application date in ISO 8601 format
-        area_name:
-          type: string
-          description: Local authority area name
-        proposal:
-          type: string
-          description: Planning proposal description
-        uprn:
-          type: string
-          description: UPRN of the application property
-        property_address:
-          type: string
-          description: Address of the application property
-        latitude:
-          type: number
-          description: Latitude coordinate
-        application_number:
-          type: string
-          description: Planning application reference number
-        longitude:
-          type: number
-          description: Longitude coordinate
-        status:
-          type: string
-          description: Application status
-    inline_response_200_11_comparables:
-      type: object
-      properties:
-        status:
-          type: integer
-        property_type_description:
-          type: string
-        classification_codes:
-          type: string
-        additional_params:
-          type: string
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_11_comparables_properties'
-    inline_response_200_6:
-      type: object
-      properties:
-        bt:
-          type: boolean
-        sky:
-          type: boolean
-        virgin:
-          type: string
-    inline_response_200_5_councilTax:
-      type: object
-      properties:
-        property_id:
-          type: string
-        council_tax_band:
-          type: string
-        council_tax_monthly_cost:
-          type: string
-        council_tax_annual_cost:
-          type: string
-        council_tax_update_date:
-          type: string
-    inline_response_200_9_listed_buildings:
-      type: object
-      properties:
-        latitude:
-          type: number
-        longitude:
-          type: number
-        name:
-          type: string
-        grade:
-          type: string
-        listed:
-          type: string
-      description: Listed Building Data
-    inline_response_200_5:
-      type: object
-      properties:
-        status:
-          type: boolean
-        propertyDetails:
-          $ref: '#/components/schemas/inline_response_200_5_propertyDetails'
-        floodRisk:
-          $ref: '#/components/schemas/inline_response_200_5_floodRisk'
-        coastal_erosion:
-          type: string
-        estimatedPrice:
-          type: string
-        rentalEstimate:
-          type: string
-        yield:
-          type: string
-        landRegistry:
-          $ref: '#/components/schemas/inline_response_200_5_landRegistry'
-        propertyValue:
-          type: string
-        poundPerSquareFoot:
-          type: string
-        poundPerSquareFootCurrent:
-          type: string
-        isInteriorUpdated:
-          type: boolean
-        interior:
-          $ref: '#/components/schemas/inline_response_200_5_interior'
-        councilTax:
-          $ref: '#/components/schemas/inline_response_200_5_councilTax'
-        epc:
-          $ref: '#/components/schemas/inline_response_200_5_epc'
-        propertyDefaultImage:
-          type: string
-          description: 'Return default image url. If there is no image, return street view url. '
-        propertyImages:
-          type: array
-          description: Property images
-          items:
-            $ref: '#/components/schemas/inline_response_200_5_propertyImages'
-        street_view_pov:
-          $ref: '#/components/schemas/inline_response_200_5_street_view_pov'
-        propertyPolygon:
-          $ref: '#/components/schemas/inline_response_200_5_propertyPolygon'
-        nearby_schools:
-          type: array
-          description: Nearby Schools
-          items:
-            $ref: '#/components/schemas/inline_response_200_5_nearby_schools'
-        nearby_transport:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport'
-        broadband_speeds:
-          $ref: '#/components/schemas/inline_response_200_5_broadband_speeds'
-        mobile_coverage:
-          $ref: '#/components/schemas/inline_response_200_5_mobile_coverage'
-    inline_response_200_11_comparables_propertyImages_images:
-      type: object
-      properties:
-        srcUrl:
-          type: string
-        srcsetUrl:
-          type: string
-        url:
-          type: string
-    inline_response_200_13:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: true
-          description: Status of the API request
-        data:
-          $ref: '#/components/schemas/inline_response_200_1_materialinformation'
-    inline_response_200_11_comparables_location:
-      type: object
-      properties:
-        latitude:
-          type: number
-        longitude:
-          type: number
-    inline_response_200_5_propertyPolygon:
-      type: object
-      properties:
-        nearby:
-          type: object
-          example: []
-          description: Nearby property polygon data. Not in use.
-          properties: {}
-        property:
-          $ref: '#/components/schemas/inline_response_200_5_propertyPolygon_property'
-      description: Property land registry area polygon data.
     inline_response_200_5_floodRisk:
       type: object
       properties:
@@ -811,65 +624,73 @@ components:
         selected:
           type: boolean
       description: Property polygon data
-    inline_response_200_1_materialinformation_financialtenure:
+    inline_response_200_9_listed_buildings:
       type: object
-      description: Financial and Tenure Information
       properties:
-        rent_frequency:
-          type:
-          - string
-          - 'null'
-          description: Frequency of rent payment
-        price_qualifier:
-          type:
-          - string
-          - 'null'
-          description: Price qualifier abbreviation
-        tenure_l_f:
-          type:
-          - string
-          - 'null'
-          description: Tenure type (Leasehold/Freehold)
-        lease_term_remaining:
-          type:
-          - integer
-          - 'null'
-          description: Remaining lease term in years
-        counciltax:
-          type:
-          - string
-          - 'null'
-          description: Council tax band
-        valuation_filter:
-          type:
-          - integer
-          - 'null'
-          description: Property valuation amount
-        price_per_sqft:
-          type:
-          - number
-          - 'null'
-          description: Price per square foot
-        ground_rent:
-          type:
-          - number
-          - 'null'
-          description: Annual ground rent amount
-        ground_rent_review_period:
-          type:
-          - string
-          - 'null'
-          description: Ground rent review period
-        service_charge:
-          type:
-          - number
-          - 'null'
-          description: Annual service charge amount
-        security_deposit:
-          type:
-          - number
-          - 'null'
-          description: Security deposit amount
+        latitude:
+          type: number
+        longitude:
+          type: number
+        name:
+          type: string
+        grade:
+          type: string
+        listed:
+          type: string
+      description: Listed Building Data
+    inline_response_200_11_comparables_properties:
+      type: object
+      properties:
+        propID:
+          type: integer
+        propertyTypeFullDescription:
+          type: string
+        propertyImages:
+          $ref: '#/components/schemas/inline_response_200_11_comparables_propertyImages'
+        price:
+          $ref: '#/components/schemas/inline_response_200_11_comparables_price'
+        displayAddress:
+          type: string
+        firstVisibleDate:
+          type: string
+        propertySubType:
+          type: string
+        distance:
+          type: number
+        bedrooms:
+          type: integer
+        propertyUrl:
+          type: string
+        displayStatus:
+          type: string
+          description: Property current status. Sold STC, Under Offer etc.
+        location:
+          $ref: '#/components/schemas/inline_response_200_11_comparables_location'
+        transactionType:
+          type: string
+          description: Property is for sale or rent.
+    inline_response_200_10:
+      type: object
+      properties:
+        status:
+          type: boolean
+        sold_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_10_sold_properties'
+    inline_response_200_5_councilTax:
+      type: object
+      properties:
+        property_id:
+          type: string
+        council_tax_band:
+          type: string
+        council_tax_monthly_cost:
+          type: string
+        council_tax_annual_cost:
+          type: string
+        council_tax_update_date:
+          type: string
     inline_response_200_1_materialinformation_physicalcharacteristics:
       type: object
       description: Physical Property Characteristics
@@ -961,49 +782,6 @@ components:
           - integer
           - 'null'
           description: Number of bathrooms
-    inline_response_200_comparables:
-      type: object
-      properties:
-        status:
-          type: boolean
-        category:
-          type: string
-          enum:
-          - SALE
-          - LETTINGS
-        type:
-          type: array
-          description: The listing-status values that were queried against OpenSearch for the requested type.
-          items:
-            type: string
-        properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_comparables_item'
-    inline_response_200_10:
-      type: object
-      properties:
-        status:
-          type: boolean
-        sold_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_10_sold_properties'
-    inline_response_200_2_materialinformation_planningapplication:
-      type: object
-      properties:
-        application_number:
-          type: string
-          description: Planning application reference number
-        proposal:
-          type: string
-          description: Planning proposal description
-        status:
-          type: string
-          description: Application status
-        date:
-          type: string
-          description: Application date in ISO 8601 format
     inline_response_200_5_broadband_speeds:
       type: object
       properties:
@@ -1011,36 +789,37 @@ components:
           type: string
         data:
           $ref: '#/components/schemas/inline_response_200_5_broadband_speeds_data'
-    inline_response_200_5_broadband_speeds_data:
+    inline_response_200_5_mobile_coverage_data:
       type: object
       properties:
-        basicDown:
+        EEIndoor:
           type: number
-        basicUp:
+        3Indoor:
           type: number
-        superDown:
+        O2Indoor:
           type: number
-        superUp:
+        VOIndoor:
           type: number
-        ultraDown:
-          type: number
-        ultraUp:
-          type: number
-    inline_response_200_5_nearby_transport_Local_Connections_elements:
+    inline_response_200_8_tpo:
       type: object
       properties:
-        name:
-          type: string
         latitude:
           type: number
         longitude:
           type: number
-        distance:
-          type: number
-        metres:
-          type: number
-        distanceInMiles:
-          type: number
+        species:
+          type: string
+        order:
+          type: string
+        polygon:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              items:
+                type: number
+      description: TPO Data
     inline_response_200_5_interior:
       type: object
       properties:
@@ -1060,6 +839,140 @@ components:
           type: string
         kitchenUtility:
           type: string
+    inline_response_200_11_comparables_propertyImages:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_11_comparables_propertyImages_images'
+        mainImageSrc:
+          type: string
+        mainImageSrcset:
+          type: string
+        mainMapImageSrc:
+          type: string
+        mainMapImageSrcset:
+          type: string
+    inline_response_200_8:
+      type: object
+      properties:
+        status:
+          type: boolean
+        tpo:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_8_tpo'
+    inline_response_200_comparables_item:
+      type: object
+      properties:
+        uprn:
+          type: integer
+        full_address:
+          type: string
+        postcode:
+          type: string
+        price:
+          type: integer
+          description: Raw price in GBP. Sale price for sales types, or monthly rent (PCM) for lettings.
+        price_formatted:
+          type: string
+          description: Price with thousands separators (e.g. '1,250,000').
+        type:
+          type: string
+          description: 'Property type: Flat, Detached, Semi-Detached, Terrace.'
+        beds:
+          type: integer
+        tenure:
+          type: string
+          description: Freehold, Leasehold, etc.
+        listing_status:
+          type: string
+        listing_date:
+          type: string
+          description: Date the property was listed (dd/mm/YYYY).
+        withdrawn_date:
+          type: string
+          description: Date the listing was withdrawn, if applicable.
+        sstc_date:
+          type: string
+          description: Date the property went SSTC, if applicable.
+        let_agreed_date:
+          type: string
+          description: Date the property went let agreed, if applicable.
+        time_on_market:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number
+        distanceTo:
+          type: number
+          description: Distance from target property in miles.
+        sqf:
+          type: number
+          description: Floor area in square feet.
+        sqm:
+          type: number
+          description: Floor area in square metres.
+        ppsf:
+          type: number
+          description: Price per square foot.
+        agent:
+          type: string
+          description: Listing agent name.
+        images:
+          type: array
+          items:
+            type: string
+          description: Property image URLs.
+        floorplans:
+          type: array
+          items:
+            type: string
+          description: Floorplan image URLs.
+        portal_links:
+          type: object
+          description: 'Links to the listing on each portal (keys: zoopla, rightmove, onthemarket).'
+        street_view_url:
+          type: string
+    inline_response_200_5_broadband_speeds_data:
+      type: object
+      properties:
+        basicDown:
+          type: number
+        basicUp:
+          type: number
+        superDown:
+          type: number
+        superUp:
+          type: number
+        ultraDown:
+          type: number
+        ultraUp:
+          type: number
+    inline_response_200_11:
+      type: object
+      properties:
+        status:
+          type: boolean
+        comparables:
+          $ref: '#/components/schemas/inline_response_200_11_comparables'
+    inline_response_200_11_comparables:
+      type: object
+      properties:
+        status:
+          type: integer
+        property_type_description:
+          type: string
+        classification_codes:
+          type: string
+        additional_params:
+          type: string
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_11_comparables_properties'
     inline_response_200_10_sold_properties:
       type: object
       properties:
@@ -1094,84 +1007,25 @@ components:
         street_view_url:
           type: string
       description: Sold Property Data
-    inline_response_200_5_landRegistry:
+    inline_response_200_comparables:
       type: object
       properties:
-        last_sold_price:
-          type: string
-        last_sold_price_display:
-          type: string
-        currency:
-          type: string
-          description: Currency Logo
-        transfer_date:
-          type: string
-          description: Property transfer date
-        property_type:
-          type: string
-          description: Property type
-        land_registry_value:
-          type: string
-        duration_full:
-          type: string
-          description: Freehold or Leasehold
-        needs_loading:
+        status:
           type: boolean
-        rule_used:
+        category:
           type: string
-    inline_response_200_11_comparables_price:
-      type: object
-      properties:
-        amount:
-          type: integer
-        frequency:
-          type: string
-        currencyCode:
-          type: string
-        displayPrices:
+          enum:
+          - SALE
+          - LETTINGS
+        type:
+          type: array
+          description: The listing-status values that were queried against OpenSearch for the requested type.
+          items:
+            type: string
+        properties:
           type: array
           items:
-            $ref: '#/components/schemas/inline_response_200_11_comparables_price_displayPrices'
-    inline_response_200_11_comparables_propertyImages:
-      type: object
-      properties:
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_11_comparables_propertyImages_images'
-        mainImageSrc:
-          type: string
-        mainImageSrcset:
-          type: string
-        mainMapImageSrc:
-          type: string
-        mainMapImageSrcset:
-          type: string
-    inline_response_200_5_nearby_transport:
-      type: object
-      properties:
-        Local_Connections:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        National_Rail_Stations:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Ferry_Terminals:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Bus_Stops_Stations:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Trunk_Roads_Motorways:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Airports_Helipads:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-      description: Nearby Transport Links
-    inline_response_200_5_nearby_transport_Local_Connections:
-      type: object
-      properties:
-        displayName:
-          type: string
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections_elements'
+            $ref: '#/components/schemas/inline_response_200_comparables_item'
     inline_response_200_5_propertyDetails:
       type: object
       properties:
@@ -1299,6 +1153,406 @@ components:
           type: string
         property_address:
           type: string
+    inline_response_200_5_mobile_coverage:
+      type: object
+      properties:
+        result:
+          type: string
+        data:
+          $ref: '#/components/schemas/inline_response_200_5_mobile_coverage_data'
+      description: Broadband Speed
+    inline_response_200_5_propertyPolygon:
+      type: object
+      properties:
+        nearby:
+          type: object
+          example: []
+          description: Nearby property polygon data. Not in use.
+          properties: {}
+        property:
+          $ref: '#/components/schemas/inline_response_200_5_propertyPolygon_property'
+      description: Property land registry area polygon data.
+    inline_response_200_11_comparables_location:
+      type: object
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+    inline_response_200_11_comparables_propertyImages_images:
+      type: object
+      properties:
+        srcUrl:
+          type: string
+        srcsetUrl:
+          type: string
+        url:
+          type: string
+    inline_response_200_5_nearby_transport:
+      type: object
+      properties:
+        Local_Connections:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        National_Rail_Stations:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Ferry_Terminals:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Bus_Stops_Stations:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Trunk_Roads_Motorways:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Airports_Helipads:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+      description: Nearby Transport Links
+    inline_response_200_7:
+      type: object
+      properties:
+        status:
+          type: boolean
+        propertyMapWithPolygon:
+          type: string
+        propertySatelliteImage:
+          type: string
+        propertyStreetViewImage:
+          type: string
+    inline_response_200_11_comparables_price_displayPrices:
+      type: object
+      properties:
+        displayPrice:
+          type: string
+        displayPriceQualifier:
+          type: string
+    inline_response_200_5_epc:
+      type: object
+      properties:
+        message:
+          type: string
+        epc_address:
+          type: string
+        property_id:
+          type: integer
+        epc_total_floor_area:
+          type: string
+        epc_current_energy_efficiency:
+          type: string
+        epc_potential_energy_efficiency:
+          type: string
+        epc_current_energy_rating:
+          type: string
+        epc_potential_energy_rating:
+          type: string
+        epc_certificate_number:
+          type: string
+        epc_update_date:
+          type: string
+        epc_current_energy_efficiency_category:
+          type: string
+        epc_potential_energy_efficiency_category:
+          type: string
+        epc_first_page_report_image:
+          type: string
+          description: EPC image url
+        epc_file_date:
+          type: string
+          description: EPC date of issue
+    inline_response_200_5_propertyImages:
+      type: object
+      properties:
+        propertyImage:
+          type: string
+          description: Property Image URL
+        propetyImageId:
+          type: string
+        propertyImageType:
+          type: string
+    inline_response_200_5_nearby_schools:
+      type: object
+      properties:
+        name:
+          type: string
+        ofsted_rating:
+          type: string
+        pupils:
+          type: number
+        distance:
+          type: number
+        latitude:
+          type: number
+        longitude:
+          type: number
+        school_type:
+          $ref: '#/components/schemas/inline_response_200_5_school_type'
+    inline_response_200_11_comparables_price:
+      type: object
+      properties:
+        amount:
+          type: integer
+        frequency:
+          type: string
+        currencyCode:
+          type: string
+        displayPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_11_comparables_price_displayPrices'
+    inline_response_200_9:
+      type: object
+      properties:
+        status:
+          type: boolean
+        listed_buildings:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_9_listed_buildings'
+    inline_response_200_1_materialinformation_financialtenure:
+      type: object
+      description: Financial and Tenure Information
+      properties:
+        rent_frequency:
+          type:
+          - string
+          - 'null'
+          description: Frequency of rent payment
+        price_qualifier:
+          type:
+          - string
+          - 'null'
+          description: Price qualifier abbreviation
+        tenure_l_f:
+          type:
+          - string
+          - 'null'
+          description: Tenure type (Leasehold/Freehold)
+        lease_term_remaining:
+          type:
+          - integer
+          - 'null'
+          description: Remaining lease term in years
+        counciltax:
+          type:
+          - string
+          - 'null'
+          description: Council tax band
+        valuation_filter:
+          type:
+          - integer
+          - 'null'
+          description: Property valuation amount
+        price_per_sqft:
+          type:
+          - number
+          - 'null'
+          description: Price per square foot
+        ground_rent:
+          type:
+          - number
+          - 'null'
+          description: Annual ground rent amount
+        ground_rent_review_period:
+          type:
+          - string
+          - 'null'
+          description: Ground rent review period
+        service_charge:
+          type:
+          - number
+          - 'null'
+          description: Annual service charge amount
+        security_deposit:
+          type:
+          - number
+          - 'null'
+          description: Security deposit amount
+    inline_response_200_5_school_type:
+      type: object
+      properties:
+        nursery:
+          type: number
+        primary:
+          type: number
+        secondary:
+          type: number
+        college:
+          type: number
+        private:
+          type: number
+      description: Type of school, 1 is true, 0 is false
+    inline_response_200_5_landRegistry:
+      type: object
+      properties:
+        last_sold_price:
+          type: string
+        last_sold_price_display:
+          type: string
+        currency:
+          type: string
+          description: Currency Logo
+        transfer_date:
+          type: string
+          description: Property transfer date
+        property_type:
+          type: string
+          description: Property type
+        land_registry_value:
+          type: string
+        duration_full:
+          type: string
+          description: Freehold or Leasehold
+        needs_loading:
+          type: boolean
+        rule_used:
+          type: string
+    inline_response_200_5_nearby_transport_Local_Connections_elements:
+      type: object
+      properties:
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        distance:
+          type: number
+        metres:
+          type: number
+        distanceInMiles:
+          type: number
+    inline_response_200_5:
+      type: object
+      properties:
+        status:
+          type: boolean
+        propertyDetails:
+          $ref: '#/components/schemas/inline_response_200_5_propertyDetails'
+        floodRisk:
+          $ref: '#/components/schemas/inline_response_200_5_floodRisk'
+        coastal_erosion:
+          type: string
+        estimatedPrice:
+          type: string
+        rentalEstimate:
+          type: string
+        yield:
+          type: string
+        landRegistry:
+          $ref: '#/components/schemas/inline_response_200_5_landRegistry'
+        propertyValue:
+          type: string
+        poundPerSquareFoot:
+          type: string
+        poundPerSquareFootCurrent:
+          type: string
+        isInteriorUpdated:
+          type: boolean
+        interior:
+          $ref: '#/components/schemas/inline_response_200_5_interior'
+        councilTax:
+          $ref: '#/components/schemas/inline_response_200_5_councilTax'
+        epc:
+          $ref: '#/components/schemas/inline_response_200_5_epc'
+        propertyDefaultImage:
+          type: string
+          description: 'Return default image url. If there is no image, return street view url. '
+        propertyImages:
+          type: array
+          description: Property images
+          items:
+            $ref: '#/components/schemas/inline_response_200_5_propertyImages'
+        street_view_pov:
+          $ref: '#/components/schemas/inline_response_200_5_street_view_pov'
+        propertyPolygon:
+          $ref: '#/components/schemas/inline_response_200_5_propertyPolygon'
+        nearby_schools:
+          type: array
+          description: Nearby Schools
+          items:
+            $ref: '#/components/schemas/inline_response_200_5_nearby_schools'
+        nearby_transport:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport'
+        broadband_speeds:
+          $ref: '#/components/schemas/inline_response_200_5_broadband_speeds'
+        mobile_coverage:
+          $ref: '#/components/schemas/inline_response_200_5_mobile_coverage'
+    inline_response_200_5_street_view_pov:
+      type: object
+      properties:
+        lat:
+          type: string
+        lng:
+          type: string
+        heading:
+          type: number
+        pitch:
+          type: number
+        zoom:
+          type: number
+      description: Google Street View Correction
+    inline_response_200_2_materialinformation_planningapplication:
+      type: object
+      properties:
+        application_number:
+          type: string
+          description: Planning application reference number
+        proposal:
+          type: string
+          description: Planning proposal description
+        status:
+          type: string
+          description: Application status
+        date:
+          type: string
+          description: Application date in ISO 8601 format
+    inline_response_200_13:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+          description: Status of the API request
+        data:
+          $ref: '#/components/schemas/inline_response_200_1_materialinformation'
+    inline_response_200_1_materialinformation:
+      type: object
+      properties:
+        uprn:
+          type: integer
+          description: Unique Property Reference Number
+        A:
+          $ref: '#/components/schemas/inline_response_200_1_materialinformation_financialtenure'
+        B:
+          $ref: '#/components/schemas/inline_response_200_1_materialinformation_physicalcharacteristics'
+        C:
+          $ref: '#/components/schemas/inline_response_200_1_materialinformation_environmentalplanning'
+    inline_response_200_2_materialinformation_immediate_proximity:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Application date in ISO 8601 format
+        area_name:
+          type: string
+          description: Local authority area name
+        proposal:
+          type: string
+          description: Planning proposal description
+        uprn:
+          type: string
+          description: UPRN of the application property
+        property_address:
+          type: string
+          description: Address of the application property
+        latitude:
+          type: number
+          description: Latitude coordinate
+        application_number:
+          type: string
+          description: Planning application reference number
+        longitude:
+          type: number
+          description: Longitude coordinate
+        status:
+          type: string
+          description: Application status
     inline_response_200_1_materialinformation_environmentalplanning:
       type: object
       description: Environmental and Planning Information
@@ -1545,62 +1799,24 @@ components:
           - string
           - 'null'
           description: Indicates if property is on coalfield
-    inline_response_200_11_comparables_price_displayPrices:
+    inline_response_200_6:
       type: object
       properties:
-        displayPrice:
+        bt:
+          type: boolean
+        sky:
+          type: boolean
+        virgin:
           type: string
-        displayPriceQualifier:
-          type: string
-    inline_response_200_5_mobile_coverage:
+    inline_response_200_5_nearby_transport_Local_Connections:
       type: object
       properties:
-        result:
+        displayName:
           type: string
-        data:
-          $ref: '#/components/schemas/inline_response_200_5_mobile_coverage_data'
-      description: Broadband Speed
-    inline_response_200_11_comparables_properties:
-      type: object
-      properties:
-        propID:
-          type: integer
-        propertyTypeFullDescription:
-          type: string
-        propertyImages:
-          $ref: '#/components/schemas/inline_response_200_11_comparables_propertyImages'
-        price:
-          $ref: '#/components/schemas/inline_response_200_11_comparables_price'
-        displayAddress:
-          type: string
-        firstVisibleDate:
-          type: string
-        propertySubType:
-          type: string
-        distance:
-          type: number
-        bedrooms:
-          type: integer
-        propertyUrl:
-          type: string
-        displayStatus:
-          type: string
-          description: Property current status. Sold STC, Under Offer etc.
-        location:
-          $ref: '#/components/schemas/inline_response_200_11_comparables_location'
-        transactionType:
-          type: string
-          description: Property is for sale or rent.
-    inline_response_200_5_propertyImages:
-      type: object
-      properties:
-        propertyImage:
-          type: string
-          description: Property Image URL
-        propetyImageId:
-          type: string
-        propertyImageType:
-          type: string
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections_elements'
     inline_response_200_2_materialinformation_planninginfo:
       type: object
       description: Planning application information
@@ -1617,109 +1833,6 @@ components:
           description: Planning applications in immediate proximity
           items:
             $ref: '#/components/schemas/inline_response_200_2_materialinformation_immediate_proximity'
-    inline_response_200_5_school_type:
-      type: object
-      properties:
-        nursery:
-          type: number
-        primary:
-          type: number
-        secondary:
-          type: number
-        college:
-          type: number
-        private:
-          type: number
-      description: Type of school, 1 is true, 0 is false
-    inline_response_200_8:
-      type: object
-      properties:
-        status:
-          type: boolean
-        tpo:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_8_tpo'
-    inline_response_200_comparables_item:
-      type: object
-      properties:
-        uprn:
-          type: integer
-        full_address:
-          type: string
-        postcode:
-          type: string
-        price:
-          type: integer
-          description: Raw price in GBP. Sale price for sales types, or monthly rent (PCM) for lettings.
-        price_formatted:
-          type: string
-          description: Price with thousands separators (e.g. '1,250,000').
-        type:
-          type: string
-          description: 'Property type: Flat, Detached, Semi-Detached, Terrace.'
-        beds:
-          type: integer
-        tenure:
-          type: string
-          description: Freehold, Leasehold, etc.
-        listing_status:
-          type: string
-        listing_date:
-          type: string
-          description: Date the property was listed (dd/mm/YYYY).
-        withdrawn_date:
-          type: string
-          description: Date the listing was withdrawn, if applicable.
-        sstc_date:
-          type: string
-          description: Date the property went SSTC, if applicable.
-        let_agreed_date:
-          type: string
-          description: Date the property went let agreed, if applicable.
-        time_on_market:
-          type: string
-        lat:
-          type: number
-        lng:
-          type: number
-        distanceTo:
-          type: number
-          description: Distance from target property in miles.
-        sqf:
-          type: number
-          description: Floor area in square feet.
-        sqm:
-          type: number
-          description: Floor area in square metres.
-        ppsf:
-          type: number
-          description: Price per square foot.
-        agent:
-          type: string
-          description: Listing agent name.
-        images:
-          type: array
-          items:
-            type: string
-          description: Property image URLs.
-        floorplans:
-          type: array
-          items:
-            type: string
-          description: Floorplan image URLs.
-        portal_links:
-          type: object
-          description: 'Links to the listing on each portal (keys: zoopla, rightmove, onthemarket).'
-        street_view_url:
-          type: string
-    inline_response_200_11:
-      type: object
-      properties:
-        status:
-          type: boolean
-        comparables:
-          $ref: '#/components/schemas/inline_response_200_11_comparables'
   securitySchemes:
     auth:
       type: http

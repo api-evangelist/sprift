@@ -15,7 +15,7 @@ paths:
     get:
       tags:
       - Insider
-      summary: Search insider active properties by outcode.
+      summary: Search insider active properties by outcode
       operationId: InsiderActivePropertiesResult
       parameters:
       - name: SPRIFT-API-KEY
@@ -48,7 +48,7 @@ paths:
     get:
       tags:
       - Insider
-      summary: Search insider withdrawn properties by outcode.
+      summary: Search insider withdrawn properties by outcode
       operationId: InsiderWithdrawnPropertiesResult
       parameters:
       - name: SPRIFT-API-KEY
@@ -79,22 +79,6 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_insider'
 components:
   schemas:
-    inline_response_200_insider_item_portals:
-      type: object
-      properties:
-        rightmove:
-          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
-        zoopla:
-          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
-        boomin:
-          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
-    inline_response_200_insider_item_point:
-      type: object
-      properties:
-        latitude:
-          type: string
-        longitude:
-          type: string
     inline_response_200_insider_item_images:
       type: object
       properties:
@@ -104,23 +88,12 @@ components:
           type: string
         thumb_url:
           type: string
-    inline_response_200_insider:
+    inline_response_200_insider_item_point:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_insider_item'
-    inline_response_200_insider_item_portals_property_details:
-      type: object
-      properties:
-        id:
-          type: number
-        link:
+        latitude:
           type: string
-        header:
-          type: string
-        listed:
+        longitude:
           type: string
     inline_response_200_insider_item:
       type: object
@@ -161,6 +134,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/inline_response_200_insider_item_images'
+    inline_response_200_insider_item_portals_property_details:
+      type: object
+      properties:
+        id:
+          type: number
+        link:
+          type: string
+        header:
+          type: string
+        listed:
+          type: string
     inline_response_200_insider_item_details:
       type: object
       properties:
@@ -194,6 +178,22 @@ components:
           type: string
         description:
           type: string
+    inline_response_200_insider:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_insider_item'
+    inline_response_200_insider_item_portals:
+      type: object
+      properties:
+        rightmove:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+        zoopla:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+        boomin:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
   securitySchemes:
     auth:
       type: http

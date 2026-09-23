@@ -211,8 +211,8 @@ paths:
     get:
       tags:
       - Property V2
-      summary: Returns Google Street View Image of the Property.
-      description: <p>Get property Google street view image as base64 encoded string.</p>
+      summary: Returns Google Street View Image of the Property
+      description: Get property Google street view image as base64 encoded string.
       operationId: PropertyDetails-StreetViewMap
       parameters:
       - name: SPRIFT-API-KEY
@@ -238,88 +238,13 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_7_1'
 components:
   schemas:
-    inline_response_200_5_nearby_schools:
+    inline_response_200_5_floodRisk:
       type: object
       properties:
-        name:
+        rivers_seas:
           type: string
-        ofsted_rating:
+        surface_water:
           type: string
-        pupils:
-          type: number
-        distance:
-          type: number
-        latitude:
-          type: number
-        longitude:
-          type: number
-        school_type:
-          $ref: '#/components/schemas/inline_response_200_5_school_type'
-    inline_response_200_5_mobile_coverage_data:
-      type: object
-      properties:
-        EEIndoor:
-          type: number
-        3Indoor:
-          type: number
-        O2Indoor:
-          type: number
-        VOIndoor:
-          type: number
-    inline_response_200_5_street_view_pov:
-      type: object
-      properties:
-        lat:
-          type: string
-        lng:
-          type: string
-        heading:
-          type: number
-        pitch:
-          type: number
-        zoom:
-          type: number
-      description: Google Street View Correction
-    inline_response_200_7_1:
-      type: object
-      properties:
-        status:
-          type: boolean
-        propertyStreetViewImage:
-          type: string
-    inline_response_200_5_epc:
-      type: object
-      properties:
-        message:
-          type: string
-        epc_address:
-          type: string
-        property_id:
-          type: integer
-        epc_total_floor_area:
-          type: string
-        epc_current_energy_efficiency:
-          type: string
-        epc_potential_energy_efficiency:
-          type: string
-        epc_current_energy_rating:
-          type: string
-        epc_potential_energy_rating:
-          type: string
-        epc_certificate_number:
-          type: string
-        epc_update_date:
-          type: string
-        epc_current_energy_efficiency_category:
-          type: string
-        epc_potential_energy_efficiency_category:
-          type: string
-        epc_first_page_report_image:
-          type: string
-          description: EPC image url
-        epc_file_date:
-          type: string
-          description: EPC date of issue
     inline_response_200_v2_search:
       type: object
       properties:
@@ -365,44 +290,6 @@ components:
           $ref: '#/components/schemas/inline_response_200_5_broadband_speeds_data'
         mobile_coverage:
           $ref: '#/components/schemas/inline_response_200_5_mobile_coverage_data'
-    inline_response_200_v2_epc:
-      type: object
-      properties:
-        status:
-          type: boolean
-        epc:
-          $ref: '#/components/schemas/inline_response_200_5_epc'
-    inline_response_200_5_councilTax:
-      type: object
-      properties:
-        property_id:
-          type: string
-        council_tax_band:
-          type: string
-        council_tax_monthly_cost:
-          type: string
-        council_tax_annual_cost:
-          type: string
-        council_tax_update_date:
-          type: string
-    inline_response_200_5_propertyPolygon:
-      type: object
-      properties:
-        nearby:
-          type: object
-          example: []
-          description: Nearby property polygon data. Not in use.
-          properties: {}
-        property:
-          $ref: '#/components/schemas/inline_response_200_5_propertyPolygon_property'
-      description: Property land registry area polygon data.
-    inline_response_200_5_floodRisk:
-      type: object
-      properties:
-        rivers_seas:
-          type: string
-        surface_water:
-          type: string
     inline_response_200_5_propertyPolygon_property:
       type: object
       properties:
@@ -429,42 +316,36 @@ components:
         selected:
           type: boolean
       description: Property polygon data
-    inline_response_200_v2_nearby_transport:
+    inline_response_200_v2_propertyid:
       type: object
       properties:
         status:
           type: boolean
-        nearby_transport:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport'
-    inline_response_200_5_broadband_speeds_data:
+        property_id:
+          type: integer
+    inline_response_200_5_councilTax:
       type: object
       properties:
-        basicDown:
-          type: number
-        basicUp:
-          type: number
-        superDown:
-          type: number
-        superUp:
-          type: number
-        ultraDown:
-          type: number
-        ultraUp:
-          type: number
-    inline_response_200_5_nearby_transport_Local_Connections_elements:
-      type: object
-      properties:
-        name:
+        property_id:
           type: string
-        latitude:
+        council_tax_band:
+          type: string
+        council_tax_monthly_cost:
+          type: string
+        council_tax_annual_cost:
+          type: string
+        council_tax_update_date:
+          type: string
+    inline_response_200_5_mobile_coverage_data:
+      type: object
+      properties:
+        EEIndoor:
           type: number
-        longitude:
+        3Indoor:
           type: number
-        distance:
+        O2Indoor:
           type: number
-        metres:
-          type: number
-        distanceInMiles:
+        VOIndoor:
           type: number
     inline_response_200_5_interior:
       type: object
@@ -485,47 +366,32 @@ components:
           type: string
         kitchenUtility:
           type: string
-    inline_response_200_5_landRegistry:
+    inline_response_200_v2_priceestimate:
       type: object
       properties:
-        last_sold_price:
-          type: string
-        last_sold_price_display:
-          type: string
-        currency:
-          type: string
-          description: Currency Logo
-        transfer_date:
-          type: string
-          description: Property transfer date
-        property_type:
-          type: string
-          description: Property type
-        land_registry_value:
-          type: string
-        duration_full:
-          type: string
-          description: Freehold or Leasehold
-        needs_loading:
+        status:
           type: boolean
-        rule_used:
+        estimatedPrice:
           type: string
-    inline_response_200_5_nearby_transport:
+        rentalEstimate:
+          type: string
+        yield:
+          type: string
+    inline_response_200_5_broadband_speeds_data:
       type: object
       properties:
-        Local_Connections:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        National_Rail_Stations:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Ferry_Terminals:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Bus_Stops_Stations:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Trunk_Roads_Motorways:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-        Airports_Helipads:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
-      description: Nearby Transport Links
+        basicDown:
+          type: number
+        basicUp:
+          type: number
+        superDown:
+          type: number
+        superUp:
+          type: number
+        ultraDown:
+          type: number
+        ultraUp:
+          type: number
     inline_response_200_5_propertyDetails:
       type: object
       properties:
@@ -653,47 +519,73 @@ components:
           type: string
         property_address:
           type: string
-    inline_response_200_5_nearby_transport_Local_Connections:
+    inline_response_200_5_propertyPolygon:
       type: object
       properties:
-        displayName:
-          type: string
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections_elements'
-    inline_response_200_v2_propertyid:
+        nearby:
+          type: object
+          example: []
+          description: Nearby property polygon data. Not in use.
+          properties: {}
+        property:
+          $ref: '#/components/schemas/inline_response_200_5_propertyPolygon_property'
+      description: Property land registry area polygon data.
+    inline_response_200_5_nearby_transport:
+      type: object
+      properties:
+        Local_Connections:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        National_Rail_Stations:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Ferry_Terminals:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Bus_Stops_Stations:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Trunk_Roads_Motorways:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+        Airports_Helipads:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections'
+      description: Nearby Transport Links
+    inline_response_200_7_1:
       type: object
       properties:
         status:
           type: boolean
+        propertyStreetViewImage:
+          type: string
+    inline_response_200_5_epc:
+      type: object
+      properties:
+        message:
+          type: string
+        epc_address:
+          type: string
         property_id:
           type: integer
-    inline_response_200_v2_nearby_schools:
-      type: object
-      properties:
-        status:
-          type: boolean
-        nearby_schools:
-          $ref: '#/components/schemas/inline_response_200_5_nearby_schools'
-    inline_response_200_v2_priceestimate:
-      type: object
-      properties:
-        status:
-          type: boolean
-        estimatedPrice:
+        epc_total_floor_area:
           type: string
-        rentalEstimate:
+        epc_current_energy_efficiency:
           type: string
-        yield:
+        epc_potential_energy_efficiency:
           type: string
-    inline_response_200_v2_counciltax:
-      type: object
-      properties:
-        status:
-          type: boolean
-        councilTax:
-          $ref: '#/components/schemas/inline_response_200_5_councilTax'
+        epc_current_energy_rating:
+          type: string
+        epc_potential_energy_rating:
+          type: string
+        epc_certificate_number:
+          type: string
+        epc_update_date:
+          type: string
+        epc_current_energy_efficiency_category:
+          type: string
+        epc_potential_energy_efficiency_category:
+          type: string
+        epc_first_page_report_image:
+          type: string
+          description: EPC image url
+        epc_file_date:
+          type: string
+          description: EPC date of issue
     inline_response_200_5_propertyImages:
       type: object
       properties:
@@ -703,6 +595,62 @@ components:
         propetyImageId:
           type: string
         propertyImageType:
+          type: string
+    inline_response_200_v2_counciltax:
+      type: object
+      properties:
+        status:
+          type: boolean
+        councilTax:
+          $ref: '#/components/schemas/inline_response_200_5_councilTax'
+    inline_response_200_5_nearby_schools:
+      type: object
+      properties:
+        name:
+          type: string
+        ofsted_rating:
+          type: string
+        pupils:
+          type: number
+        distance:
+          type: number
+        latitude:
+          type: number
+        longitude:
+          type: number
+        school_type:
+          $ref: '#/components/schemas/inline_response_200_5_school_type'
+    inline_response_200_v2_epc:
+      type: object
+      properties:
+        status:
+          type: boolean
+        epc:
+          $ref: '#/components/schemas/inline_response_200_5_epc'
+    inline_response_200_5_landRegistry:
+      type: object
+      properties:
+        last_sold_price:
+          type: string
+        last_sold_price_display:
+          type: string
+        currency:
+          type: string
+          description: Currency Logo
+        transfer_date:
+          type: string
+          description: Property transfer date
+        property_type:
+          type: string
+          description: Property type
+        land_registry_value:
+          type: string
+        duration_full:
+          type: string
+          description: Freehold or Leasehold
+        needs_loading:
+          type: boolean
+        rule_used:
           type: string
     inline_response_200_5_school_type:
       type: object
@@ -718,6 +666,58 @@ components:
         private:
           type: number
       description: Type of school, 1 is true, 0 is false
+    inline_response_200_5_nearby_transport_Local_Connections_elements:
+      type: object
+      properties:
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        distance:
+          type: number
+        metres:
+          type: number
+        distanceInMiles:
+          type: number
+    inline_response_200_v2_nearby_schools:
+      type: object
+      properties:
+        status:
+          type: boolean
+        nearby_schools:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_schools'
+    inline_response_200_5_street_view_pov:
+      type: object
+      properties:
+        lat:
+          type: string
+        lng:
+          type: string
+        heading:
+          type: number
+        pitch:
+          type: number
+        zoom:
+          type: number
+      description: Google Street View Correction
+    inline_response_200_v2_nearby_transport:
+      type: object
+      properties:
+        status:
+          type: boolean
+        nearby_transport:
+          $ref: '#/components/schemas/inline_response_200_5_nearby_transport'
+    inline_response_200_5_nearby_transport_Local_Connections:
+      type: object
+      properties:
+        displayName:
+          type: string
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_5_nearby_transport_Local_Connections_elements'
   securitySchemes:
     auth:
       type: http

@@ -1,0 +1,32 @@
+{
+  "provider": "sprift",
+  "sources": [
+    "_original/sprift-openapi.json"
+  ],
+  "outputs": [
+    "sprift-home-api-openapi.yml",
+    "sprift-insider-api-openapi.yml",
+    "sprift-property-api-openapi.yml",
+    "sprift-property-v2-api-openapi.yml",
+    "sprift-search-api-openapi.yml",
+    "sprift-share-api-openapi.yml",
+    "sprift-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sprift-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "sprift-home-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sprift-insider-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sprift-property-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sprift-property-v2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sprift-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sprift-share-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sprift-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

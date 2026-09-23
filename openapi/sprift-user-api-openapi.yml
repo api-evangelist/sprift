@@ -16,7 +16,10 @@ paths:
       tags:
       - User
       summary: Login
-      description: <p>This endpoint is to log in a different user. You do not need to call this Endpoint with your API username and password in order to use the API.</p><p>This Endpoint is intended to those who want to add Sprift platform into their platforms using an iFrame and let Sprift users to login to Sprift.</p>
+      description: 'This endpoint is to log in a different user. You do not need to call this Endpoint with your API username and password in order to use the API.
+
+
+        This Endpoint is intended to those who want to add Sprift platform into their platforms using an iFrame and let Sprift users to login to Sprift.'
       operationId: Login
       parameters:
       - name: SPRIFT-API-KEY
@@ -95,6 +98,15 @@ paths:
                 $ref: '#/components/schemas/inline_response_403_1'
 components:
   schemas:
+    inline_response_200_2:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: True if successfull
+        message:
+          type: string
+          description: Notification message
     inline_response_403_1:
       type: object
       properties:
@@ -104,6 +116,24 @@ components:
         error:
           type: string
           description: Error message
+    inline_response_404:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: User not found
+    inline_response_400:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: Missing Username or Password!
     inline_response_200_1:
       type: object
       properties:
@@ -125,24 +155,6 @@ components:
         email:
           type: string
           description: User email address
-    inline_response_400:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        error:
-          type: string
-          example: Missing Username or Password!
-    inline_response_200_2:
-      type: object
-      properties:
-        status:
-          type: boolean
-          description: True if successfull
-        message:
-          type: string
-          description: Notification message
     inline_response_403:
       type: object
       properties:
@@ -153,15 +165,6 @@ components:
         error:
           type: string
           description: Error message
-    inline_response_404:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        error:
-          type: string
-          example: User not found
   securitySchemes:
     auth:
       type: http

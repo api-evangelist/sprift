@@ -107,35 +107,6 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_4'
 components:
   schemas:
-    inline_response_200_3:
-      type: object
-      properties:
-        total:
-          $ref: '#/components/schemas/inline_response_200_3_total'
-        minmatch:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_3_data'
-    inline_response_200_3_total:
-      type: object
-      properties:
-        LPI:
-          type: integer
-        DPA:
-          type: integer
-    inline_response_200_4_results:
-      type: object
-      properties:
-        total_reports:
-          type: integer
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_4_results_reports'
-        has_next_page:
-          type: boolean
     inline_response_200_3_data:
       type: object
       properties:
@@ -187,6 +158,42 @@ components:
           type: string
         uprn:
           type: string
+    inline_response_200_3_total:
+      type: object
+      properties:
+        LPI:
+          type: integer
+        DPA:
+          type: integer
+    inline_response_200_4_results:
+      type: object
+      properties:
+        total_reports:
+          type: integer
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_4_results_reports'
+        has_next_page:
+          type: boolean
+    inline_response_200_3:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/inline_response_200_3_total'
+        minmatch:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_3_data'
+    inline_response_200_4:
+      type: object
+      properties:
+        status:
+          type: boolean
+        results:
+          $ref: '#/components/schemas/inline_response_200_4_results'
     inline_response_200_4_results_reports:
       type: object
       properties:
@@ -311,13 +318,6 @@ components:
           type: integer
         propertyDefaultImage:
           type: string
-    inline_response_200_4:
-      type: object
-      properties:
-        status:
-          type: boolean
-        results:
-          $ref: '#/components/schemas/inline_response_200_4_results'
   securitySchemes:
     auth:
       type: http

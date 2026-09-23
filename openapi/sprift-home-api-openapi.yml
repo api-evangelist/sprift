@@ -47,30 +47,6 @@ paths:
                 $ref: '#/components/schemas/inline_response_403'
 components:
   schemas:
-    inline_response_200:
-      type: object
-      properties:
-        total_reports:
-          type: integer
-          description: Number of total properties in users search history
-        reports:
-          type: array
-          description: Property list for search history
-          items:
-            $ref: '#/components/schemas/inline_response_200_reports'
-        has_next_page:
-          type: boolean
-          description: Return true if there are more properties to show. False if not.
-    inline_response_403:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-          description: False if API key is invalid
-        error:
-          type: string
-          description: Error message
     inline_response_200_reports:
       type: object
       properties:
@@ -195,6 +171,30 @@ components:
         propertyDefaultImage:
           type: string
           description: Google street view link
+    inline_response_403:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+          description: False if API key is invalid
+        error:
+          type: string
+          description: Error message
+    inline_response_200:
+      type: object
+      properties:
+        total_reports:
+          type: integer
+          description: Number of total properties in users search history
+        reports:
+          type: array
+          description: Property list for search history
+          items:
+            $ref: '#/components/schemas/inline_response_200_reports'
+        has_next_page:
+          type: boolean
+          description: Return true if there are more properties to show. False if not.
   securitySchemes:
     auth:
       type: http
