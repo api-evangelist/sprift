@@ -98,33 +98,6 @@ paths:
                 $ref: '#/components/schemas/inline_response_403_1'
 components:
   schemas:
-    inline_response_200_2:
-      type: object
-      properties:
-        status:
-          type: boolean
-          description: True if successfull
-        message:
-          type: string
-          description: Notification message
-    inline_response_403_1:
-      type: object
-      properties:
-        status:
-          type: boolean
-          description: False if API key is invalid
-        error:
-          type: string
-          description: Error message
-    inline_response_404:
-      type: object
-      properties:
-        status:
-          type: boolean
-          example: false
-        error:
-          type: string
-          example: User not found
     inline_response_400:
       type: object
       properties:
@@ -134,6 +107,34 @@ components:
         error:
           type: string
           example: Missing Username or Password!
+    inline_response_403:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+          description: False if API key is invalid
+        error:
+          type: string
+          description: Error message
+    inline_response_200_2:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: True if successfull
+        message:
+          type: string
+          description: Notification message
+    inline_response_404:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: User not found
     inline_response_200_1:
       type: object
       properties:
@@ -155,12 +156,11 @@ components:
         email:
           type: string
           description: User email address
-    inline_response_403:
+    inline_response_403_1:
       type: object
       properties:
         status:
           type: boolean
-          example: false
           description: False if API key is invalid
         error:
           type: string

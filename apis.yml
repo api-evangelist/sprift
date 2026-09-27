@@ -73,7 +73,7 @@ imageNote: >-
   No correct icon has been sourced yet. Shipping the wrong company's mark is worse
   than shipping none; re-run the icon backfill once a real asset exists.
 tags:
-- Real-Estate
+- Real Estate
 - United Kingdom
 - PropTech
 - Property Data
@@ -96,6 +96,7 @@ tags_raw:
 - Conveyancing
 - Rentals
 - Mortgage
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
@@ -122,7 +123,7 @@ apis:
     for access.
   humanURL: https://sprift.com/data-and-api
   tags:
-  - Real-Estate
+  - Real Estate
   - United Kingdom
   - AVM
   - Webhook
@@ -135,6 +136,7 @@ apis:
   - Webhooks
   - Bulk Data
   - PropTech
+  - Real-Estate
   properties:
   - type: Documentation
     url: https://sprift.com/data-and-api
