@@ -118,6 +118,13 @@ components:
             $ref: '#/components/schemas/inline_response_200_4_results_reports'
         has_next_page:
           type: boolean
+    inline_response_200_3_total:
+      type: object
+      properties:
+        LPI:
+          type: integer
+        DPA:
+          type: integer
     inline_response_200_3_data:
       type: object
       properties:
@@ -180,13 +187,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/inline_response_200_3_data'
-    inline_response_200_3_total:
-      type: object
-      properties:
-        LPI:
-          type: integer
-        DPA:
-          type: integer
     inline_response_200_4:
       type: object
       properties:
