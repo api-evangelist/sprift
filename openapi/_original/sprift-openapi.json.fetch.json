@@ -1,0 +1,12 @@
+{
+ "url": "https://sprift.com/dashboard/api-doc/sprift.json",
+ "requested_url": "https://sprift.com/dashboard/api-doc/sprift.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 109112,
+ "sha256": "909cdbcb2f324605259d2d48a6f0e6e765bb0901064336e3f34283c77959e4a3",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
