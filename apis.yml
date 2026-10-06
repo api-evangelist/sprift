@@ -98,7 +98,7 @@ tags_raw:
 - Mortgage
 - Real-Estate
 created: '2026-07-26'
-modified: '2026-07-26'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: sprift:sprift-data-and-api-v2
@@ -287,6 +287,8 @@ apis:
   - type: Documentation
     url: https://sprift.com/property-reports
 common:
+- url: https://sprift.com/blog/rss.xml
+  type: BlogRSS
 - type: AgenticAccess
   url: agentic-access/sprift-agentic-access.yml
 - type: DomainSecurity
