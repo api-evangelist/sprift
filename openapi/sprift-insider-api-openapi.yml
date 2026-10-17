@@ -79,13 +79,55 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_insider'
 components:
   schemas:
-    inline_response_200_insider:
+    inline_response_200_insider_item_point:
       type: object
       properties:
-        items:
+        latitude:
+          type: string
+        longitude:
+          type: string
+    inline_response_200_insider_item_portals:
+      type: object
+      properties:
+        rightmove:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+        zoopla:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+        boomin:
+          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+    inline_response_200_insider_item_details:
+      type: object
+      properties:
+        address:
+          type: string
+        addressable:
+          type: string
+        price:
+          type: string
+        agent:
+          type: string
+        agent_id:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        beds:
+          type: number
+        isNew:
+          type: string
+        epc:
           type: array
           items:
-            $ref: '#/components/schemas/inline_response_200_insider_item'
+            type: string
+        stc:
+          type: string
+        tenure:
+          type: string
+        key_features:
+          type: string
+        description:
+          type: string
     inline_response_200_insider_item_portals_property_details:
       type: object
       properties:
@@ -96,13 +138,6 @@ components:
         header:
           type: string
         listed:
-          type: string
-    inline_response_200_insider_item_point:
-      type: object
-      properties:
-        latitude:
-          type: string
-        longitude:
           type: string
     inline_response_200_insider_item:
       type: object
@@ -143,48 +178,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/inline_response_200_insider_item_images'
-    inline_response_200_insider_item_details:
+    inline_response_200_insider:
       type: object
       properties:
-        address:
-          type: string
-        addressable:
-          type: string
-        price:
-          type: string
-        agent:
-          type: string
-        agent_id:
-          type: string
-        type:
-          type: string
-        status:
-          type: string
-        beds:
-          type: number
-        isNew:
-          type: string
-        epc:
+        items:
           type: array
           items:
-            type: string
-        stc:
-          type: string
-        tenure:
-          type: string
-        key_features:
-          type: string
-        description:
-          type: string
-    inline_response_200_insider_item_portals:
-      type: object
-      properties:
-        rightmove:
-          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
-        zoopla:
-          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
-        boomin:
-          $ref: '#/components/schemas/inline_response_200_insider_item_portals_property_details'
+            $ref: '#/components/schemas/inline_response_200_insider_item'
     inline_response_200_insider_item_images:
       type: object
       properties:

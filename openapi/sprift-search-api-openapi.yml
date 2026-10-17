@@ -107,17 +107,13 @@ paths:
                 $ref: '#/components/schemas/inline_response_200_4'
 components:
   schemas:
-    inline_response_200_4_results:
+    inline_response_200_4:
       type: object
       properties:
-        total_reports:
-          type: integer
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/inline_response_200_4_results_reports'
-        has_next_page:
+        status:
           type: boolean
+        results:
+          $ref: '#/components/schemas/inline_response_200_4_results'
     inline_response_200_3_total:
       type: object
       properties:
@@ -187,13 +183,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/inline_response_200_3_data'
-    inline_response_200_4:
+    inline_response_200_4_results:
       type: object
       properties:
-        status:
+        total_reports:
+          type: integer
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_4_results_reports'
+        has_next_page:
           type: boolean
-        results:
-          $ref: '#/components/schemas/inline_response_200_4_results'
     inline_response_200_4_results_reports:
       type: object
       properties:
