@@ -199,3 +199,9 @@ components:
     auth:
       type: http
       scheme: basic
+x-provenance:
+  method: harvested
+  publisher: Sprift
+  source: https://sprift.com/dashboard/api-doc/sprift.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
