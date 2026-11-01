@@ -1,4 +1,4 @@
-# Sprift (sprift)
+# Sprift
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,195 +66,138 @@
 
 Sprift is a United Kingdom property data aggregator, operated by Sprift Technologies Ltd and founded in 2016 by Matt Gilpin, that assembles up to 300 data points on more than 30 million UK residential properties from public and private sources — Royal Mail, Ordnance Survey, the Environment Agency, HM Land Registry, Ofcom, Historic England, Ofsted, Google Maps, the Valuation Office Agency and the ONS — and links every one of them to a UPRN, the UK's definitive property identifier. It sells that layer to estate and letting agents, surveyors, mortgage professionals, conveyancers and investors as shareable property dashboards, branded reports, Material Information packs, comparables, off-market prospecting and market intelligence. In a market with no MLS, Sprift occupies the aggregation seam: it does not own listings (Rightmove and Zoopla do) and it does not originate records (HM Land Registry and Ordnance Survey do), it enriches and resells the join between them. Its API posture is genuinely documented but commercially gated. A public, unauthenticated Swagger UI at sprift.com/dashboard/api-doc serves a real Swagger 2.0 contract (sprift.json, version 1.3.9, 27 paths, 76 definitions) for the v1 API at https://sprift.com/dashboard/api/v1, harvested verbatim here — that is the only machine-readable contract Sprift publishes. Every operation in it requires a SPRIFT-API-KEY header, and the API base returns HTTP 401 to anonymous callers. There is no self-serve signup anywhere: /dashboard/register and /dashboard/signup both return 404, pricing is not published, and Sprift's own knowledge base instructs prospective API users to email Customer Success with their company, use case and target systems for review, noting that access "may require an additional agreement depending on your subscription". A larger v2 API family is advertised on the Data and API product page with named endpoint paths, webhook alerts and bulk queries, but no contract for it is published and no host for it was confirmed. No RESO Web API or Data Dictionary certification, no OData service root or $metadata document, and no Universal Property Identifier appears anywhere in Sprift's surface — RESO is a North American, NAR-driven construct and the UK has no MLS to certify against. The UK's standards seam is instead the Open Property Data Association and its Property Data Trust Framework, of which Sprift claims founding and accredited membership. Sprift publishes no open data of its own; the open UK property layer belongs to HM Land Registry and Ordnance Survey, which are among its inputs.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/sprift/refs/heads/main/apis.yml)
+**Areas:** Real Estate · United Kingdom · PropTech · Property Data · Property Listings · Valuation · AVM · Land Registry · Conveyancing · Rentals · Mortgage
 
-## Tags
+## Sprift on APIs.io
 
-- Real Estate
-- United Kingdom
-- PropTech
-- Property Data
-- Property Listings
-- Valuation
-- AVM
-- Land Registry
-- Conveyancing
-- Rentals
-- Mortgage
+Everything profiled for Sprift is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sprift/](https://apis.io/providers/sprift/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (8)
 
-- **Created:** 2026-07-26
-- **Modified:** 2026-07-26
+- [Sprift Data and API (v2, advertised)](https://apis.io/apis/sprift/sprift-data-and-api-v2/) — The API family Sprift advertises on its Data and API product page, recorded here as advertised and NOT as verified. The page names ten REST endpoint paths —…
+- [Sprift Home API](https://apis.io/apis/sprift/sprift-home-api/) — The Home API from Sprift — 1 operation(s) for home.
+- [Sprift Insider API](https://apis.io/apis/sprift/sprift-insider-api/) — The Insider API from Sprift — 2 operation(s) for insider.
+- [Sprift Property API](https://apis.io/apis/sprift/sprift-property-api/) — The Property API from Sprift — 10 operation(s) for property.
+- [Sprift Property V2 API](https://apis.io/apis/sprift/sprift-property-v2-api/) — The Property V2 API from Sprift — 8 operation(s) for property v2.
+- [Sprift Search API](https://apis.io/apis/sprift/sprift-search-api/) — The Search API from Sprift — 3 operation(s) for search.
+- [Sprift Share API](https://apis.io/apis/sprift/sprift-share-api/) — The Share API from Sprift — 1 operation(s) for share.
+- [Sprift User API](https://apis.io/apis/sprift/sprift-user-api/) — The User API from Sprift — 2 operation(s) for user.
 
-## APIs
+### Published properties
 
-### Sprift Property API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Property tag of the published Sprift v1 contract — the largest family in the harvested Swagger document, with ten operations. POST /property/search generates a Sprift property report for a UPRN and is where the report types are enumerated in the contract itself (1 = Market Appraisal Report / Desktop Research Report, 2 = Appointment Confirmation, 3 = Key Facts For Buyers / Key Property Facts, 4 = Property Overview), with report pages selectable by comma separated names and an optional PDF flag. GET /property/{propertyID} returns the full property detail record. Sub-resources cover Material Information (GET /property/{uprn}/materialinformation, split in the schema into physical characteristics, financial and tenure, environmental and planning, planning applications and immediate proximity — the disclosure set Sprift markets to agents as Material Information), comparables (GET /property/{uprn}/{status}, described as "Comparables (Unified)"), recently sold, currently for sale and under offer, map, satellite and street view imagery, Tree Preservation Orders, listed buildings, and TV signal availability. Every operation takes a required SPRIFT-API-KEY header.
+#### Arazzo workflows (5)
 
-- **Human URL:** [https://sprift.com/dashboard/api-doc/](https://sprift.com/dashboard/api-doc/)
-- **Base URL:** `https://sprift.com/dashboard/api/v1`
+Multi-step workflows that chain operations into a business task.
 
-#### Tags
+- [Sprift — enrich a CRM record with property data](https://apis.io/arazzos/sprift/sprift-crm-enrichment/)
+- [Sprift — market activity for a postcode outcode](https://apis.io/arazzos/sprift/sprift-market-intelligence/)
+- [Sprift — Material Information for a UK property](https://apis.io/arazzos/sprift/sprift-material-information/)
+- [Sprift — address to shareable property report](https://apis.io/arazzos/sprift/sprift-property-report/)
+- [Sprift — valuation evidence pack](https://apis.io/arazzos/sprift/sprift-valuation-evidence/)
 
-- Real Estate
-- United Kingdom
-- Property Data
-- Material Information
-- Comparables
+#### AsyncAPI (1)
 
-#### Properties
+Event-driven and webhook contracts.
 
-- [OpenAPI](openapi/sprift-openapi.json)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
-- [Documentation](https://sprift.com/data-and-api)
-- [Authentication](https://sprift.com/en/livechatacademy/api-key)
+- [Sprift Webhooks](https://apis.io/asyncapis/sprift/sprift-webhooks/)
 
-### Sprift Property V2 API
+#### MCP servers (1)
 
-The Property V2 tag of the published Sprift v1 contract — eight operations that resolve and decompose a property into single-purpose reads rather than one large record. GET /property/{uprn}/search returns the raw property details and GET /property/{uprn}/propertyid resolves a UPRN to Sprift's internal property identifier, which the remaining calls take. From there: GET /property/{propertyID}/priceestimate (the only valuation surface in the published contract — an estimate on the property record, not a separately documented AVM product), /counciltax, /epc for Energy Performance Certificate detail, /school for nearby schools, /transport for nearby transport, and /streetviewmap for the Google Street View image. Note that this "V2" is a tag inside the v1 contract at basePath /dashboard/api/v1; it is not the /api/v2 family advertised on the Data and API product page.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://sprift.com/dashboard/api-doc/](https://sprift.com/dashboard/api-doc/)
-- **Base URL:** `https://sprift.com/dashboard/api/v1`
+- [sprift](https://apis.io/servers/sprift/sprift/)
 
-#### Tags
+#### Agentic access (1)
 
-- Real Estate
-- United Kingdom
-- Valuation
-- AVM
-- EPC
-- Property Data
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Sprift Agentic Access](https://apis.io/agentic-access/sprift/sprift-agentic-access/)
 
-- [OpenAPI](openapi/sprift-openapi.json)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
-- [Documentation](https://sprift.com/data-and-api)
+#### Collections (1)
 
-### Sprift Search API
+Postman and Open Collection request collections.
 
-The Search tag of the published Sprift v1 contract — three operations for finding a property before you can read it. GET /search takes a free-text phrase, GET /search/postcode/{postcode} returns addresses for a postcode (the UPRN-resolution path most integrations start from), and GET /search/myproperties returns the calling account's own saved properties and the reports generated against them. All three require the SPRIFT-API-KEY header and return HTTP 401 without it.
+- [Sprift API](https://apis.io/collections/sprift/open-sprift/)
 
-- **Human URL:** [https://sprift.com/dashboard/api-doc/](https://sprift.com/dashboard/api-doc/)
-- **Base URL:** `https://sprift.com/dashboard/api/v1`
+#### Overlays (1)
 
-#### Tags
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- Search
-- Real Estate
-- United Kingdom
-- Addressing
-- UPRN
+- [Sprift Openapi Overlay](https://apis.io/overlays/sprift/sprift-openapi-overlay/)
 
-#### Properties
+#### Security (2)
 
-- [OpenAPI](openapi/sprift-openapi.json)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Sprift Insider API
+- [Sprift Authentication](https://apis.io/security/sprift/sprift-authentication/)
+- [Sprift Domain Security](https://apis.io/security/sprift/sprift-domain-security/)
 
-The Insider tag of the published Sprift v1 contract — two operations exposing the market intelligence product that sits behind sprift.com/insider. GET /insider/{outcode} searches active properties by postcode outcode with an optional grouping parameter, and GET /insider/{outcode}/withdrawn returns withdrawn properties for the same outcode. This is the market-activity and agent-benchmarking surface — live stock, listings and withdrawals by area — rather than a single-property lookup.
+## Where to find this API
 
-- **Human URL:** [https://sprift.com/dashboard/api-doc/](https://sprift.com/dashboard/api-doc/)
-- **Base URL:** `https://sprift.com/dashboard/api/v1`
-
-#### Tags
-
-- Market Intelligence
-- Real Estate
-- United Kingdom
-- Property Listings
-
-#### Properties
-
-- [OpenAPI](openapi/sprift-openapi.json)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
-- [Documentation](https://sprift.com/insider)
-
-### Sprift Report Share API
-
-The Share tag of the published Sprift v1 contract — a single POST /share operation that produces a shareable link to a Sprift report for a given property ID and report type, with the same report type enumeration used by the property report call (1 = Market Appraisal Report, 2 = Appointment Confirmation, 3 = Key Facts for Buyers, 4 = Property Overview) plus optional report pages, an appointment date and a portal version. This is the API behind the shareable, white-labelled dashboards and reports that are Sprift's core agent-facing product.
-
-- **Human URL:** [https://sprift.com/dashboard/api-doc/](https://sprift.com/dashboard/api-doc/)
-- **Base URL:** `https://sprift.com/dashboard/api/v1`
-
-#### Tags
-
-- Documents
-- Reports
-- Real Estate
-- United Kingdom
-
-#### Properties
-
-- [OpenAPI](openapi/sprift-openapi.json)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
-- [Documentation](https://sprift.com/property-reports)
-
-### Sprift User API
-
-The User tag of the published Sprift v1 contract — two operations, POST /user/login and GET /user/logout, that exist specifically for embedding. The contract is explicit that this is not the authentication path for API calls: "You do not need to call this Endpoint with your API username and password in order to use the API. This Endpoint is intended to those who want to add Sprift platform into their platforms using an iFrame and let Sprift users to login to Sprift." Login takes a username and password as form data alongside the required SPRIFT-API-KEY header, so a partner platform authenticates a Sprift end user on the partner's behalf.
-
-- **Human URL:** [https://sprift.com/dashboard/api-doc/](https://sprift.com/dashboard/api-doc/)
-- **Base URL:** `https://sprift.com/dashboard/api/v1`
-
-#### Tags
-
-- Authentication
-- Embedding
-- Real Estate
-- United Kingdom
-
-#### Properties
-
-- [OpenAPI](openapi/sprift-openapi.json)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
-
-### Sprift Data and API (v2, advertised)
-
-The API family Sprift advertises on its Data and API product page, recorded here as advertised and NOT as verified. The page names ten REST endpoint paths — /api/v2/property/{uprn} (300 data point profile), /api/v2/comparables (whole-of-market sold evidence), /api/v2/prospect/search (off-market owners likely to sell), /api/v2/watch (Property Watch, described as real-time webhook alerts on listed, sold, price reduced, planning submitted and EPC updated), /api/v2/risk/{uprn} (flood, subsidence, radon, contaminated land, coastal erosion), /api/v2/planning/{uprn}, /api/v2/market/insight, /api/v2/epc/{uprn} and /api/v2/bulk (up to 500 properties per call) — plus six data products: Automated Valuation, Sprift Insights natural-language querying, custom datasets, bulk data feeds, Property Watch and a National Comparables Library. No machine-readable contract is published for any of them: the only spec Sprift serves is the v1 Swagger document, which contains none of these paths. No host was confirmed either — the advertised paths are given host-relative, https://sprift.com/api/v2/property/{uprn} returns HTTP 404, and https://api.sprift.com answers every path with HTTP 403 MissingAuthenticationTokenException from an AWS API Gateway, which proves an API gateway exists on that name but documents nothing. No baseURL is asserted here for that reason. The page states authentication is a Bearer token (sk_live_sprift_ prefix) generated from Settings then Developer then API Keys, which contradicts both the SPRIFT-API-KEY header in the published contract and Sprift's own knowledge base instruction to email Customer Success for access.
-
-- **Human URL:** [https://sprift.com/data-and-api](https://sprift.com/data-and-api)
-
-#### Tags
-
-- Real Estate
-- United Kingdom
-- AVM
-- Webhooks
-- Bulk Data
-- PropTech
-
-#### Properties
-
-- [Documentation](https://sprift.com/data-and-api)
-- [Authentication](https://sprift.com/en/livechatacademy/api-key)
-- [Contact](https://sprift.com/contact-us)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://sprift.com/)
 - [Documentation](https://sprift.com/data-and-api)
-- [APIReference](https://sprift.com/dashboard/api-doc/)
-- [OpenAPI](https://sprift.com/dashboard/api-doc/sprift.json)
-- [Authentication](https://sprift.com/en/livechatacademy/api-key)
-- [SignIn](https://sprift.com/dashboard/login)
+- [Getting started](https://sprift.com/data-and-api)
+- [API reference](https://sprift.com/dashboard/api-doc/)
 - [Pricing](https://sprift.com/pricing)
-- [Demo](https://sprift.com/book-demo-sprift)
 - [Support](https://sprift.com/academy)
-- [Partners](https://sprift.com/partnerships)
-- [About](https://sprift.com/about-us)
 - [Blog](https://sprift.com/blog)
-- [Contact](https://sprift.com/contact-us)
-- [PrivacyPolicy](https://sprift.com/privacy-policy)
-- [GitHubOrganization](https://github.com/sprift)
-- [LinkedIn](https://www.linkedin.com/company/sprift/)
-- [Twitter](https://twitter.com/SpriftProperty/)
-- [Facebook](https://www.facebook.com/SpriftProperty/)
-- [Instagram](https://www.instagram.com/spriftproperty/)
+- [Terms of service](https://sprift.com/terms-and-conditions)
+- [Privacy policy](https://sprift.com/privacy-policy)
+- [GitHub](https://github.com/sprift)
 
-## Maintainers
+## API Evangelist rating
 
-- **Kin Lane** — kin@apievangelist.com
+**Kin Score 38.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.7 |
+| Contract quality | 49.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 49.4 |
+| Access clarity | 38.2 |
+
+**Agent readiness 23.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/sprift/](https://apis.io/providers/sprift/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Sprift: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/sprift/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
